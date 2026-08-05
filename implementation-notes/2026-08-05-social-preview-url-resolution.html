@@ -6,7 +6,7 @@
 <meta name="task" content="Make Open Graph and Twitter preview image URLs crawlable by Slack.">
 <meta name="date-started" content="2026-08-05">
 <meta name="date-updated" content="2026-08-05">
-<meta name="status" content="shipped">
+<meta name="status" content="ready-for-review">
 <meta name="blast-radius" content="low">
 <meta name="tags" content="heartbeats, social-preview, open-graph, twitter, slack">
 <meta name="related" content="2026-08-05-social-preview-promotion.html">
@@ -20,7 +20,7 @@
   code { font-family: ui-monospace, Menlo, monospace; background: #f1f1f1; padding: 1px 4px; border-radius: 3px; font-size: 12.5px; }
   ul { margin: .3rem 0 .8rem 1.2rem; padding: 0; }
   li { margin: .15rem 0; }
-  .blast-low, .status-shipped { color: #2a7a2a; }
+  .blast-low, .status-ready { color: #2a7a2a; }
   .meta { color: #555; font-size: 12.5px; margin-bottom: .8rem; }
   .kv { display: grid; grid-template-columns: 140px 1fr; gap: 2px 14px; font-size: 13px; margin: .4rem 0 1rem; }
   .kv b { color: #444; font-weight: 600; }
@@ -28,7 +28,7 @@
 </head>
 <body>
 <h1>Social Preview URL Resolution</h1>
-<p class="meta"><code>heartbeats</code> · worktree <code>/Users/anishthite/conductor/workspaces/heartbeats/madrid</code> · 2026-08-05 · status <b class="status-shipped">shipped</b> · blast <span class="blast-low">low</span></p>
+<p class="meta"><code>heartbeats</code> · worktree <code>/Users/anishthite/conductor/workspaces/heartbeats/madrid</code> · 2026-08-05 · status <b class="status-ready">ready-for-review</b> · blast <span class="blast-low">low</span></p>
 
 <h2>Summary</h2>
 <div class="kv">
@@ -54,6 +54,12 @@
   <tr><td>D-002</td><td>Set <code>og:image:secure_url</code> to the same HTTPS asset. Crawlers receive an explicit secure image location.</td></tr>
 </table>
 
+<h2>Deviations</h2>
+<table>
+  <tr><th>ID</th><th>Change · Reason</th></tr>
+  <tr><td>X-001</td><td>Publish the correction in PR <code>#6</code>. PR <code>#5</code> merged before this follow-up commit.</td></tr>
+</table>
+
 <h2>Reversibility</h2>
 <p>R-001 · <span class="blast-low">low</span>. Revert this commit to restore relative metadata paths.</p>
 
@@ -61,7 +67,7 @@
 <ul>
   <li>All shared-image metadata points to the deployed HTTPS PNG.</li>
   <li>The published image URL returns <code>200 image/png</code>.</li>
-  <li>PR <code>#5</code> includes the crawler fix.</li>
+  <li>PR <code>#6</code> includes the crawler fix.</li>
 </ul>
 </body>
 </html>
