@@ -1,0 +1,54 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<title>Heartbeat Motion Refinement</title>
+<meta name="task" content="Smooth the heart animation while preserving its 72 BPM cadence and haptic synchronization.">
+<meta name="date-started" content="2026-08-04">
+<meta name="date-updated" content="2026-08-04">
+<meta name="status" content="ready-for-review">
+<meta name="blast-radius" content="low">
+<meta name="tags" content="heartbeats,motion,animation,haptics,static-html">
+<meta name="related" content="2026-08-04-single-pulsing-heart.html,2026-08-04-beat-haptics.html,2026-08-04-microinteraction-polish.html">
+<style>
+  body { font: 14px/1.45 -apple-system, system-ui, sans-serif; max-width: 880px; margin: 1.5rem auto; padding: 0 1rem; color: #111; } h1 { font-size: 20px; margin: 0 0 .25rem; } h2 { font-size: 15px; margin: 1.4rem 0 .4rem; border-bottom: 1px solid #ddd; padding-bottom: .2rem; }
+  table { border-collapse: collapse; width: 100%; margin: .4rem 0 .8rem; } th, td { border: 1px solid #ddd; padding: 4px 8px; text-align: left; vertical-align: top; } th { background: #f6f6f6; font-weight: 600; } code { font-family: ui-monospace, Menlo, monospace; background: #f1f1f1; padding: 1px 4px; border-radius: 3px; font-size: 12.5px; } ul, ol { margin: .3rem 0 .8rem 1.2rem; padding: 0; } li { margin: .15rem 0; } .blast-low { color: #2a7a2a; } .meta { color: #555; font-size: 12.5px; margin-bottom: .8rem; } .kv { display: grid; grid-template-columns: 140px 1fr; gap: 2px 14px; font-size: 13px; margin: .4rem 0 1rem; } .kv b { color: #444; font-weight: 600; }
+</style>
+</head>
+<body>
+<h1>Heartbeat Motion Refinement</h1>
+<p class="meta"><code>main</code> · worktree <code>/Users/anishthite/conductor/workspaces/heartbeats/madrid</code> · 2026-08-04 · status <b>ready-for-review</b> · blast <span class="blast-low">low</span></p>
+
+<h2>Summary</h2>
+<div class="kv">
+  <b>Goal</b><div>Replace the elastic-looking beat with a measured lub-dub and continuous recovery.</div>
+  <b>Surface</b><div><code>.heart</code> and <code>.pulse-ring</code> keyframes in <code>index.html</code>.</div>
+  <b>Cadence</b><div>Retain <code>--beat-duration: 0.833333s</code> for <code>72 BPM</code>.</div>
+  <b>Sync</b><div>Keep contractions at <code>10%</code> and <code>28%</code> to match <code>scheduleBeatHaptic()</code>.</div>
+  <b>Motion</b><div>Use <code>1 → 1.035 → 1.004 → 1.018 → 1.006 → 1</code> scale progression.</div>
+  <b>Reduced motion</b><div>Retain the existing no-animation preference.</div>
+  <b>Open Qs</b><div>0.</div>
+</div>
+
+<h2>Algorithm</h2>
+<ol><li>Peak at <code>10%</code>; release without shrinking below baseline at <code>18%</code>.</li><li>Use a smaller second contraction at <code>28%</code>; settle continuously through <code>100%</code>.</li><li>Start the pulse ring at <code>10%</code>; fade it by <code>48%</code>.</li></ol>
+
+<h2>Files</h2>
+<table><tr><th>Path</th><th>Kind</th><th>Delta</th></tr><tr><td><code>index.html</code></td><td>touch</td><td>Refine the heart and pulse-ring timing curves.</td></tr><tr><td><code>implementation-notes/2026-08-04-heartbeat-motion-refinement.html</code></td><td>new</td><td>Record motion and haptic alignment decisions.</td></tr><tr><td><code>implementation-notes/INDEX.html</code></td><td>touch</td><td>Index the refinement.</td></tr></table>
+
+<h2>Decisions</h2>
+<table><tr><th>ID</th><th>Choice · Rationale</th></tr><tr><td>D-001</td><td>Never contract below <code>scale(1)</code>. The prior undershoot read as a rubbery bounce.</td></tr><tr><td>D-002</td><td>Fade the ring from the primary contraction. It now reinforces the beat instead of anticipating it.</td></tr></table>
+
+<h2>Tradeoffs</h2>
+<table><tr><th>ID</th><th>Picked over Rejected · Reason</th></tr><tr><td>T-001</td><td>Subtle two-stage contraction over a single bounce. Preserve the haptic’s existing two-pulse rhythm.</td></tr></table>
+
+<h2>Assumptions</h2>
+<ul><li>A-001 · “Off” refers to the visible rebound and extended stillness, not a request to change the established BPM.</li></ul>
+
+<h2>Reversibility</h2>
+<p>R-001 · <span class="blast-low">low</span>. Restore the previous <code>heartBeat</code> and <code>ringBeat</code> keyframes.</p>
+
+<h2>Definition of done</h2>
+<ul><li>The heart reads as one primary beat plus a smaller secondary contraction.</li><li>The ring expands from the primary contraction.</li><li>Desktop and mobile checks show smooth motion and no console errors.</li></ul>
+</body>
+</html>

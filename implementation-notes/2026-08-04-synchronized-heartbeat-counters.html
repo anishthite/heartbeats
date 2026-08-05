@@ -1,0 +1,54 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<title>Synchronized Heartbeat Counters</title>
+<meta name="task" content="Advance the fired and remaining heartbeat counters with the visible primary heart contraction.">
+<meta name="date-started" content="2026-08-04">
+<meta name="date-updated" content="2026-08-04">
+<meta name="status" content="ready-for-review">
+<meta name="blast-radius" content="low">
+<meta name="tags" content="heartbeats,counters,animation,haptics,synchronization,static-html">
+<meta name="related" content="2026-08-04-heartbeat-motion-refinement.html,2026-08-04-beat-haptics.html,2026-08-04-squeezed-heart-animation.html">
+<style>
+  body { font: 14px/1.45 -apple-system, system-ui, sans-serif; max-width: 880px; margin: 1.5rem auto; padding: 0 1rem; color: #111; } h1 { font-size: 20px; margin: 0 0 .25rem; } h2 { font-size: 15px; margin: 1.4rem 0 .4rem; border-bottom: 1px solid #ddd; padding-bottom: .2rem; } table { border-collapse: collapse; width: 100%; margin: .4rem 0 .8rem; } th, td { border: 1px solid #ddd; padding: 4px 8px; text-align: left; vertical-align: top; } th { background: #f6f6f6; font-weight: 600; } code { font-family: ui-monospace, Menlo, monospace; background: #f1f1f1; padding: 1px 4px; border-radius: 3px; font-size: 12.5px; } ul, ol { margin: .3rem 0 .8rem 1.2rem; padding: 0; } li { margin: .15rem 0; } .blast-low { color: #2a7a2a; } .meta { color: #555; font-size: 12.5px; margin-bottom: .8rem; } .kv { display: grid; grid-template-columns: 140px 1fr; gap: 2px 14px; font-size: 13px; margin: .4rem 0 1rem; } .kv b { color: #444; font-weight: 600; }
+</style>
+</head>
+<body>
+<h1>Synchronized Heartbeat Counters</h1>
+<p class="meta"><code>flight-delay-trends</code> · worktree <code>/Users/anishthite/conductor/workspaces/heartbeats/madrid</code> · 2026-08-04 · status <b>ready-for-review</b> · blast <span class="blast-low">low</span></p>
+
+<h2>Summary</h2>
+<div class="kv">
+  <b>Goal</b><div>Advance both live totals at the primary visible heart contraction.</div>
+  <b>Source</b><div>Use the existing <code>heartBeat</code> animation event and its <code>10%</code> primary peak.</div>
+  <b>Clock</b><div>Use each rendered animation cycle as the model heartbeat clock.</div>
+  <b>Reset</b><div>Restart the CSS animation when age or country changes to reset every phase together.</div>
+  <b>Arithmetic</b><div>Store modeled totals and displayed balance as whole heartbeat counts.</div>
+  <b>Haptics</b><div>Invoke the existing vibration request in the same scheduled beat callback.</div>
+  <b>Reduced motion</b><div>Keep the discrete counter cadence without triggering motion or haptics.</div>
+  <b>Open Qs</b><div>0.</div>
+</div>
+
+<h2>Algorithm</h2>
+<ol><li>Reset <code>beatsSinceReset = 0</code>; render the integer baseline; restart <code>.heart</code> animation.</li><li>Receive <code>animationstart</code> or <code>animationiteration</code>; wait <code>BEAT_DURATION_MS × 0.1</code> for the primary peak.</li><li>Increment <code>beatsSinceReset</code>; render <code>remaining = max(0, baseRemaining - beatsSinceReset)</code>; request haptics.</li><li>Schedule the same integer step every <code>BEAT_DURATION_MS</code> when <code>prefers-reduced-motion</code> disables the animation.</li><li>Discard a pending callback whose <code>modelRevision</code> predates an age or country reset.</li></ol>
+
+<h2>Files</h2>
+<table><tr><th>Path</th><th>Kind</th><th>Delta</th></tr><tr><td><code>index.html</code></td><td>touch</td><td>Drive counter advancement and haptics from the heart animation’s primary pulse.</td></tr><tr><td><code>implementation-notes/2026-08-04-synchronized-heartbeat-counters.html</code></td><td>new</td><td>Record timing and reset decisions.</td></tr><tr><td><code>implementation-notes/INDEX.html</code></td><td>touch</td><td>Index the synchronization task.</td></tr></table>
+
+<h2>Decisions</h2>
+<table><tr><th>ID</th><th>Choice · Rationale</th></tr><tr><td>D-001</td><td>Use the rendered <code>heartBeat</code> timeline as the counter clock. It makes the live values, primary contraction, and haptic request share one beat boundary.</td></tr><tr><td>D-002</td><td>Restart <code>.heart</code> on model resets. Age and country changes begin the counter and visual cycle at the same phase.</td></tr><tr><td>D-003</td><td>Run the same discrete cadence without motion when <code>prefers-reduced-motion</code> is enabled. Preserve a live model without creating a visual or haptic beat.</td></tr></table>
+
+<h2>Tradeoffs</h2>
+<table><tr><th>ID</th><th>Picked over Rejected · Reason</th></tr><tr><td>T-001</td><td>Integer updates on rendered beats over continuous elapsed-time sampling. A visible heartbeat now always causes one matching counter step.</td></tr></table>
+
+<h2>Assumptions</h2>
+<ul><li>A-001 · “Perfectly synced” means the displayed heartbeat, fired total, remaining total, and best-effort haptic change at the same visible primary pulse.</li></ul>
+
+<h2>Reversibility</h2>
+<p>R-001 · <span class="blast-low">low</span>. Restore elapsed-time rendering, omit animation restarts, and reinstate the periodic render timer.</p>
+
+<h2>Definition of done</h2>
+<ul><li>Every primary visual contraction increments <code>firedCount</code> by one and decrements <code>remainingCount</code> by one.</li><li>Changing age or country restarts the visual pulse and counter model together.</li><li>Reduced motion retains the discrete counter cadence without invoking the heart animation or haptic request.</li><li>Browser checks record counter steps at <code>~95ms</code> into the <code>833ms</code> cycle, within one rendered frame of the <code>~83ms</code> primary peak, with no console errors.</li></ul>
+</body>
+</html>

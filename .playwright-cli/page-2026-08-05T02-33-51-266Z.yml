@@ -1,0 +1,40 @@
+- main [ref=e2]:
+  - navigation "Primary" [ref=e3]:
+    - link "you only have 3 billion heartbeats. use them well." [ref=e4] [cursor=pointer]:
+      - /url: "#"
+    - generic [ref=e6]:
+      - button "Model" [expanded] [ref=e7] [cursor=pointer]
+      - dialog [ref=e47]:
+        - heading "Model settings" [level=2] [ref=e48]
+        - paragraph [ref=e49]: Afghanistan · 66.3 years life expectancy
+        - generic [ref=e50]:
+          - generic [ref=e51]:
+            - generic [ref=e52]:
+              - generic [ref=e53]: Age
+              - status [ref=e54]: "26"
+            - slider "Age" [ref=e55]: "26"
+            - generic [ref=e56]:
+              - generic [ref=e57]: "0"
+              - generic [ref=e58]: "120"
+          - generic [ref=e59]:
+            - generic [ref=e60]: Country or region
+            - generic [ref=e61]:
+              - combobox "Country or region Show country options" [active] [ref=e62]: Afghanistan
+              - button "Show country options" [ref=e63] [cursor=pointer]
+              - text: ×
+        - button "Use browser locale" [ref=e67] [cursor=pointer]
+  - region "Heartbeats left visualization" [ref=e8]:
+    - generic [ref=e9]:
+      - generic [ref=e10]:
+        - status [ref=e11]: 1,525,677,647
+        - generic [ref=e12]: heartbeats left
+      - img "Pulsing heart An anatomical red heart with chambers and vessels, pulsing once every 0.833 seconds." [ref=e15]
+      - complementary "Remaining beats bar" [ref=e38]:
+        - text: remaining
+        - img "60.778 percent of modeled heartbeats remain" [ref=e288]
+        - generic [ref=e41]:
+          - generic [ref=e42]: 60.778%
+          - text: left
+      - generic "Heartbeat totals" [ref=e43]:
+        - generic [ref=e44]: 984,576,903 fired
+        - generic [ref=e45]: 2,510,254,549 total

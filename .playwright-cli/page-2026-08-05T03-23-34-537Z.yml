@@ -1,0 +1,57 @@
+- generic [active] [ref=e1]:
+  - banner [ref=e2]:
+    - link "Hard RPS AI home" [ref=e3] [cursor=pointer]:
+      - /url: index.html
+      - generic [ref=e4]: RPS
+      - generic [ref=e5]: Hard RPS AI
+    - navigation "Primary" [ref=e6]:
+      - link "Play" [ref=e7] [cursor=pointer]:
+        - /url: index.html
+      - link "How it works" [ref=e8] [cursor=pointer]:
+        - /url: explain.html
+  - main [ref=e9]:
+    - region [ref=e10]:
+      - generic [ref=e11]:
+        - generic [ref=e12]:
+          - paragraph [ref=e13]: Round 1
+          - heading "First to 7." [level=1] [ref=e14]
+        - generic [ref=e15]: Race to 7
+      - generic "Scoreboard" [ref=e16]:
+        - generic [ref=e17]:
+          - generic [ref=e18]: "0"
+          - generic [ref=e19]: You
+        - generic [ref=e20]:
+          - generic [ref=e21]: "0"
+          - generic [ref=e22]: AI
+      - group "Choose your throw" [ref=e23]:
+        - button "Rock" [ref=e24] [cursor=pointer]
+        - button "Paper" [ref=e29] [cursor=pointer]
+        - button "Scissors" [ref=e34] [cursor=pointer]
+      - generic [ref=e40]:
+        - generic [ref=e41]: "You: -"
+        - strong [ref=e42]: Choose.
+        - generic [ref=e43]: "AI: -"
+    - complementary [ref=e44]:
+      - generic [ref=e45]:
+        - paragraph [ref=e46]: Match
+        - heading "Pressure" [level=2] [ref=e47]
+      - generic "Match pressure" [ref=e48]:
+        - generic [ref=e49]:
+          - generic [ref=e50]: Even
+          - generic [ref=e51]: "0"
+        - meter [ref=e52]
+      - generic [ref=e53]:
+        - generic [ref=e54]:
+          - term [ref=e55]: Streak
+          - definition [ref=e56]: "0"
+        - generic [ref=e57]:
+          - term [ref=e58]: Ties
+          - definition [ref=e59]: "0"
+        - generic [ref=e60]:
+          - term [ref=e61]: AI read
+          - definition [ref=e62]: none
+      - generic [ref=e63]:
+        - generic [ref=e64]: Cold read
+        - generic [ref=e65]: 0%
+        - paragraph [ref=e66]: No pattern yet.
+      - button "New match" [ref=e68] [cursor=pointer]

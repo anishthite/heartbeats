@@ -1,0 +1,36 @@
+- main [ref=f4e2]:
+  - navigation "Primary" [ref=f4e3]:
+    - link "you only have 3 billion heartbeats. use them well." [ref=f4e4] [cursor=pointer]:
+      - /url: "#"
+    - button "Model" [ref=f4e7] [cursor=pointer]
+  - region "Heartbeats left visualization" [ref=f4e8]:
+    - generic [ref=f4e9]:
+      - generic [ref=f4e10]:
+        - paragraph [ref=f4e11]:
+          - text: If you are
+          - button "Edit age, currently 26" [ref=f4e12] [cursor=pointer]: 26 years old
+          - text: and live in
+          - button "Edit country or region, currently United States" [ref=f4e13] [cursor=pointer]: the United States
+          - text: ", you have"
+        - status [ref=f4e14]: 2,002,865,866
+        - generic [ref=f4e15]: heartbeats left
+      - img "Pulsing heart An anatomical red heart with chambers and vessels, pulsing once every 0.833 seconds." [ref=f4e18]
+      - complementary "Remaining beats bar" [ref=f4e41]:
+        - img "67.043 percent of modeled heartbeats remain" [ref=f4e42]
+        - generic [ref=f4e44]:
+          - generic [ref=f4e45]: 67.043%
+          - text: left
+      - generic "Heartbeat totals" [ref=f4e46]:
+        - generic [ref=f4e47]: 984,576,902 fired
+        - generic [ref=f4e48]: 2,987,442,768 total
+  - generic [ref=f4e49]:
+    - generic [ref=f4e50]:
+      - text: Based on
+      - link "World Bank life-expectancy data" [ref=f4e51] [cursor=pointer]:
+        - /url: https://data.worldbank.org/indicator/SP.DYN.LE00.IN
+      - text: .
+    - generic [ref=f4e52]:
+      - text: Made by
+      - link "Anish" [ref=f4e53] [cursor=pointer]:
+        - /url: https://x.com/anishthite
+      - text: .

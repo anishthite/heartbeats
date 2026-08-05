@@ -1,0 +1,23 @@
+- main [ref=f3e2]:
+  - navigation "Primary" [ref=f3e3]:
+    - link "Heartbeats left" [ref=f3e4] [cursor=pointer]:
+      - /url: "#"
+    - generic [ref=f3e5]:
+      - link "The estimate" [ref=f3e6] [cursor=pointer]:
+        - /url: research.html
+      - button "Model" [ref=f3e8] [cursor=pointer]
+  - region "Heartbeats left visualization" [ref=f3e9]:
+    - generic [ref=f3e10]:
+      - generic [ref=f3e11]:
+        - status [ref=f3e12]: 2,002,865,866
+        - generic [ref=f3e13]: heartbeats left
+      - generic [ref=f3e14]:
+        - img "Pulsing heart An anatomical red heart with chambers and vessels, pulsing once every 0.833 seconds." [ref=f3e16]
+        - complementary "Remaining beats bar" [ref=f3e39]:
+          - img "67.043 percent of modeled heartbeats remain" [ref=f3e40]
+          - generic [ref=f3e42]:
+            - generic [ref=f3e43]: 67.043%
+            - text: left
+      - generic "Heartbeat totals" [ref=f3e44]:
+        - generic [ref=f3e45]: 984,576,902 fired
+        - generic [ref=f3e46]: 2,987,442,768 total

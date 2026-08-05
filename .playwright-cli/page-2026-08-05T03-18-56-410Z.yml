@@ -1,0 +1,37 @@
+- main [ref=f1e2]:
+  - navigation "Primary" [ref=f1e3]:
+    - link "You only have 3 billion heartbeats." [ref=f1e4] [cursor=pointer]:
+      - /url: "#"
+  - region "Heartbeats left visualization" [ref=f1e5]:
+    - generic [ref=f1e6]:
+      - generic [ref=f1e7]:
+        - paragraph [ref=f1e8]:
+          - text: If you are
+          - button "Edit age, currently 26" [ref=f1e10] [cursor=pointer]: 26 years old
+          - text: and live in
+          - button "Edit country or region, currently United States" [ref=f1e12] [cursor=pointer]: the United States
+          - text: ", you have"
+        - generic [ref=f1e13]:
+          - status [ref=f1e14]: 2,002,865,866
+          - generic [ref=f1e15]: heartbeats left
+      - img "Pulsing heart An anatomical red heart with chambers and vessels, pulsing once every 0.833 seconds." [ref=f1e18]
+      - complementary "Remaining beats bar" [ref=f1e40]:
+        - img "67.043 percent of modeled heartbeats remain" [ref=f1e41]
+        - generic [ref=f1e43]:
+          - generic [ref=f1e44]: 67.043%
+          - text: left
+      - generic "Heartbeat totals" [ref=f1e45]:
+        - generic [ref=f1e46]: 984,576,902 fired
+        - generic [ref=f1e47]: 2,987,442,768 total
+  - generic [ref=f1e48]:
+    - generic [ref=f1e49]:
+      - text: Based on
+      - link "World Bank life-expectancy data" [ref=f1e50] [cursor=pointer]:
+        - /url: https://data.worldbank.org/indicator/SP.DYN.LE00.IN
+      - text: .
+    - generic [ref=f1e51]: Assumes 72 BPM.
+    - generic [ref=f1e52]:
+      - text: Made by
+      - link "Anish" [ref=f1e53] [cursor=pointer]:
+        - /url: https://x.com/anishthite
+      - text: .
