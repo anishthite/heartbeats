@@ -1,0 +1,43 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<title>Spec — Age Slider</title>
+<meta name="task" content="Replace the typed age control with an immediately manipulable age slider.">
+<meta name="date-started" content="2026-08-04">
+<meta name="date-updated" content="2026-08-04">
+<meta name="status" content="shipped">
+<meta name="blast-radius" content="low">
+<meta name="tags" content="heartbeats,settings,age,slider,static-html">
+<meta name="related" content="2026-08-04-location-aware-model-settings.html">
+<style>
+  body { font: 14px/1.45 -apple-system, system-ui, sans-serif; max-width: 880px; margin: 1.5rem auto; padding: 0 1rem; color: #111; } h1 { font-size: 20px; margin: 0 0 .25rem; } h2 { font-size: 15px; margin: 1.4rem 0 .4rem; border-bottom: 1px solid #ddd; padding-bottom: .2rem; }
+  table { border-collapse: collapse; width: 100%; margin: .4rem 0 .8rem; } th, td { border: 1px solid #ddd; padding: 4px 8px; text-align: left; vertical-align: top; } th { background: #f6f6f6; font-weight: 600; } code { background: #f1f1f1; padding: 1px 4px; border-radius: 3px; font: 12.5px ui-monospace, Menlo, monospace; } ul, ol { margin: .3rem 0 .8rem 1.2rem; padding: 0; } li { margin: .15rem 0; } .blast-low { color: #2a7a2a; } .meta { color: #555; font-size: 12.5px; margin-bottom: .8rem; } .kv { display: grid; grid-template-columns: 140px 1fr; gap: 2px 14px; font-size: 13px; margin: .4rem 0 1rem; } .kv b { color: #444; font-weight: 600; }
+</style>
+</head>
+<body>
+<h1>Age Slider</h1>
+<p class="meta"><code>madrid</code> · worktree <code>/Users/anishthite/conductor/workspaces/heartbeats/madrid</code> · 2026-08-04 · status <b>shipped</b> · blast <span class="blast-low">low</span></p>
+<h2>Summary</h2>
+<div class="kv">
+  <b>Goal</b><div>Make age quick to adjust in the model settings.</div>
+  <b>Surface</b><div><code>index.html</code> age control and live model reset.</div>
+  <b>Mobile</b><div>Use the full popover width for a touch-friendly target.</div>
+  <b>Open Qs</b><div>0.</div>
+</div>
+<h2>UI layout</h2>
+<ol><li><b>Age field</b>: show the selected whole-year value above a native <code>0–100</code> range with endpoint labels.</li></ol>
+<h2>Files</h2>
+<table><tr><th>Path</th><th>Kind</th><th>Delta</th></tr><tr><td><code>index.html</code></td><td>touch</td><td>Replace the number input with a styled range and synchronize its readout.</td></tr><tr><td><code>implementation-notes/2026-08-04-age-slider.html</code></td><td>new</td><td>Record the input-control choice.</td></tr><tr><td><code>implementation-notes/INDEX.html</code></td><td>touch</td><td>Index the slider change.</td></tr></table>
+<h2>Decisions</h2>
+<table><tr><th>ID</th><th>Choice · Rationale</th></tr><tr><td>D-001</td><td>Use a native whole-year range. It supports touch, pointer, and keyboard adjustment without a separate submission step.</td></tr></table>
+<h2>Tradeoffs</h2>
+<table><tr><th>ID</th><th>Picked over Rejected · Reason</th></tr><tr><td>T-001</td><td>A range with a numeric readout over a typed number field. Age is bounded and the visualization benefits from immediate feedback.</td></tr></table>
+<h2>Assumptions</h2>
+<ul><li>A-001 · Model age remains bounded to <code>0–100</code>; if wrong, expand the range endpoints.</li></ul>
+<h2>Reversibility</h2>
+<p>R-001 · <span class="blast-low">low</span>. Restore the number input and remove the range styling and readout synchronization.</p>
+<h2>Definition of done</h2>
+<ul><li>The age slider updates the readout and live heartbeat model.</li><li>Keyboard and narrow mobile interactions remain operable.</li><li>Browser checks show no console errors or horizontal overflow.</li></ul>
+</body>
+</html>

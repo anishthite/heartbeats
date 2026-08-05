@@ -1,0 +1,73 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<title>Spec - Social Preview Copy Revision</title>
+<meta name="task" content="Reduce the social preview to the user-provided message and heart.">
+<meta name="date-started" content="2026-08-04">
+<meta name="date-updated" content="2026-08-04">
+<meta name="status" content="shipped">
+<meta name="blast-radius" content="low">
+<meta name="tags" content="heartbeats, social-preview, copy, open-graph, static-html">
+<meta name="related" content="2026-08-04-social-media-preview.html">
+<style>
+  body { font: 14px/1.45 -apple-system, system-ui, sans-serif; max-width: 880px; margin: 1.5rem auto; padding: 0 1rem; color: #111; }
+  h1 { font-size: 20px; margin: 0 0 .25rem; }
+  h2 { font-size: 15px; margin: 1.4rem 0 .4rem; border-bottom: 1px solid #ddd; padding-bottom: .2rem; }
+  table { border-collapse: collapse; width: 100%; margin: .4rem 0 .8rem; }
+  th, td { border: 1px solid #ddd; padding: 4px 8px; text-align: left; vertical-align: top; }
+  th { background: #f6f6f6; font-weight: 600; }
+  code { font-family: ui-monospace, Menlo, monospace; background: #f1f1f1; padding: 1px 4px; border-radius: 3px; font-size: 12.5px; }
+  ul { margin: .3rem 0 .8rem 1.2rem; padding: 0; }
+  li { margin: .15rem 0; }
+  .blast-low, .status-shipped { color: #2a7a2a; }
+  .meta { color: #555; font-size: 12.5px; margin-bottom: .8rem; }
+  .kv { display: grid; grid-template-columns: 140px 1fr; gap: 2px 14px; font-size: 13px; margin: .4rem 0 1rem; }
+  .kv b { color: #444; font-weight: 600; }
+</style>
+</head>
+<body>
+<h1>Social Preview Copy Revision</h1>
+<p class="meta"><code>flight-delay-trends</code> · worktree <code>/Users/anishthite/conductor/workspaces/heartbeats/madrid</code> · 2026-08-04 · status <b class="status-shipped">shipped</b> · blast <span class="blast-low">low</span></p>
+
+<h2>Summary</h2>
+<div class="kv">
+  <b>Goal</b><div>Show only the user-provided message and anatomical heart in the share card.</div>
+  <b>Source</b><div>User copy: <code>You have 3 billion heartbeats. Use them well.</code></div>
+  <b>Surface</b><div><code>social-preview.svg</code>, <code>social-preview.png</code>, and <code>index.html</code> metadata.</div>
+  <b>Format</b><div>Preserve the <code>1200 × 630</code> PNG target.</div>
+  <b>Open Qs</b><div>0.</div>
+</div>
+
+<h2>UI layout</h2>
+<ul>
+  <li>Set the four-line message on the left and retain the heart on the right.</li>
+</ul>
+
+<h2>Files</h2>
+<table>
+  <tr><th>Path</th><th>Kind</th><th>Delta</th></tr>
+  <tr><td><code>social-preview.svg</code></td><td>touch</td><td>Remove supporting copy and show the supplied message.</td></tr>
+  <tr><td><code>social-preview.png</code></td><td>touch</td><td>Regenerate the 1200 × 630 card.</td></tr>
+  <tr><td><code>index.html</code></td><td>touch</td><td>Align share titles and descriptions with the supplied message.</td></tr>
+  <tr><td><code>implementation-notes/INDEX.html</code></td><td>touch</td><td>Add this revision row.</td></tr>
+  <tr><td><code>implementation-notes/2026-08-04-social-preview-copy-revision.html</code></td><td>new</td><td>Record the user-directed copy reduction.</td></tr>
+</table>
+
+<h2>Decisions</h2>
+<table>
+  <tr><th>ID</th><th>Choice · Rationale</th></tr>
+  <tr><td>D-001</td><td>Remove every visible supporting phrase. The user asked for only the provided message and heart.</td></tr>
+</table>
+
+<h2>Reversibility</h2>
+<p>R-001 · <span class="blast-low">low</span>. Restore the prior <code>social-preview.svg</code> copy composition.</p>
+
+<h2>Definition of done</h2>
+<ul>
+  <li>The card shows only <code>You have 3 billion heartbeats. Use them well.</code> and the heart.</li>
+  <li>The PNG remains <code>1200 × 630</code>.</li>
+  <li>Share metadata uses the same message.</li>
+</ul>
+</body>
+</html>

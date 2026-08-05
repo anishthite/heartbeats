@@ -1,0 +1,235 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<title>Implementation Notes - Index</title>
+<style>
+  body { font: 14px/1.5 -apple-system, system-ui, sans-serif; max-width: 1100px; margin: 2rem auto; padding: 0 1rem; }
+  table { border-collapse: collapse; width: 100%; }
+  th, td { border: 1px solid #ddd; padding: 6px 8px; text-align: left; vertical-align: top; }
+  th { background: #f6f6f6; position: sticky; top: 0; }
+  .blast-low { color: #2a7a2a; }
+  .status-in-progress { color: #b85c00; }
+  .status-shipped, .status-ready { color: #2a7a2a; }
+  a { color: #1a5fb4; text-decoration: none; }
+  a:hover { text-decoration: underline; }
+</style>
+</head>
+<body>
+<h1>Implementation Notes - Index</h1>
+<p>One row per task, newest first. Never delete; superseded rows get strikethrough and a <code>[superseded by ...]</code> note.</p>
+<table>
+  <thead><tr><th>Date</th><th>Task</th><th>Status</th><th>Blast</th><th>Tags</th><th>Summary</th></tr></thead>
+  <tbody>
+    <tr>
+      <td>2026-08-04</td>
+      <td><a href="2026-08-04-microinteraction-polish.html">Heartbeat Microinteraction Polish</a></td>
+      <td class="status-in-progress">in-progress</td>
+      <td class="blast-low">low</td>
+      <td>heartbeats, motion, polish, microinteractions, static-html</td>
+      <td>Refine feedback and purposeful motion without changing the heartbeat model.</td>
+    </tr>
+    <tr>
+      <td>2026-08-04</td>
+      <td><a href="2026-08-04-remove-research-page.html">Remove Research Page</a></td>
+      <td class="status-shipped">shipped</td>
+      <td class="blast-low">low</td>
+      <td>heartbeats, research, navigation, static-html</td>
+      <td>Remove the standalone research page and its entry-point link.</td>
+    </tr>
+    <tr>
+      <td>2026-08-04</td>
+      <td><a href="2026-08-04-only-have-heartbeats-copy.html">Only Have Heartbeats Copy</a></td>
+      <td class="status-shipped">shipped</td>
+      <td class="blast-low">low</td>
+      <td>heartbeats, social-preview, title, open-graph, static-html</td>
+      <td>Unify the page and share-card copy around the “You only have” message.</td>
+    </tr>
+    <tr>
+      <td>2026-08-04</td>
+      <td><a href="2026-08-04-bonus-time-state.html">Bonus Time State</a></td>
+      <td class="status-shipped">shipped</td>
+      <td class="blast-low">low</td>
+      <td>heartbeats, age, life-expectancy, copy, static-html</td>
+      <td>Replace the exhausted population-average state with an accurate, human explanation.</td>
+    </tr>
+    <tr>
+      <td>2026-08-04</td>
+      <td><a href="2026-08-04-red-ink-palette.html">Red Ink Palette</a></td>
+      <td class="status-shipped">shipped</td>
+      <td class="blast-low">low</td>
+      <td>heartbeats, palette, burgundy, ink, static-html</td>
+      <td>Visible teal action token replaced with deep oxblood.</td>
+    </tr>
+    <tr>
+      <td>2026-08-04</td>
+      <td><a href="2026-08-04-right-margin-gauge.html">Right Margin Gauge</a></td>
+      <td class="status-shipped">shipped</td>
+      <td class="blast-low">low</td>
+      <td>heartbeats, hero, meter, asymmetry, editorial, responsive, static-html</td>
+      <td>Remaining-beats bar now reads as a labelled right-margin gauge.</td>
+    </tr>
+    <tr>
+      <td>2026-08-04</td>
+      <td><a href="2026-08-04-local-browser-run.html">Local Browser Run</a></td>
+      <td class="status-shipped">shipped</td>
+      <td class="blast-low">low</td>
+      <td>conductor, local-server, static-html, browser</td>
+      <td>Serve the static site on the workspace-assigned local browser port.</td>
+    </tr>
+    <tr>
+      <td>2026-08-04</td>
+      <td><a href="2026-08-04-age-slider.html">Age Slider</a></td>
+      <td class="status-shipped">shipped</td>
+      <td class="blast-low">low</td>
+      <td>heartbeats, settings, age, slider, static-html</td>
+      <td>Replace typed age with a live native range control.</td>
+    </tr>
+    <tr>
+      <td>2026-08-04</td>
+      <td><a href="2026-08-04-hero-composition.html">Hero Composition</a></td>
+      <td class="status-shipped">shipped</td>
+      <td class="blast-low">low</td>
+      <td>heartbeats, hero, layout, anatomical-heart, responsive, static-html</td>
+      <td>Counter, heart, and remaining-beats meter now form one responsive hero.</td>
+    </tr>
+    <tr>
+      <td>2026-08-04</td>
+      <td><a href="2026-08-04-beat-haptics.html">Beat-Synchronized Haptics</a></td>
+      <td class="status-ready">ready-for-review</td>
+      <td class="blast-low">low</td>
+      <td>heartbeats, haptics, vibration, animation, static-html</td>
+      <td>Replace return haptics with an in-phase two-pulse cue for every heart animation cycle.</td>
+    </tr>
+    <tr>
+      <td>2026-08-04</td>
+      <td><a href="2026-08-04-location-aware-model-settings.html">Location-Aware Model Settings</a></td>
+      <td class="status-ready">ready-for-review</td>
+      <td class="blast-low">low</td>
+      <td>heartbeats, settings, location, life-expectancy, world-bank, static-html</td>
+      <td>Use country-level life expectancy with editable model settings.</td>
+    </tr>
+    <tr>
+      <td>2026-08-04</td>
+      <td><a href="2026-08-04-social-preview-composition.html">Social Preview Composition</a></td>
+      <td class="status-shipped">shipped</td>
+      <td class="blast-low">low</td>
+      <td>heartbeats, social-preview, typography, composition, static-html</td>
+      <td>Text stack tightened, heart rebalanced, and closing line colored red.</td>
+    </tr>
+    <tr>
+      <td>2026-08-04</td>
+      <td><a href="2026-08-04-social-preview-copy-revision.html">Social Preview Copy Revision</a></td>
+      <td class="status-shipped">shipped</td>
+      <td class="blast-low">low</td>
+      <td>heartbeats, social-preview, copy, open-graph, static-html</td>
+      <td>Card contains only the supplied message and anatomical heart.</td>
+    </tr>
+    <tr>
+      <td>2026-08-04</td>
+      <td><a href="2026-08-04-return-haptics.html">Return Haptics</a></td>
+      <td class="status-ready">ready-for-review</td>
+      <td class="blast-low">low</td>
+      <td>heartbeats, haptics, vibration, visibility, static-html</td>
+      <td>Use a guarded double haptic when the heartbeat page returns to the foreground.</td>
+    </tr>
+    <tr>
+      <td>2026-08-04</td>
+      <td><a href="2026-08-04-social-media-preview.html">Social Media Preview</a></td>
+      <td class="status-shipped">shipped</td>
+      <td class="blast-low">low</td>
+      <td>heartbeats, social-preview, open-graph, svg, png, static-html</td>
+      <td>1200 × 630 Open Graph card and metadata; rendering checks passed.</td>
+    </tr>
+    <tr>
+      <td>2026-08-04</td>
+      <td><a href="2026-08-04-mobile-responsive-audit.html">Mobile Responsive Audit</a></td>
+      <td class="status-shipped">ready-for-review</td>
+      <td class="blast-low">low</td>
+      <td>heartbeats, responsive, mobile, static-html</td>
+      <td>Audit and polish the heartbeat page at narrow mobile widths.</td>
+    </tr>
+    <tr>
+      <td>2026-08-04</td>
+      <td><a href="2026-08-04-heartbeat-research-page.html">Heartbeat Research Page</a></td>
+      <td class="status-shipped">shipped</td>
+      <td class="blast-low">low</td>
+      <td>heartbeats, research, explanation, citations, static-html</td>
+      <td>Source-backed global and U.S. lifetime heartbeat estimates with visible arithmetic.</td>
+    </tr>
+    <tr>
+      <td>2026-08-04</td>
+      <td><a href="2026-08-04-unruled-ai-2040-type.html">Unruled AI-2040 Type</a></td>
+      <td class="status-ready">ready-for-review</td>
+      <td class="blast-low">low</td>
+      <td>heartbeats, ai-2040, typography, background, static-html</td>
+      <td>Remove page ruling; set the regular AI-2040 serif type treatment explicitly.</td>
+    </tr>
+    <tr>
+      <td>2026-08-04</td>
+      <td><a href="2026-08-04-anatomical-heart-illustration.html">Anatomical Heart Illustration</a></td>
+      <td class="status-shipped">shipped</td>
+      <td class="blast-low">low</td>
+      <td>heartbeats, anatomical-heart, svg, animation, static-html</td>
+      <td>Layered anatomical SVG; desktop and mobile checks passed.</td>
+    </tr>
+    <tr>
+      <td>2026-08-04</td>
+      <td><a href="2026-08-04-about-popover.html">About Popover</a></td>
+      <td class="status-in-progress">in-progress</td>
+      <td class="blast-low">low</td>
+      <td>heartbeats, about, popover, ai-2040, static-html</td>
+      <td>Top-right About popover; browser checks passed.</td>
+    </tr>
+    <tr>
+      <td>2026-08-04</td>
+      <td><a href="2026-08-04-single-pulsing-heart.html">Single Pulsing Heart</a></td>
+      <td class="status-shipped">shipped</td>
+      <td class="blast-low">low</td>
+      <td>heartbeats, pulsing-heart, counter, age, ai-2040, static-html</td>
+      <td>Single heart countdown scene; browser checks passed.</td>
+    </tr>
+    <tr>
+      <td>2026-08-04</td>
+      <td><a href="2026-08-04-two-heartbeat-analogies.html">Two Heartbeat Analogies</a></td>
+      <td class="status-shipped">shipped</td>
+      <td class="blast-low">low</td>
+      <td>heartbeats, odometer, cycle-rating, ai-2040, static-html</td>
+      <td>Two analogy prototypes; browser checks passed.</td>
+    </tr>
+    <tr>
+      <td>2026-08-04</td>
+      <td><a href="2026-08-04-heartbeat-focused-reserve.html">Heartbeat Focused Reserve</a></td>
+      <td class="status-shipped">shipped</td>
+      <td class="blast-low">low</td>
+      <td>heartbeats, pulse, reserve, calendar, ai-2040, static-html</td>
+      <td>Retheme minimal page around heartbeat language; browser checks passed.</td>
+    </tr>
+    <tr>
+      <td>2026-08-04</td>
+      <td><a href="2026-08-04-minimal-heartbeat-ledger.html">Minimal Heartbeat Ledger</a></td>
+      <td class="status-shipped">shipped</td>
+      <td class="blast-low">low</td>
+      <td>heartbeats, minimal, calendar, bank, ai-2040, static-html</td>
+      <td>Minimal bank plus life-calendar redesign; browser checks passed.</td>
+    </tr>
+    <tr>
+      <td>2026-08-04</td>
+      <td><a href="2026-08-04-heartbeat-bank-countdown.html">Heartbeat Bank Countdown</a></td>
+      <td class="status-shipped">shipped</td>
+      <td class="blast-low">low</td>
+      <td>heartbeats, countdown, bank, ai-2040, static-html</td>
+      <td>Age-aware spent-vs-left bank and live countdown; browser checks passed.</td>
+    </tr>
+    <tr>
+      <td>2026-08-04</td>
+      <td><a href="2026-08-04-lifetime-heartbeats-visualization.html">Lifetime Heartbeats Visualization</a></td>
+      <td class="status-shipped">shipped</td>
+      <td class="blast-low">low</td>
+      <td>heartbeats, visualization, ai-2040, static-html</td>
+      <td>Static paper-style explainer; constant-BPM model; desktop and mobile checks passed.</td>
+    </tr>
+  </tbody>
+</table>
+</body>
+</html>

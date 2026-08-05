@@ -1,0 +1,57 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<title>Spec — Location-Aware Model Settings</title>
+<meta name="task" content="Move age into model settings and use a selected country’s life expectancy in the heartbeat calculation.">
+<meta name="date-started" content="2026-08-04">
+<meta name="date-updated" content="2026-08-04">
+<meta name="status" content="ready-for-review">
+<meta name="blast-radius" content="low">
+<meta name="tags" content="heartbeats,settings,location,life-expectancy,world-bank,static-html">
+<meta name="related" content="2026-08-04-about-popover.html,2026-08-04-heartbeat-research-page.html">
+<style>
+  body { font: 14px/1.45 -apple-system, system-ui, sans-serif; max-width: 880px; margin: 1.5rem auto; padding: 0 1rem; color: #111; } h1 { font-size: 20px; margin: 0 0 .25rem; } h2 { font-size: 15px; margin: 1.4rem 0 .4rem; border-bottom: 1px solid #ddd; padding-bottom: .2rem; }
+  table { border-collapse: collapse; width: 100%; margin: .4rem 0 .8rem; } th, td { border: 1px solid #ddd; padding: 4px 8px; text-align: left; vertical-align: top; } th { background: #f6f6f6; font-weight: 600; } code, pre { font-family: ui-monospace, Menlo, monospace; } code { background: #f1f1f1; padding: 1px 4px; border-radius: 3px; font-size: 12.5px; } ul, ol { margin: .3rem 0 .8rem 1.2rem; padding: 0; } li { margin: .15rem 0; } .blast-low { color: #2a7a2a; } .meta { color: #555; font-size: 12.5px; margin-bottom: .8rem; } .kv { display: grid; grid-template-columns: 140px 1fr; gap: 2px 14px; font-size: 13px; margin: .4rem 0 1rem; } .kv b { color: #444; font-weight: 600; }
+</style>
+</head>
+<body>
+<h1>Location-Aware Model Settings</h1>
+<p class="meta"><code>flight-delay-trends</code> · worktree <code>/Users/anishthite/conductor/workspaces/heartbeats/madrid</code> · 2026-08-04 · status <b>ready-for-review</b> · blast <span class="blast-low">low</span></p>
+
+<h2>Summary</h2>
+<div class="kv">
+  <b>Goal</b><div>Use editable age and country-level life expectancy in the live heartbeat estimate.</div>
+  <b>Source</b><div><code>World Bank</code> indicator <code>SP.DYN.LE00.IN</code>, latest non-null country value.</div>
+  <b>Surface</b><div><code>index.html</code> model-settings popover and live counts.</div>
+  <b>Privacy</b><div>Read a country from the browser locale only after an explicit button press; request no GPS location.</div>
+  <b>Fallback</b><div>Retain <code>United States · 79.0 years</code> when remote data is unavailable.</div>
+  <b>Mobile</b><div>Keep the settings panel inside the existing fixed mobile popover.</div>
+  <b>Open Qs</b><div>0.</div>
+</div>
+
+<h2>Algorithm</h2>
+<ol><li>Resolve a country from manual input or the browser-locale region.</li><li>Fetch <code>/v2/country/all/indicator/SP.DYN.LE00.IN?format=json&amp;mrnev=1&amp;per_page=400</code> once.</li><li>Set <code>lifeYears = countryValue</code>; calculate <code>remaining = max(0, (lifeYears − age) × beatsPerYear − elapsedSeconds × bpm / 60)</code>.</li><li>Retain <code>lifeYears = 79</code> if country data is unavailable.</li></ol>
+
+<h2>UI layout</h2>
+<ol><li><b>Top bar</b>: retain the research link and replace the exposed age field with a <code>Model</code> trigger.</li><li><b>Settings panel</b>: group age, country, browser-locale action, data status, and scope note.</li></ol>
+
+<h2>Files</h2>
+<table><tr><th>Path</th><th>Kind</th><th>Delta</th></tr><tr><td><code>index.html</code></td><td>touch</td><td>Add model settings, location data loading, and dynamic lifespan math.</td></tr><tr><td><code>implementation-notes/2026-08-04-location-aware-model-settings.html</code></td><td>new</td><td>Record source, privacy, and fallback decisions.</td></tr><tr><td><code>implementation-notes/INDEX.html</code></td><td>touch</td><td>Index this settings feature.</td></tr></table>
+
+<h2>Decisions</h2>
+<table><tr><th>ID</th><th>Choice · Rationale</th></tr><tr><td>D-001</td><td>Use country-level selection and browser locale. Avoid collecting precise coordinates.</td></tr><tr><td>D-002</td><td>Use World Bank’s latest non-null life-expectancy observation. Keep estimates current without bundling a country table.</td></tr><tr><td>D-003</td><td>Fetch every country observation once. Avoid per-country edge-service failures during location changes.</td></tr></table>
+
+<h2>Tradeoffs</h2>
+<table><tr><th>ID</th><th>Picked over Rejected · Reason</th></tr><tr><td>T-001</td><td>Browser locale over GPS geolocation. Preserve privacy and avoid a third-party reverse-geocoding service.</td></tr><tr><td>T-002</td><td>Country-level life expectancy over a personal forecast. The source supports population estimates only.</td></tr><tr><td>T-003</td><td>One cached all-country request over requests per country. Keep country changes immediate and resilient.</td></tr></table>
+
+<h2>Assumptions</h2>
+<ul><li>A-001 · Treat country life expectancy at birth as an illustrative model input; if wrong, replace it with a user-entered lifespan.</li><li>A-002 · Treat browser locale as a country suggestion; if absent or wrong, use the manual field.</li></ul>
+
+<h2>Reversibility</h2>
+<p>R-001 · <span class="blast-low">low</span>. Remove the settings panel, network helpers, and dynamic lifespan state to restore the fixed <code>79</code>-year model.</p>
+
+<h2>Definition of done</h2>
+<ul><li>Changing age or country updates the live counter, fired count, total, and remaining percentage.</li><li>Browser-locale selection changes the model without requesting GPS permission.</li><li>Remote-data failure preserves a usable default estimate.</li><li>Desktop and <code>320px</code> mobile checks show no overflow or console errors.</li></ul>
+</body>
+</html>
