@@ -1,6 +1,6 @@
 <svg xmlns="http://www.w3.org/2000/svg" width="1200" height="630" viewBox="0 0 1200 630" role="img" aria-labelledby="title desc">
-  <title id="title">you only have 3 billion heartbeats. use them well.</title>
-  <desc id="desc">An editorial share card showing an anatomical heart beside the words: you only have 3 billion heartbeats. use them well.</desc>
+  <title id="title">you only have 3 billion heartbeats.</title>
+  <desc id="desc">An editorial share card showing an anatomical heart beside the words: you only have 3 billion heartbeats.</desc>
   <defs>
     <pattern id="dots" width="38" height="38" patternUnits="userSpaceOnUse">
       <circle cx="2" cy="2" r="1.15" fill="#1d1a16" opacity="0.08"/>
@@ -34,7 +34,6 @@
     <text x="82" y="194" font-size="52">you only have</text>
     <text x="72" y="291" font-size="90" fill="#9d3035" letter-spacing="-3">3 billion</text>
     <text x="82" y="359" font-size="56">heartbeats.</text>
-    <text x="82" y="451" font-size="58" fill="#9d3035">use them well.</text>
   </g>
 
   <g transform="translate(680 63) scale(1.55)">
