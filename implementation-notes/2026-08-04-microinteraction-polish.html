@@ -6,7 +6,7 @@
 <meta name="task" content="Polish motion and interactive states without changing the heartbeat model.">
 <meta name="date-started" content="2026-08-04">
 <meta name="date-updated" content="2026-08-04">
-<meta name="status" content="in-progress">
+<meta name="status" content="ready-for-review">
 <meta name="blast-radius" content="low">
 <meta name="tags" content="heartbeats,motion,polish,microinteractions,static-html">
 <meta name="related" content="2026-08-04-single-pulsing-heart.html,2026-08-04-hero-composition.html,2026-08-04-about-popover.html,2026-08-04-mobile-responsive-audit.html">
@@ -20,7 +20,7 @@
 </head>
 <body>
 <h1>Heartbeat Microinteraction Polish</h1>
-<p class="meta"><code>flight-delay-trends</code> · worktree <code>/Users/anishthite/conductor/workspaces/heartbeats/madrid</code> · 2026-08-04 · status <b class="status-progress">in-progress</b> · blast <span class="blast-low">low</span></p>
+<p class="meta"><code>flight-delay-trends</code> · worktree <code>/Users/anishthite/conductor/workspaces/heartbeats/madrid</code> · 2026-08-04 · status <b class="status-ready">ready-for-review</b> · blast <span class="blast-low">low</span></p>
 
 <h2>Summary</h2>
 <div class="kv">
@@ -43,7 +43,7 @@
 <table><tr><th>Path</th><th>Kind</th><th>Delta</th></tr><tr><td><code>index.html</code></td><td>touch</td><td>Polish motion tokens, interaction feedback, popover entrance, and meter rendering.</td></tr><tr><td><code>implementation-notes/2026-08-04-microinteraction-polish.html</code></td><td>new</td><td>Record polish scope and motion decisions.</td></tr><tr><td><code>implementation-notes/INDEX.html</code></td><td>touch</td><td>Index this polish pass.</td></tr></table>
 
 <h2>Decisions</h2>
-<table><tr><th>ID</th><th>Choice · Rationale</th></tr><tr><td>D-001</td><td>Use one custom motion token set. Controls, the meter, and the popover now share a responsive editorial cadence.</td></tr><tr><td>D-002</td><td>Keep the heartbeat as the only continuous motion. Additional effects only communicate interaction or state changes.</td></tr><tr><td>D-003</td><td>Scale the meter fill with <code>transform</code> over <code>height</code>. The periodic update stays on the compositor.</td></tr></table>
+<table><tr><th>ID</th><th>Choice · Rationale</th></tr><tr><td>D-001</td><td>Use one custom motion token set. Controls, the meter, and the popover now share a responsive editorial cadence.</td></tr><tr><td>D-002</td><td>Keep the heartbeat as the only continuous motion. Additional effects only communicate interaction or state changes.</td></tr><tr><td>D-003</td><td>Scale the meter fill with <code>transform</code> over <code>height</code>. The periodic update stays on the compositor.</td></tr><tr><td>D-004</td><td>Match the country menu to the model panel’s short contextual entrance. It now belongs to the same control system.</td></tr></table>
 
 <h2>Tradeoffs</h2>
 <table><tr><th>ID</th><th>Picked over Rejected · Reason</th></tr><tr><td>T-001</td><td>CSS-only refinements over a motion dependency. The static single-file surface needs no library for this scope.</td></tr><tr><td>T-002</td><td>Popover entrance over a repeated page-load sequence. The model setting needs spatial context; routine values stay instant.</td></tr></table>
@@ -55,6 +55,6 @@
 <p>R-001 · <span class="blast-low">low</span>. Remove the motion token, state, and meter declarations from <code>index.html</code>.</p>
 
 <h2>Definition of done</h2>
-<ul><li>Pointer and keyboard states remain clear without relying on animation.</li><li>Reduced-motion mode removes spatial motion.</li><li>Desktop and narrow-mobile browser checks report no console errors.</li></ul>
+<ul><li>Pointer and keyboard states remain clear without relying on animation.</li><li>Reduced-motion mode removes spatial motion.</li><li>Desktop and <code>390px</code> mobile browser checks report no console errors.</li></ul>
 </body>
 </html>

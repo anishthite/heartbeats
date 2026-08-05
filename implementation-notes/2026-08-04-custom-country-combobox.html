@@ -1,0 +1,54 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<title>Custom Country Combobox</title>
+<meta name="task" content="Replace the operating-system country suggestion menu with an in-page country combobox.">
+<meta name="date-started" content="2026-08-04">
+<meta name="date-updated" content="2026-08-04">
+<meta name="status" content="ready-for-review">
+<meta name="blast-radius" content="low">
+<meta name="tags" content="heartbeats,settings,country,combobox,accessibility,static-html">
+<meta name="related" content="2026-08-04-location-aware-model-settings.html">
+<style>
+  body { font: 14px/1.45 -apple-system, system-ui, sans-serif; max-width: 880px; margin: 1.5rem auto; padding: 0 1rem; color: #111; } h1 { font-size: 20px; margin: 0 0 .25rem; } h2 { font-size: 15px; margin: 1.4rem 0 .4rem; border-bottom: 1px solid #ddd; padding-bottom: .2rem; }
+  table { border-collapse: collapse; width: 100%; margin: .4rem 0 .8rem; } th, td { border: 1px solid #ddd; padding: 4px 8px; text-align: left; vertical-align: top; } th { background: #f6f6f6; font-weight: 600; } code { font-family: ui-monospace, Menlo, monospace; background: #f1f1f1; padding: 1px 4px; border-radius: 3px; font-size: 12.5px; } ul, ol { margin: .3rem 0 .8rem 1.2rem; padding: 0; } li { margin: .15rem 0; } .blast-low { color: #2a7a2a; } .meta { color: #555; font-size: 12.5px; margin-bottom: .8rem; } .kv { display: grid; grid-template-columns: 140px 1fr; gap: 2px 14px; font-size: 13px; margin: .4rem 0 1rem; } .kv b { color: #444; font-weight: 600; }
+</style>
+</head>
+<body>
+<h1>Custom Country Combobox</h1>
+<p class="meta"><code>main</code> · worktree <code>/Users/anishthite/conductor/workspaces/heartbeats/madrid</code> · 2026-08-04 · status <b>ready-for-review</b> · blast <span class="blast-low">low</span></p>
+
+<h2>Summary</h2>
+<div class="kv">
+  <b>Goal</b><div>Render country suggestions inside the page instead of delegating them to macOS.</div>
+  <b>Surface</b><div><code>index.html</code> model-settings popover.</div>
+  <b>Data</b><div>Reuse the existing World Bank country list and country-code lookup.</div>
+  <b>Interaction</b><div>Filter while typing; open all options with the caret; choose with pointer, arrows, or Enter.</div>
+  <b>Accessibility</b><div>Keep a text input with combobox, listbox, option, active-descendant, and expanded-state semantics.</div>
+  <b>Mobile</b><div>Constrain the in-page list to the settings panel width and a scrollable height.</div>
+  <b>Open Qs</b><div>0.</div>
+</div>
+
+<h2>UI layout</h2>
+<ol><li><b>Input row</b>: retain direct country-code entry and add a caret button.</li><li><b>Options panel</b>: position a styled, scrollable <code>listbox</code> below the input.</li></ol>
+
+<h2>Files</h2>
+<table><tr><th>Path</th><th>Kind</th><th>Delta</th></tr><tr><td><code>index.html</code></td><td>touch</td><td>Replace <code>datalist</code> with an in-page filtered combobox.</td></tr><tr><td><code>implementation-notes/2026-08-04-custom-country-combobox.html</code></td><td>new</td><td>Record the presentation and accessibility decision.</td></tr><tr><td><code>implementation-notes/INDEX.html</code></td><td>touch</td><td>Index the task.</td></tr></table>
+
+<h2>Decisions</h2>
+<table><tr><th>ID</th><th>Choice · Rationale</th></tr><tr><td>D-001</td><td>Use a custom combobox over <code>datalist</code>. Browser-owned suggestion UI cannot match the page’s visual language.</td></tr><tr><td>D-002</td><td>Keep free text and two-letter codes. Preserve the existing country resolution and offline fallback behavior.</td></tr></table>
+
+<h2>Tradeoffs</h2>
+<table><tr><th>ID</th><th>Picked over Rejected · Reason</th></tr><tr><td>T-001</td><td>Native text input plus custom <code>listbox</code> over a button-only menu. Retain search and keyboard entry for a long country list.</td></tr></table>
+
+<h2>Assumptions</h2>
+<ul><li>A-001 · “Not the system dropdown” means a visually integrated in-page options panel while retaining native text-entry semantics.</li></ul>
+
+<h2>Reversibility</h2>
+<p>R-001 · <span class="blast-low">low</span>. Restore the <code>datalist</code> attribute and remove the combobox CSS and handlers.</p>
+
+<h2>Definition of done</h2>
+<ul><li>Opening the country control renders a page-styled country list.</li><li>Typing filters options; pointer and keyboard selection update the model.</li><li>Desktop and mobile checks show no overflow or console errors.</li></ul>
+</body>
+</html>

@@ -32,6 +32,9 @@
     --spent: rgba(157, 48, 53, 0.18);
     --wash: rgba(255, 250, 240, 0.66);
     --beat-duration: 0.833333s;
+    --ease-out: cubic-bezier(0.22, 1, 0.36, 1);
+    --ease-in-out: cubic-bezier(0.65, 0, 0.35, 1);
+    --ease-press: cubic-bezier(0.2, 0, 0, 1);
     font-family: et-book, Palatino, "Palatino Linotype", "Palatino LT STD", "Book Antiqua", Georgia, serif;
     color: var(--ink);
     background: var(--paper);
@@ -63,9 +66,9 @@
   }
 
   main {
-    width: min(1080px, calc(100% - 36px));
+    width: min(1160px, calc(100% - 48px));
     margin: 0 auto;
-    padding: 28px 0 54px;
+    padding: 26px 0 42px;
   }
 
   h1,
@@ -91,6 +94,7 @@
 
   button {
     font: inherit;
+    touch-action: manipulation;
   }
 
   .topbar {
@@ -98,14 +102,23 @@
     justify-content: space-between;
     gap: 18px;
     align-items: center;
-    padding-bottom: 18px;
+    border-bottom: 1px solid rgba(202, 191, 175, 0.72);
+    padding-bottom: 17px;
   }
 
   .brand {
+    max-width: 32ch;
     color: var(--ink);
     font-size: 22px;
-    line-height: 1;
+    line-height: 1.08;
     text-decoration: none;
+  }
+
+  @media (min-width: 761px) {
+    .brand {
+      max-width: none;
+      white-space: nowrap;
+    }
   }
 
   .top-actions {
@@ -125,6 +138,7 @@
   }
 
   .about-trigger {
+    display: inline-block;
     border: 0;
     border-radius: 0;
     padding: 0;
@@ -134,6 +148,8 @@
     text-decoration: underline;
     text-decoration-thickness: 1px;
     text-underline-offset: 4px;
+    transform-origin: center;
+    transition: color 140ms ease, text-decoration-thickness 140ms ease, transform 120ms var(--ease-press);
   }
 
   .about-popover {
@@ -146,8 +162,9 @@
     padding: 13px 15px 14px;
     color: var(--muted);
     background: rgba(248, 244, 234, 0.98);
-    box-shadow: 0 14px 26px rgba(29, 26, 22, 0.1);
+    box-shadow: 0 1px 2px rgba(29, 26, 22, 0.08), 0 14px 28px rgba(29, 26, 22, 0.1);
     text-align: left;
+    transform-origin: top right;
   }
 
   .about-popover::before {
@@ -161,6 +178,19 @@
 
   .about-popover[hidden] {
     display: none;
+  }
+
+  @media (prefers-reduced-motion: no-preference) {
+    .about-popover:not([hidden]) {
+      animation: popoverEnter 180ms var(--ease-out);
+    }
+  }
+
+  @keyframes popoverEnter {
+    from {
+      opacity: 0;
+      transform: translateY(-5px) scale(0.985);
+    }
   }
 
   .settings-title {
@@ -211,6 +241,121 @@
     background: transparent;
     font: inherit;
     font-size: 18px;
+    transition: border-color 160ms ease, color 160ms ease;
+  }
+
+  .setting-field input:not([type="range"]):focus {
+    border-bottom-color: var(--heart);
+  }
+
+  .country-combobox {
+    position: relative;
+    display: grid;
+    grid-template-columns: minmax(0, 1fr) auto;
+    align-items: center;
+    border-bottom: 1px solid var(--rule);
+  }
+
+  .country-combobox input:not([type="range"]) {
+    border-bottom: 0;
+    padding-right: 6px;
+  }
+
+  .country-combobox:focus-within {
+    border-bottom-color: var(--heart);
+  }
+
+  .country-menu-trigger {
+    display: grid;
+    width: 34px;
+    min-height: 38px;
+    place-items: center;
+    border: 0;
+    padding: 0;
+    color: var(--left);
+    background: transparent;
+    cursor: pointer;
+    transform-origin: center;
+    transition: color 140ms ease, transform 120ms var(--ease-press);
+  }
+
+  .country-menu-trigger svg {
+    width: 13px;
+    height: 8px;
+    fill: none;
+    stroke: currentColor;
+    stroke-linecap: square;
+    stroke-width: 1.5;
+    transition: transform 160ms ease;
+  }
+
+  .country-menu-trigger[aria-expanded="true"] svg {
+    transform: rotate(180deg);
+  }
+
+  .country-menu {
+    position: absolute;
+    top: calc(100% + 7px);
+    right: 0;
+    left: 0;
+    z-index: 30;
+    max-height: 210px;
+    overflow-y: auto;
+    border: 1px solid var(--rule);
+    padding: 4px;
+    color: var(--ink);
+    background: rgba(248, 244, 234, 0.99);
+    box-shadow: 0 12px 20px rgba(29, 26, 22, 0.12);
+    transform-origin: top center;
+  }
+
+  @media (prefers-reduced-motion: no-preference) {
+    .country-menu:not([hidden]) {
+      animation: countryMenuEnter 160ms var(--ease-out);
+    }
+  }
+
+  @keyframes countryMenuEnter {
+    from {
+      opacity: 0;
+      transform: translateY(-4px) scale(0.985);
+    }
+  }
+
+  .country-option,
+  .country-no-results {
+    display: block;
+    min-height: 34px;
+    padding: 7px 9px;
+    font-size: 16px;
+    line-height: 1.25;
+  }
+
+  .country-option {
+    position: relative;
+    cursor: pointer;
+    transition: color 120ms ease, background-color 120ms ease;
+  }
+
+  .country-option.is-active {
+    color: var(--ink);
+    background: rgba(157, 48, 53, 0.12);
+  }
+
+  .country-option[aria-selected="true"]::after {
+    content: "×";
+    position: absolute;
+    top: 50%;
+    right: 10px;
+    color: var(--heart);
+    font-size: 18px;
+    line-height: 1;
+    transform: translateY(-52%);
+  }
+
+  .country-no-results {
+    color: var(--muted);
+    cursor: default;
   }
 
   .setting-field-heading {
@@ -251,6 +396,12 @@
     border-radius: 50%;
     background: var(--heart);
     appearance: none;
+    transition: transform 120ms var(--ease-press), background-color 120ms ease;
+  }
+
+  .setting-field input[type="range"]:active::-webkit-slider-thumb {
+    transform: scale(0.96);
+    background: var(--heart-dark);
   }
 
   .setting-field input[type="range"]::-moz-range-track {
@@ -271,6 +422,12 @@
     border: 1px solid var(--heart-dark);
     border-radius: 50%;
     background: var(--heart);
+    transition: transform 120ms var(--ease-press), background-color 120ms ease;
+  }
+
+  .setting-field input[type="range"]:active::-moz-range-thumb {
+    transform: scale(0.96);
+    background: var(--heart-dark);
   }
 
   .range-scale {
@@ -287,6 +444,7 @@
   }
 
   .locale-button {
+    display: inline-block;
     border: 0;
     border-radius: 0;
     padding: 0;
@@ -297,6 +455,34 @@
     text-decoration: underline;
     text-decoration-thickness: 1px;
     text-underline-offset: 4px;
+    transform-origin: center;
+    transition: color 140ms ease, text-decoration-thickness 140ms ease, transform 120ms var(--ease-press);
+  }
+
+  .top-actions > a {
+    transition: color 140ms ease, text-decoration-thickness 140ms ease, transform 120ms var(--ease-press);
+  }
+
+  .about-trigger:active,
+  .locale-button:active,
+  .top-actions > a:active,
+  .country-menu-trigger:active {
+    transform: scale(0.96);
+  }
+
+  @media (hover: hover) and (pointer: fine) {
+    .about-trigger:hover,
+    .locale-button:hover,
+    .top-actions > a:hover,
+    .country-menu-trigger:hover {
+      color: var(--heart);
+      text-decoration-thickness: 2px;
+    }
+
+    .country-option:hover {
+      color: var(--ink);
+      background: rgba(157, 48, 53, 0.12);
+    }
   }
 
   .settings-status {
@@ -309,34 +495,49 @@
     position: relative;
     display: grid;
     align-items: center;
-    min-height: calc(100svh - 96px);
-    padding: 30px 0 28px;
+    min-height: calc(100svh - 87px);
+    padding: clamp(30px, 6vh, 70px) 0 28px;
   }
 
   .stage {
-    width: min(100%, 720px);
+    display: grid;
+    grid-template-areas:
+      "count visual"
+      "meter visual"
+      "readout visual";
+    grid-template-columns: minmax(0, 0.96fr) minmax(320px, 0.82fr);
+    column-gap: clamp(44px, 8vw, 110px);
+    row-gap: 24px;
+    align-items: center;
+    width: min(100%, 1000px);
     min-width: 0;
-    text-align: center;
+    margin: 0 auto;
+    text-align: left;
+  }
+
+  #countdownResult {
+    grid-area: count;
   }
 
   .counter {
-    display: inline-block;
+    display: block;
     max-width: 100%;
     color: var(--heart);
-    font-size: 76px;
-    line-height: 0.96;
+    font-size: clamp(68px, 7.2vw, 104px);
+    line-height: 0.87;
     font-weight: 400;
-    letter-spacing: 0;
+    letter-spacing: -0.045em;
     white-space: nowrap;
     font-variant-numeric: tabular-nums;
   }
 
   .counter-label {
     display: block;
-    margin-top: 10px;
+    margin-top: 14px;
     color: var(--muted);
-    font-size: 22px;
+    font-size: 20px;
     line-height: 1.25;
+    letter-spacing: 0.01em;
   }
 
   .bonus-time {
@@ -361,51 +562,59 @@
   }
 
   .visual-cluster {
+    grid-area: visual;
     display: block;
-    margin: 38px auto 24px;
+    margin: 0;
   }
 
   .heart-space {
     display: grid;
     place-items: center;
-    min-height: min(420px, 46vh);
+    min-height: min(460px, 58vh);
     margin: 0;
   }
 
   .heart {
     width: auto;
-    height: min(420px, 46vh);
+    height: min(460px, 58vh);
     max-height: none;
     overflow: visible;
     transform-origin: 50% 54%;
-    animation: heartBeat var(--beat-duration) ease-in-out infinite;
+    will-change: transform;
+    animation: heartBeat var(--beat-duration) linear infinite;
   }
 
   .pulse-ring {
     opacity: 0;
     transform-origin: 50% 54%;
-    animation: ringBeat var(--beat-duration) ease-out infinite;
+    stroke-width: 5;
+    vector-effect: non-scaling-stroke;
+    will-change: transform, opacity;
+    animation: ringBeat var(--beat-duration) linear infinite;
   }
 
   @keyframes heartBeat {
-    0%, 100% { transform: scale(1); }
-    10% { transform: scale(1.045); }
-    18% { transform: scale(0.985); }
-    28% { transform: scale(1.025); }
-    42% { transform: scale(1); }
+    0%, 100% { transform: scale(1); animation-timing-function: var(--ease-out); }
+    10% { transform: scale(1.045); animation-timing-function: var(--ease-in-out); }
+    18% { transform: scale(0.985); animation-timing-function: var(--ease-out); }
+    28% { transform: scale(1.025); animation-timing-function: var(--ease-in-out); }
+    42% { transform: scale(1); animation-timing-function: linear; }
   }
 
   @keyframes ringBeat {
-    0% { opacity: 0.22; transform: scale(0.86); stroke-width: 10; }
-    46% { opacity: 0; transform: scale(1.22); stroke-width: 1; }
-    100% { opacity: 0; transform: scale(1.22); stroke-width: 1; }
+    0% { opacity: 0.2; transform: scale(0.9); animation-timing-function: var(--ease-out); }
+    46% { opacity: 0; transform: scale(1.2); animation-timing-function: linear; }
+    100% { opacity: 0; transform: scale(1.2); }
   }
 
   .readout {
+    grid-area: readout;
     display: flex;
     flex-wrap: wrap;
-    justify-content: center;
+    justify-content: flex-start;
     gap: 12px 24px;
+    border-top: 1px solid rgba(202, 191, 175, 0.72);
+    padding-top: 17px;
     color: var(--muted);
     font-size: 17px;
     line-height: 1.3;
@@ -418,40 +627,28 @@
   }
 
   .meter {
-    position: absolute;
-    top: 50%;
-    right: clamp(0px, 2.5vw, 34px);
-    transform: translateY(-37%);
+    grid-area: meter;
     display: grid;
-    grid-template-rows: auto auto auto;
-    align-content: center;
-    justify-items: center;
+    grid-template-columns: minmax(120px, 1fr) auto;
+    align-items: center;
     gap: 12px;
-    min-height: 0;
+    width: 100%;
     color: var(--muted);
-  }
-
-  .meter::before {
-    content: "remaining";
-    color: var(--muted);
-    font-size: 12px;
-    letter-spacing: 0.12em;
-    text-transform: uppercase;
   }
 
   .meter-title,
   .meter-caption {
-    width: 100%;
-    font-size: 17px;
+    width: auto;
+    font-size: 16px;
     line-height: 1.2;
-    text-align: center;
+    text-align: right;
   }
 
   .life-bar {
     position: relative;
-    width: 40px;
-    height: min(330px, 38vh);
-    min-height: 230px;
+    width: 100%;
+    height: 12px;
+    min-height: 12px;
     border: 1px solid var(--rule);
     background:
       linear-gradient(to bottom, var(--spent), var(--spent)),
@@ -464,8 +661,8 @@
     position: absolute;
     inset: 0;
     background:
-      repeating-linear-gradient(to bottom, transparent 0, transparent 39px, rgba(29, 26, 22, 0.08) 40px),
-      linear-gradient(to right, transparent 0, rgba(255, 250, 240, 0.5) 50%, transparent 100%);
+      repeating-linear-gradient(to right, transparent 0, transparent 19.5%, rgba(29, 26, 22, 0.1) 20%),
+      linear-gradient(to bottom, transparent 0, rgba(255, 250, 240, 0.5) 50%, transparent 100%);
     pointer-events: none;
     z-index: 2;
   }
@@ -475,15 +672,18 @@
     right: 0;
     bottom: 0;
     left: 0;
-    height: var(--remaining-pct, 62%);
-    background: linear-gradient(to top, var(--heart-dark), var(--heart));
-    transition: height 180ms ease;
+    height: 100%;
+    background: linear-gradient(to right, var(--heart-dark), var(--heart));
+    transform: scaleX(var(--remaining-pct, 0.62));
+    transform-origin: right center;
+    transition: transform 180ms var(--ease-out);
+    will-change: transform;
   }
 
   .meter-caption b {
     display: block;
     color: var(--ink);
-    font-size: 22px;
+    font-size: 20px;
     font-weight: 400;
     font-variant-numeric: tabular-nums;
   }
@@ -491,8 +691,23 @@
   @media (prefers-reduced-motion: reduce) {
     html { scroll-behavior: auto; }
     .heart,
-    .pulse-ring {
+    .pulse-ring,
+    .about-popover,
+    .country-menu {
       animation: none;
+    }
+
+    .life-bar span {
+      transition: none;
+    }
+
+    .about-trigger:active,
+    .locale-button:active,
+    .top-actions > a:active,
+    .country-menu-trigger:active,
+    .setting-field input[type="range"]:active::-webkit-slider-thumb,
+    .setting-field input[type="range"]:active::-moz-range-thumb {
+      transform: none;
     }
   }
 
@@ -522,19 +737,31 @@
     .scene {
       display: block;
       min-height: 0;
-      padding: 34px 0 32px;
+      padding: 25px 0 30px;
     }
 
     .stage {
+      display: grid;
+      grid-template-areas:
+        "count"
+        "meter"
+        "visual"
+        "readout";
+      grid-template-columns: minmax(0, 1fr);
+      row-gap: 22px;
       width: 100%;
+      text-align: center;
     }
 
     .counter {
-      font-size: 48px;
+      font-size: clamp(40px, 11vw, 52px);
+      line-height: 0.91;
+      letter-spacing: -0.04em;
     }
 
     .counter-label {
-      font-size: 19px;
+      margin-top: 9px;
+      font-size: 18px;
     }
 
     .bonus-time b {
@@ -547,28 +774,23 @@
 
     .visual-cluster {
       display: block;
-      margin: 12px auto 20px;
+      margin: 0;
     }
 
     .heart-space {
-      min-height: 330px;
+      min-height: min(325px, 43svh);
     }
 
     .heart {
-      width: min(300px, 86%);
+      width: min(300px, 84vw);
       height: auto;
     }
 
     .meter {
-      position: static;
-      transform: none;
-      display: flex;
+      display: grid;
+      grid-template-columns: minmax(0, 1fr) auto;
       align-items: center;
-      justify-content: center;
-      gap: 16px;
-      min-height: 0;
-      width: 100%;
-      margin: 0 auto;
+      gap: 12px;
     }
 
     .meter::before {
@@ -581,8 +803,15 @@
     }
 
     .life-bar {
-      height: 230px;
-      min-height: 230px;
+      height: 12px;
+      min-height: 12px;
+    }
+
+    .readout {
+      justify-content: center;
+      border-top: 0;
+      padding-top: 0;
+      text-align: center;
     }
 
   }
@@ -609,25 +838,12 @@
       transform: none;
     }
 
-    .counter {
-      font-size: 40px;
-    }
-
-    .counter-label {
-      font-size: 18px;
-    }
-
     .bonus-time b {
       font-size: 36px;
     }
 
     .heart-space {
-      min-height: 300px;
-    }
-
-    .readout {
-      justify-content: flex-start;
-      text-align: left;
+      min-height: min(310px, 41svh);
     }
   }
 
@@ -661,7 +877,7 @@
     <a class="brand" href="#">you only have 3 billion heartbeats. use them well.</a>
     <div class="top-actions">
       <div class="about-popover-wrap" id="aboutPopoverWrap">
-        <button class="about-trigger" id="aboutTrigger" type="button" aria-expanded="false" aria-controls="aboutPopover">Model</button>
+        <button class="about-trigger" id="aboutTrigger" type="button" aria-expanded="false" aria-controls="aboutPopover" aria-haspopup="dialog">Model</button>
         <div class="about-popover" id="aboutPopover" role="dialog" aria-labelledby="settingsTitle" hidden>
           <h2 class="settings-title" id="settingsTitle">Model settings</h2>
           <p class="settings-intro"><b id="modelSummary">United States · 79.0 years life expectancy</b></p>
@@ -673,10 +889,15 @@
             </label>
             <label class="setting-field" for="locationInput">
               <span>Country or region</span>
-              <input id="locationInput" type="text" list="countryOptions" value="United States" autocomplete="country-name" aria-describedby="locationStatus">
+              <span class="country-combobox">
+                <input id="locationInput" type="text" value="United States" autocomplete="country-name" role="combobox" aria-autocomplete="list" aria-expanded="false" aria-controls="countryOptions" aria-describedby="locationStatus">
+                <button class="country-menu-trigger" id="countryMenuTrigger" type="button" aria-label="Show country options" aria-expanded="false" aria-controls="countryOptions">
+                  <svg viewBox="0 0 14 9" aria-hidden="true"><path d="m1 1 6 6 6-6"/></svg>
+                </button>
+                <span class="country-menu" id="countryOptions" role="listbox" aria-label="Countries" hidden></span>
+              </span>
             </label>
           </div>
-          <datalist id="countryOptions"></datalist>
           <div class="settings-actions"><button class="locale-button" id="useLocaleButton" type="button">Use browser locale</button></div>
           <p class="settings-status" id="locationStatus" role="status" aria-live="polite">Loading the latest country estimate…</p>
         </div>
@@ -781,6 +1002,7 @@
   const ageValue = document.getElementById("ageValue");
   const locationInput = document.getElementById("locationInput");
   const countryOptions = document.getElementById("countryOptions");
+  const countryMenuTrigger = document.getElementById("countryMenuTrigger");
   const useLocaleButton = document.getElementById("useLocaleButton");
   const locationStatus = document.getElementById("locationStatus");
   const modelSummary = document.getElementById("modelSummary");
@@ -815,6 +1037,10 @@
   const countriesByCode = new Map();
   const countriesByName = new Map();
   const lifeExpectanciesByCode = new Map();
+  let countryList = [];
+  let visibleCountries = [];
+  let countrySearchQuery = "";
+  let highlightedCountryIndex = -1;
   let lifeExpectancyDataPromise;
 
   function clamp(value, min, max) {
@@ -853,6 +1079,83 @@
     locationStatus.textContent = message;
   }
 
+  function updateCountryOptionState() {
+    const currentCountry = findCountry(locationInput.value);
+    const options = countryOptions.querySelectorAll("[role='option']");
+
+    options.forEach((option, index) => {
+      const isActive = index === highlightedCountryIndex;
+      option.classList.toggle("is-active", isActive);
+      option.setAttribute("aria-selected", String(option.dataset.countryCode === currentCountry?.code));
+    });
+
+    const activeOption = options[highlightedCountryIndex];
+    if (activeOption) {
+      locationInput.setAttribute("aria-activedescendant", activeOption.id);
+      activeOption.scrollIntoView({ block: "nearest" });
+    } else {
+      locationInput.removeAttribute("aria-activedescendant");
+    }
+  }
+
+  function renderCountryOptions(query = countrySearchQuery) {
+    countrySearchQuery = query;
+    const normalizedQuery = normalizeLocation(query);
+    visibleCountries = countryList.filter((country) => {
+      return !normalizedQuery
+        || normalizeLocation(country.name).includes(normalizedQuery)
+        || country.code.toLocaleLowerCase().includes(normalizedQuery);
+    });
+    highlightedCountryIndex = -1;
+
+    const options = document.createDocumentFragment();
+    if (!visibleCountries.length) {
+      const empty = document.createElement("span");
+      empty.className = "country-no-results";
+      empty.textContent = countryList.length ? "No matching countries" : "Loading country options…";
+      options.append(empty);
+    } else {
+      visibleCountries.forEach((country) => {
+        const option = document.createElement("span");
+        option.className = "country-option";
+        option.id = `country-option-${country.code}`;
+        option.dataset.countryCode = country.code;
+        option.setAttribute("role", "option");
+        option.textContent = country.name;
+        options.append(option);
+      });
+    }
+
+    countryOptions.replaceChildren(options);
+    updateCountryOptionState();
+  }
+
+  function setCountryMenuOpen(isOpen, query = countrySearchQuery) {
+    if (isOpen) renderCountryOptions(query);
+    countryOptions.hidden = !isOpen;
+    locationInput.setAttribute("aria-expanded", String(isOpen));
+    countryMenuTrigger.setAttribute("aria-expanded", String(isOpen));
+    if (!isOpen) {
+      highlightedCountryIndex = -1;
+      locationInput.removeAttribute("aria-activedescendant");
+    }
+  }
+
+  function moveCountryHighlight(direction) {
+    if (!visibleCountries.length) return;
+
+    highlightedCountryIndex = highlightedCountryIndex < 0
+      ? (direction > 0 ? 0 : visibleCountries.length - 1)
+      : (highlightedCountryIndex + direction + visibleCountries.length) % visibleCountries.length;
+    updateCountryOptionState();
+  }
+
+  function chooseCountry(country) {
+    locationInput.value = country.name;
+    setCountryMenuOpen(false);
+    applyCountry(country);
+  }
+
   function updateModelSummary(country) {
     modelSummary.textContent = `${country.name} · ${lifeYears.toFixed(1)} years life expectancy`;
   }
@@ -864,21 +1167,14 @@
 
       const payload = await response.json();
       const countries = payload?.[1]?.filter((country) => country.region?.id !== "NA") ?? [];
-      const options = document.createDocumentFragment();
-
-      countries
+      countryList = countries
         .map(registerCountry)
         .filter(Boolean)
-        .sort((a, b) => a.name.localeCompare(b.name))
-        .forEach((country) => {
-          const option = document.createElement("option");
-          option.value = country.name;
-          options.append(option);
-        });
+        .sort((a, b) => a.name.localeCompare(b.name));
 
-      countryOptions.replaceChildren(options);
+      if (!countryOptions.hidden) renderCountryOptions();
     } catch {
-      setLocationStatus("Country search is unavailable. Enter a two-letter country code.");
+      setLocationStatus("Country options are unavailable. Enter a two-letter country code.");
     }
   }
 
@@ -908,6 +1204,7 @@
   async function applyCountry(country) {
     const requestId = ++countryRequestId;
     locationInput.value = country.name;
+    updateCountryOptionState();
     setLocationStatus("Loading the latest country estimate…");
 
     try {
@@ -924,6 +1221,7 @@
       };
       registerCountry({ iso2Code: selectedCountry.code, name: selectedCountry.name });
       locationInput.value = selectedCountry.name;
+      updateCountryOptionState();
       updateModelSummary(selectedCountry);
       setLocationStatus("");
       resetModel();
@@ -988,7 +1286,7 @@
     firedCount.textContent = numberFormat.format(fired);
     totalCount.textContent = numberFormat.format(totalBeats);
     remainingPct.textContent = `${percentFormat.format(pct)}%`;
-    barFill.style.setProperty("--remaining-pct", `${pct}%`);
+    barFill.style.setProperty("--remaining-pct", `${pct / 100}`);
     lifeBar.setAttribute(
       "aria-label",
       isBonusTime
@@ -1001,6 +1299,7 @@
     window.clearTimeout(aboutCloseTimer);
     aboutPopover.hidden = !isOpen;
     aboutTrigger.setAttribute("aria-expanded", String(isOpen));
+    if (!isOpen) setCountryMenuOpen(false);
   }
 
   function closeAboutSoon() {
@@ -1085,10 +1384,48 @@
 
   ageInput.addEventListener("input", resetModel);
   locationInput.addEventListener("change", applyLocationInput);
+  locationInput.addEventListener("input", () => {
+    setCountryMenuOpen(true, locationInput.value);
+  });
   locationInput.addEventListener("keydown", (event) => {
-    if (event.key !== "Enter") return;
-    event.preventDefault();
-    applyLocationInput();
+    if (event.key === "ArrowDown" || event.key === "ArrowUp") {
+      event.preventDefault();
+      if (countryOptions.hidden) setCountryMenuOpen(true, "");
+      moveCountryHighlight(event.key === "ArrowDown" ? 1 : -1);
+      return;
+    }
+
+    if (event.key === "Enter") {
+      event.preventDefault();
+      const country = visibleCountries[highlightedCountryIndex];
+      if (!countryOptions.hidden && country) {
+        chooseCountry(country);
+      } else {
+        applyLocationInput();
+      }
+      return;
+    }
+
+    if (event.key === "Escape") setCountryMenuOpen(false);
+  });
+  locationInput.addEventListener("blur", () => {
+    window.setTimeout(() => {
+      if (!aboutWrap.contains(document.activeElement)) setCountryMenuOpen(false);
+    }, 0);
+  });
+  countryMenuTrigger.addEventListener("click", () => {
+    if (countryOptions.hidden) {
+      setCountryMenuOpen(true, "");
+      locationInput.focus();
+    } else {
+      setCountryMenuOpen(false);
+    }
+  });
+  countryOptions.addEventListener("mousedown", (event) => event.preventDefault());
+  countryOptions.addEventListener("click", (event) => {
+    const option = event.target.closest("[role='option']");
+    const country = option && countriesByCode.get(option.dataset.countryCode);
+    if (country) chooseCountry(country);
   });
   useLocaleButton.addEventListener("click", () => {
     const countryCode = getBrowserLocaleCountry();
