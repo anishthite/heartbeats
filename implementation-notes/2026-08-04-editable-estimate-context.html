@@ -1,0 +1,93 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<title>Spec — Editable Estimate Context</title>
+<meta name="task" content="Add editable age and location context before the remaining-heartbeats count.">
+<meta name="date-started" content="2026-08-04">
+<meta name="date-updated" content="2026-08-04">
+<meta name="status" content="ready-for-review">
+<meta name="blast-radius" content="low">
+<meta name="tags" content="heartbeats,age,location,settings,copy,static-html">
+<meta name="related" content="2026-08-04-location-aware-model-settings.html,2026-08-04-custom-country-combobox.html,2026-08-04-estimate-source-footer.html">
+<style>
+  body { font: 14px/1.45 -apple-system, system-ui, sans-serif; max-width: 880px; margin: 1.5rem auto; padding: 0 1rem; color: #111; }
+  h1 { font-size: 20px; margin: 0 0 .25rem; }
+  h2 { font-size: 15px; margin: 1.4rem 0 .4rem; border-bottom: 1px solid #ddd; padding-bottom: .2rem; }
+  table { border-collapse: collapse; width: 100%; margin: .4rem 0 .8rem; }
+  th, td { border: 1px solid #ddd; padding: 4px 8px; text-align: left; vertical-align: top; }
+  th { background: #f6f6f6; font-weight: 600; }
+  code { font-family: ui-monospace, Menlo, monospace; background: #f1f1f1; padding: 1px 4px; border-radius: 3px; font-size: 12.5px; }
+  ul, ol { margin: .3rem 0 .8rem 1.2rem; padding: 0; }
+  li { margin: .15rem 0; }
+  .blast-low { color: #2a7a2a; }
+  .meta { color: #555; font-size: 12.5px; margin-bottom: .8rem; }
+  .kv { display: grid; grid-template-columns: 140px 1fr; gap: 2px 14px; font-size: 13px; margin: .4rem 0 1rem; }
+  .kv b { color: #444; font-weight: 600; }
+</style>
+</head>
+<body>
+<h1>Editable Estimate Context</h1>
+<p class="meta"><code>flight-delay-trends</code> · worktree <code>/Users/anishthite/conductor/workspaces/heartbeats/madrid</code> · 2026-08-04 · status <b>ready-for-review</b> · blast <span class="blast-low">low</span></p>
+
+<h2>Summary</h2>
+<div class="kv">
+  <b>Goal</b><div>Explain the estimate with live, clickable age and location values above the count.</div>
+  <b>Source</b><div><code>ageInput</code> and <code>locationInput</code>.</div>
+  <b>Surface</b><div><code>#countdownResult</code> and the existing model popover.</div>
+  <b>Schema</b><div>None.</div>
+  <b>Mobile</b><div>Wrap the sentence and retain inline touch targets.</div>
+  <b>Open Qs</b><div>None.</div>
+</div>
+
+<h2>UI layout</h2>
+<ol>
+  <li><b>Estimate context</b>: place editable age and country values in the sentence directly above the remaining count.</li>
+  <li><b>Age trigger</b>: open the model popover and focus <code>ageInput</code>.</li>
+  <li><b>Location trigger</b>: open the model popover, select <code>locationInput</code>, and show the country menu.</li>
+</ol>
+
+<h2>Files</h2>
+<table>
+  <tr><th>Path</th><th>Kind</th><th>Delta</th></tr>
+  <tr><td><code>index.html</code></td><td>touch</td><td>Render and synchronize the editable estimate context with existing settings.</td></tr>
+  <tr><td><code>implementation-notes/INDEX.html</code></td><td>touch</td><td>Add this task row.</td></tr>
+  <tr><td><code>implementation-notes/2026-08-04-editable-estimate-context.html</code></td><td>new</td><td>Record copy and editor-routing decisions.</td></tr>
+</table>
+
+<h2>Decisions</h2>
+<table>
+  <tr><th>ID</th><th>Choice · Rationale</th></tr>
+  <tr><td>D-001</td><td>Use “Based on being [age] years old in [location], you have.” It states the model’s context before the result.</td></tr>
+  <tr><td>D-002</td><td>Route both inline values to the existing <code>Model</code> popover. Keep one source of truth for edits.</td></tr>
+  <tr><td>D-003</td><td>Use “If you are [age] years old and live in [location], you have.” Supersedes <code>D-001</code>; it is grammatical for age and location.</td></tr>
+  <tr><td>D-004</td><td>Add <code>the</code> for countries that require a definite article. Preserve grammar for the default United States selection.</td></tr>
+  <tr><td>D-005</td><td>Stop trigger-click propagation. The model popover’s document-level outside-click handler must not close the editor that opened it.</td></tr>
+  <tr><td>D-006</td><td>Keep the context sentence on one line above <code>1000px</code>. Avoid a one-word desktop wrap while preserving mobile wrapping.</td></tr>
+  <tr><td>D-007</td><td>Anchor the desktop hero near the top of the scene. Remove unnecessary vertical centering above the estimate.</td></tr>
+  <tr><td>D-008</td><td>Lift only the context sentence on desktop. Supersedes <code>D-007</code>; keep the counter and heart composition fixed.</td></tr>
+</table>
+
+<h2>Tradeoffs</h2>
+<table>
+  <tr><th>ID</th><th>Picked over Rejected · Reason</th></tr>
+  <tr><td>T-001</td><td>Link-like buttons over duplicate inline form controls. Preserve the compact readout and avoid two competing values.</td></tr>
+</table>
+
+<h2>Assumptions</h2>
+<ul>
+  <li>A-001 · Use country life expectancy as the location-specific part of the estimate; if wrong, expand the context sentence with a different model input.</li>
+</ul>
+
+<h2>Reversibility</h2>
+<p>R-001 · <span class="blast-low">low</span>. Remove the context paragraph, its rules, and editor-trigger listeners from <code>index.html</code>.</p>
+
+<h2>Definition of done</h2>
+<ul>
+  <li>Show age and location in a natural-sounding sentence before the count.</li>
+  <li>Update both values after their settings change.</li>
+  <li>Open and focus the relevant existing control from each inline value.</li>
+  <li>Verify the sentence and model popover at desktop and mobile widths.</li>
+</ul>
+</body>
+</html>

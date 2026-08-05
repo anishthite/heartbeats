@@ -1,0 +1,85 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<title>Spec — Estimate Source Footer</title>
+<meta name="task" content="Add a concise data-source and author footer to the heartbeat estimate.">
+<meta name="date-started" content="2026-08-04">
+<meta name="date-updated" content="2026-08-04">
+<meta name="status" content="ready-for-review">
+<meta name="blast-radius" content="low">
+<meta name="tags" content="heartbeats,footer,source,credit,static-html">
+<meta name="related" content="2026-08-04-location-aware-model-settings.html,2026-08-04-heartbeat-layout-reframe.html">
+<style>
+  body { font: 14px/1.45 -apple-system, system-ui, sans-serif; max-width: 880px; margin: 1.5rem auto; padding: 0 1rem; color: #111; }
+  h1 { font-size: 20px; margin: 0 0 .25rem; }
+  h2 { font-size: 15px; margin: 1.4rem 0 .4rem; border-bottom: 1px solid #ddd; padding-bottom: .2rem; }
+  table { border-collapse: collapse; width: 100%; margin: .4rem 0 .8rem; }
+  th, td { border: 1px solid #ddd; padding: 4px 8px; text-align: left; vertical-align: top; }
+  th { background: #f6f6f6; font-weight: 600; }
+  code { font-family: ui-monospace, Menlo, monospace; background: #f1f1f1; padding: 1px 4px; border-radius: 3px; font-size: 12.5px; }
+  ul, ol { margin: .3rem 0 .8rem 1.2rem; padding: 0; }
+  li { margin: .15rem 0; }
+  .blast-low { color: #2a7a2a; }
+  .meta { color: #555; font-size: 12.5px; margin-bottom: .8rem; }
+  .kv { display: grid; grid-template-columns: 140px 1fr; gap: 2px 14px; font-size: 13px; margin: .4rem 0 1rem; }
+  .kv b { color: #444; font-weight: 600; }
+</style>
+</head>
+<body>
+<h1>Estimate Source Footer</h1>
+<p class="meta"><code>flight-delay-trends</code> · worktree <code>/Users/anishthite/conductor/workspaces/heartbeats/madrid</code> · 2026-08-04 · status <b>ready-for-review</b> · blast <span class="blast-low">low</span></p>
+
+<h2>Summary</h2>
+<div class="kv">
+  <b>Goal</b><div>Credit the live life-expectancy source and author at the end of the page.</div>
+  <b>Source</b><div><code>WORLD_BANK_API</code> in <code>index.html</code>.</div>
+  <b>Surface</b><div>Page footer.</div>
+  <b>Schema</b><div>None.</div>
+  <b>Mobile</b><div>Wrap source and credit without horizontal overflow.</div>
+  <b>Open Qs</b><div>None.</div>
+</div>
+
+<h2>UI layout</h2>
+<ol>
+  <li><b>Footer</b>: center a small source sentence and author credit beneath the heartbeat scene.</li>
+</ol>
+
+<h2>Files</h2>
+<table>
+  <tr><th>Path</th><th>Kind</th><th>Delta</th></tr>
+  <tr><td><code>index.html</code></td><td>touch</td><td>Add a responsive source-and-credit footer with the author link.</td></tr>
+  <tr><td><code>implementation-notes/INDEX.html</code></td><td>touch</td><td>Add this task row.</td></tr>
+  <tr><td><code>implementation-notes/2026-08-04-estimate-source-footer.html</code></td><td>new</td><td>Record footer content and its low-risk revert path.</td></tr>
+</table>
+
+<h2>Decisions</h2>
+<table>
+  <tr><th>ID</th><th>Choice · Rationale</th></tr>
+  <tr><td>D-001</td><td>Name <code>World Bank</code> in the footer. <code>WORLD_BANK_API</code> supplies the selected location’s life expectancy.</td></tr>
+  <tr><td>D-002</td><td>Link <code>Anish</code> to <code>https://x.com/anishthite</code>. The project’s GitHub identity is <code>anishthite</code>.</td></tr>
+  <tr><td>D-003</td><td>Link the source phrase to <code>SP.DYN.LE00.IN</code>. It gives visitors the exact World Bank indicator behind the estimate.</td></tr>
+</table>
+
+<h2>Tradeoffs</h2>
+<table>
+  <tr><th>ID</th><th>Picked over Rejected · Reason</th></tr>
+  <tr><td>T-001</td><td>A muted text footer over a new prominent source panel. Preserve the heartbeat scene as the primary visual.</td></tr>
+</table>
+
+<h2>Assumptions</h2>
+<ul>
+  <li>A-001 · Treat <code>anishthite</code> as the requested Twitter/X account; if wrong, only the footer href needs replacement.</li>
+</ul>
+
+<h2>Reversibility</h2>
+<p>R-001 · <span class="blast-low">low</span>. Remove the <code>.site-footer</code> rules and footer element from <code>index.html</code>.</p>
+
+<h2>Definition of done</h2>
+<ul>
+  <li>Show the source note and author link after the heartbeat scene.</li>
+  <li>Keep the footer readable and unbroken at desktop and mobile widths.</li>
+  <li>Verify no browser-console errors.</li>
+</ul>
+</body>
+</html>

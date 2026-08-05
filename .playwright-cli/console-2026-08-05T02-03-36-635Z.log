@@ -1,0 +1,2 @@
+[   59464ms] [ERROR] Access to fetch at 'https://api.worldbank.org/v2/country/fr/indicator/SP.DYN.LE00.IN?format=json&mrnev=1' from origin 'http://127.0.0.1:4174' has been blocked by CORS policy: No 'Access-Control-Allow-Origin' header is present on the requested resource. @ http://127.0.0.1:4174/index.html:0
+[   59465ms] [ERROR] Failed to load resource: net::ERR_FAILED @ https://api.worldbank.org/v2/country/fr/indicator/SP.DYN.LE00.IN?format=json&mrnev=1:0

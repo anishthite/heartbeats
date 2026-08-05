@@ -1,0 +1,19 @@
+- main [ref=e2]:
+  - navigation "Primary" [ref=e3]:
+    - link "you only have 3 billion heartbeats. use them well." [ref=e4] [cursor=pointer]:
+      - /url: "#"
+    - button "Model" [ref=e7] [cursor=pointer]
+  - region "Heartbeats left visualization" [ref=e8]:
+    - generic [ref=e9]:
+      - generic [ref=e10]:
+        - status [ref=e11]: 2,007,022,147
+        - generic [ref=e12]: heartbeats left
+      - img "Pulsing heart An anatomical red heart with chambers and vessels, pulsing once every 0.833 seconds." [ref=e15]
+      - complementary "Remaining beats bar" [ref=e38]:
+        - img "67.089 percent of modeled heartbeats remain" [ref=e39]
+        - generic [ref=e41]:
+          - generic [ref=e42]: 67.089%
+          - text: left
+      - generic "Heartbeat totals" [ref=e43]:
+        - generic [ref=e44]: 984,576,902 fired
+        - generic [ref=e45]: 2,991,599,050 total

@@ -1,0 +1,37 @@
+- main [ref=e2]:
+  - navigation "Primary" [ref=e3]:
+    - link "you only have 3 billion heartbeats. use them well." [ref=e4] [cursor=pointer]:
+      - /url: "#"
+    - generic [ref=e6]:
+      - button "Model" [expanded] [active] [ref=e7] [cursor=pointer]
+      - dialog [ref=e47]:
+        - heading "Model settings" [level=2] [ref=e48]
+        - paragraph [ref=e49]: United States · 78.9 years life expectancy
+        - generic [ref=e50]:
+          - generic [ref=e51]:
+            - generic [ref=e52]:
+              - generic [ref=e53]: Age
+              - status [ref=e54]: "26"
+            - slider "Age" [ref=e55]: "26"
+            - generic [ref=e56]:
+              - generic [ref=e57]: "0"
+              - generic [ref=e58]: "120"
+          - generic [ref=e59]:
+            - generic [ref=e60]: Country or region
+            - combobox "Country or region" [ref=e61]: United States
+        - button "Use browser locale" [ref=e63] [cursor=pointer]
+  - region "Heartbeats left visualization" [ref=e8]:
+    - generic [ref=e9]:
+      - generic [ref=e10]:
+        - status [ref=e11]: 2,002,865,733
+        - generic [ref=e12]: heartbeats left
+      - img "Pulsing heart An anatomical red heart with chambers and vessels, pulsing once every 0.833 seconds." [ref=e15]
+      - complementary "Remaining beats bar" [ref=e38]:
+        - text: remaining
+        - img "67.043 percent of modeled heartbeats remain" [ref=e46]
+        - generic [ref=e41]:
+          - generic [ref=e42]: 67.043%
+          - text: left
+      - generic "Heartbeat totals" [ref=e43]:
+        - generic [ref=e44]: 984,577,035 fired
+        - generic [ref=e45]: 2,987,442,768 total

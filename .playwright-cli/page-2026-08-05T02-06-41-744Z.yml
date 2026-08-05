@@ -1,0 +1,46 @@
+- main [ref=e2]:
+  - navigation "Primary" [ref=e3]:
+    - link "Heartbeats left" [ref=e4] [cursor=pointer]:
+      - /url: "#"
+    - generic [ref=e5]:
+      - link "The estimate" [ref=e6] [cursor=pointer]:
+        - /url: research.html
+      - generic [ref=e7]:
+        - button "Model" [expanded] [ref=e8] [cursor=pointer]
+        - dialog [ref=e48]:
+          - heading "Model settings" [level=2] [ref=e49]
+          - paragraph [ref=e50]: France · 83.0 years · 2024Population average at birth, used only as a scale model.
+          - generic [ref=e51]:
+            - generic [ref=e52]:
+              - generic [ref=e53]:
+                - generic [ref=e54]: Age
+                - status [ref=e55]: "26"
+              - slider "Age" [ref=e56]: "26"
+              - generic [ref=e57]:
+                - generic [ref=e58]: "0"
+                - generic [ref=e59]: "100"
+            - generic [ref=e60]:
+              - generic [ref=e61]: Country or region
+              - combobox "Country or region" [active] [ref=e62]: France
+          - button "Use browser locale" [ref=e64] [cursor=pointer]
+          - status [ref=e65]: World Bank data for 2024.
+          - paragraph [ref=e66]:
+            - text: No precise location is requested.
+            - link "World Bank data" [ref=e67] [cursor=pointer]:
+              - /url: https://data.worldbank.org/indicator/SP.DYN.LE00.IN
+            - text: ; not a personal medical forecast.
+  - region "Heartbeats left visualization" [ref=e9]:
+    - generic [ref=e10]:
+      - generic [ref=e11]:
+        - status [ref=e12]: 2,157,756,622
+        - generic [ref=e13]: heartbeats left
+      - generic [ref=e14]:
+        - img "Pulsing heart An anatomical red heart with chambers and vessels, pulsing once every 0.833 seconds." [ref=e16]
+        - complementary "Remaining beats bar" [ref=e39]:
+          - img "68.667 percent of modeled heartbeats remain" [ref=e68]
+          - generic [ref=e42]:
+            - generic [ref=e43]: 68.667%
+            - text: left
+      - generic "Heartbeat totals" [ref=e44]:
+        - generic [ref=e45]: 984,576,903 fired
+        - generic [ref=e46]: 3,142,333,525 total

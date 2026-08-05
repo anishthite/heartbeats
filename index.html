@@ -4,19 +4,19 @@
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <link rel="icon" href="data:,">
-<title>you only have 3 billion heartbeats. use them well.</title>
-<meta name="description" content="you only have 3 billion heartbeats. use them well.">
+<title>You only have 3 billion heartbeats. Use them well.</title>
+<meta name="description" content="You only have 3 billion heartbeats. Use them well.">
 <meta property="og:type" content="website">
-<meta property="og:title" content="you only have 3 billion heartbeats. use them well.">
-<meta property="og:description" content="you only have 3 billion heartbeats. use them well.">
+<meta property="og:title" content="You only have 3 billion heartbeats. Use them well.">
+<meta property="og:description" content="You only have 3 billion heartbeats. Use them well.">
 <meta property="og:image" content="social-preview.png">
 <meta property="og:image:type" content="image/png">
 <meta property="og:image:width" content="1200">
 <meta property="og:image:height" content="630">
 <meta property="og:image:alt" content="An anatomical heart beside the words: you only have 3 billion heartbeats. use them well.">
 <meta name="twitter:card" content="summary_large_image">
-<meta name="twitter:title" content="you only have 3 billion heartbeats. use them well.">
-<meta name="twitter:description" content="you only have 3 billion heartbeats. use them well.">
+<meta name="twitter:title" content="You only have 3 billion heartbeats. Use them well.">
+<meta name="twitter:description" content="You only have 3 billion heartbeats. Use them well.">
 <meta name="twitter:image" content="social-preview.png">
 <meta name="twitter:image:alt" content="An anatomical heart beside the words: you only have 3 billion heartbeats. use them well.">
 <style>
@@ -103,14 +103,14 @@
     gap: 18px;
     align-items: center;
     border-bottom: 1px solid rgba(202, 191, 175, 0.72);
-    padding-bottom: 17px;
+    padding: 0 max(0px, calc((100% - 1000px) / 2)) 17px;
   }
 
   .brand {
     max-width: 32ch;
     color: var(--ink);
-    font-size: 22px;
-    line-height: 1.08;
+    font-size: 28px;
+    line-height: 1.04;
     text-decoration: none;
   }
 
@@ -121,53 +121,38 @@
     }
   }
 
-  .top-actions {
-    display: flex;
-    flex-wrap: wrap;
-    justify-content: flex-end;
-    gap: 14px 20px;
-    align-items: center;
-    color: var(--muted);
-    font-size: 17px;
-  }
-
-  .about-popover-wrap {
+  .context-control {
     position: relative;
-    display: inline-flex;
-    align-items: baseline;
-  }
-
-  .about-trigger {
     display: inline-block;
-    border: 0;
-    border-radius: 0;
-    padding: 0;
-    color: var(--left);
-    background: transparent;
-    cursor: pointer;
-    text-decoration: underline;
-    text-decoration-thickness: 1px;
-    text-underline-offset: 4px;
-    transform-origin: center;
-    transition: color 140ms ease, text-decoration-thickness 140ms ease, transform 120ms var(--ease-press);
   }
 
-  .about-popover {
+  .control-dropdown {
     position: absolute;
     top: calc(100% + 12px);
-    right: 0;
-    z-index: 20;
-    width: 330px;
+    z-index: 30;
+    box-sizing: border-box;
     border: 1px solid var(--rule);
     padding: 13px 15px 14px;
     color: var(--muted);
     background: rgba(248, 244, 234, 0.98);
     box-shadow: 0 1px 2px rgba(29, 26, 22, 0.08), 0 14px 28px rgba(29, 26, 22, 0.1);
     text-align: left;
+    white-space: normal;
+  }
+
+  .age-dropdown {
+    left: 0;
+    width: 264px;
+    transform-origin: top left;
+  }
+
+  .country-dropdown {
+    right: 0;
+    width: 330px;
     transform-origin: top right;
   }
 
-  .about-popover::before {
+  .control-dropdown::before {
     content: "";
     position: absolute;
     right: 0;
@@ -176,12 +161,12 @@
     height: 14px;
   }
 
-  .about-popover[hidden] {
+  .control-dropdown[hidden] {
     display: none;
   }
 
   @media (prefers-reduced-motion: no-preference) {
-    .about-popover:not([hidden]) {
+    .control-dropdown:not([hidden]) {
       animation: popoverEnter 180ms var(--ease-out);
     }
   }
@@ -193,34 +178,21 @@
     }
   }
 
-  .settings-title {
-    margin: 0;
-    color: var(--ink);
-    font-size: 20px;
-    font-weight: 400;
-    line-height: 1.1;
-  }
-
-  .settings-intro,
-  .settings-status {
+  .country-summary,
+  .country-status {
+    display: block;
     color: var(--muted);
     font-size: 16px;
     line-height: 1.4;
   }
 
-  .settings-intro {
-    margin-top: 7px;
+  .country-summary {
+    margin: 0 0 13px;
   }
 
-  .settings-intro b {
+  .country-summary b {
     color: var(--ink);
     font-weight: 400;
-  }
-
-  .settings-fields {
-    display: grid;
-    gap: 12px;
-    margin-top: 16px;
   }
 
   .setting-field {
@@ -439,7 +411,8 @@
     font-variant-numeric: tabular-nums;
   }
 
-  .settings-actions {
+  .country-actions {
+    display: block;
     margin-top: 13px;
   }
 
@@ -459,21 +432,15 @@
     transition: color 140ms ease, text-decoration-thickness 140ms ease, transform 120ms var(--ease-press);
   }
 
-  .top-actions > a {
-    transition: color 140ms ease, text-decoration-thickness 140ms ease, transform 120ms var(--ease-press);
-  }
-
-  .about-trigger:active,
+  .context-trigger:active,
   .locale-button:active,
-  .top-actions > a:active,
   .country-menu-trigger:active {
     transform: scale(0.96);
   }
 
   @media (hover: hover) and (pointer: fine) {
-    .about-trigger:hover,
+    .context-trigger:hover,
     .locale-button:hover,
-    .top-actions > a:hover,
     .country-menu-trigger:hover {
       color: var(--heart);
       text-decoration-thickness: 2px;
@@ -485,7 +452,7 @@
     }
   }
 
-  .settings-status {
+  .country-status {
     min-height: 22px;
     margin-top: 11px;
     font-size: 14px;
@@ -495,8 +462,33 @@
     position: relative;
     display: grid;
     align-items: center;
-    min-height: calc(100svh - 87px);
+    min-height: calc(100svh - 149px);
     padding: clamp(30px, 6vh, 70px) 0 28px;
+  }
+
+  .site-footer {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: center;
+    gap: 0 0.45em;
+    position: relative;
+    top: -8px;
+    padding: 0 0 20px;
+    color: var(--muted);
+    font-size: 14px;
+    line-height: 1.4;
+    text-align: center;
+  }
+
+  .site-footer a {
+    color: inherit;
+    text-underline-offset: 3px;
+  }
+
+  @media (hover: hover) and (pointer: fine) {
+    .site-footer a:hover {
+      color: var(--heart);
+    }
   }
 
   .stage {
@@ -515,8 +507,56 @@
     text-align: left;
   }
 
-  #countdownResult {
+  .result-cluster {
     grid-area: count;
+    min-width: 0;
+  }
+
+  .stage.is-bonus-time .estimate-context {
+    transform: none;
+  }
+
+  .estimate-context {
+    position: relative;
+    z-index: 10;
+    margin: 0 0 18px;
+    color: var(--muted);
+    font-size: 20px;
+    line-height: 1.25;
+  }
+
+  .context-trigger {
+    display: inline;
+    border: 0;
+    padding: 0;
+    color: var(--ink);
+    background: transparent;
+    font: inherit;
+    text-decoration: underline;
+    text-decoration-color: var(--rule);
+    text-decoration-thickness: 1px;
+    text-underline-offset: 4px;
+    cursor: pointer;
+    transition: color 140ms ease, text-decoration-color 140ms ease;
+  }
+
+  @media (min-width: 1000px) {
+    .estimate-context {
+      white-space: nowrap;
+    }
+  }
+
+  @media (min-width: 761px) {
+    .estimate-context {
+      transform: translateY(-64px);
+    }
+  }
+
+  @media (hover: hover) and (pointer: fine) {
+    .context-trigger:hover {
+      color: var(--heart);
+      text-decoration-color: currentColor;
+    }
   }
 
   .counter {
@@ -584,35 +624,22 @@
     animation: heartBeat var(--beat-duration) linear infinite;
   }
 
-  .pulse-ring {
-    opacity: 0;
-    transform-origin: 50% 54%;
-    stroke-width: 5;
-    vector-effect: non-scaling-stroke;
-    will-change: transform, opacity;
-    animation: ringBeat var(--beat-duration) linear infinite;
-  }
-
   @keyframes heartBeat {
-    0%, 100% { transform: scale(1); animation-timing-function: var(--ease-out); }
-    10% { transform: scale(1.045); animation-timing-function: var(--ease-in-out); }
-    18% { transform: scale(0.985); animation-timing-function: var(--ease-out); }
-    28% { transform: scale(1.025); animation-timing-function: var(--ease-in-out); }
-    42% { transform: scale(1); animation-timing-function: linear; }
-  }
-
-  @keyframes ringBeat {
-    0% { opacity: 0.2; transform: scale(0.9); animation-timing-function: var(--ease-out); }
-    46% { opacity: 0; transform: scale(1.2); animation-timing-function: linear; }
-    100% { opacity: 0; transform: scale(1.2); }
+    0% { transform: translateY(0) scale(1); animation-timing-function: var(--ease-out); }
+    10% { transform: translateY(2px) scaleX(0.986) scaleY(1.026); animation-timing-function: var(--ease-in-out); }
+    18% { transform: translateY(0) scaleX(0.998) scaleY(1.004); animation-timing-function: var(--ease-out); }
+    28% { transform: translateY(1px) scaleX(0.993) scaleY(1.014); animation-timing-function: var(--ease-out); }
+    48% { transform: translateY(0) scaleX(0.998) scaleY(1.004); animation-timing-function: linear; }
+    100% { transform: translateY(0) scale(1); }
   }
 
   .readout {
     grid-area: readout;
     display: flex;
     flex-wrap: wrap;
-    justify-content: flex-start;
-    gap: 12px 24px;
+    justify-content: space-between;
+    column-gap: 24px;
+    row-gap: 12px;
     border-top: 1px solid rgba(202, 191, 175, 0.72);
     padding-top: 17px;
     color: var(--muted);
@@ -691,8 +718,7 @@
   @media (prefers-reduced-motion: reduce) {
     html { scroll-behavior: auto; }
     .heart,
-    .pulse-ring,
-    .about-popover,
+    .control-dropdown,
     .country-menu {
       animation: none;
     }
@@ -701,9 +727,8 @@
       transition: none;
     }
 
-    .about-trigger:active,
+    .context-trigger:active,
     .locale-button:active,
-    .top-actions > a:active,
     .country-menu-trigger:active,
     .setting-field input[type="range"]:active::-webkit-slider-thumb,
     .setting-field input[type="range"]:active::-moz-range-thumb {
@@ -718,19 +743,18 @@
     }
 
     .topbar {
-      align-items: flex-start;
+      justify-content: center;
+      align-items: center;
+      padding-bottom: 15px;
     }
 
     .brand {
-      font-size: 20px;
+      max-width: 100%;
+      font-size: 22px;
+      text-align: center;
     }
 
-    .top-actions {
-      gap: 10px 14px;
-      font-size: 16px;
-    }
-
-    .about-popover {
+    .control-dropdown {
       width: min(330px, calc(100vw - 28px));
     }
 
@@ -748,7 +772,7 @@
         "visual"
         "readout";
       grid-template-columns: minmax(0, 1fr);
-      row-gap: 22px;
+      row-gap: 18px;
       width: 100%;
       text-align: center;
     }
@@ -760,7 +784,13 @@
     }
 
     .counter-label {
-      margin-top: 9px;
+      margin-top: 7px;
+      font-size: 18px;
+    }
+
+    .estimate-context {
+      max-width: 27ch;
+      margin: 0 auto 10px;
       font-size: 18px;
     }
 
@@ -825,19 +855,6 @@
       gap: 12px;
     }
 
-    .top-actions {
-      max-width: 158px;
-    }
-
-    .about-popover {
-      position: fixed;
-      top: 72px;
-      right: 12px;
-      left: 12px;
-      width: auto;
-      transform: none;
-    }
-
     .bonus-time b {
       font-size: 36px;
     }
@@ -855,17 +872,9 @@
     }
 
     .brand {
-      font-size: 19px;
+      font-size: 21px;
       flex: 1 1 100%;
       white-space: normal;
-    }
-
-    .top-actions {
-      max-width: none;
-      flex: 1 1 100%;
-      justify-content: flex-start;
-      flex-wrap: wrap;
-      gap: 8px;
     }
 
   }
@@ -874,46 +883,52 @@
 <body>
 <main>
   <nav class="topbar" aria-label="Primary">
-    <a class="brand" href="#">you only have 3 billion heartbeats. use them well.</a>
-    <div class="top-actions">
-      <div class="about-popover-wrap" id="aboutPopoverWrap">
-        <button class="about-trigger" id="aboutTrigger" type="button" aria-expanded="false" aria-controls="aboutPopover" aria-haspopup="dialog">Model</button>
-        <div class="about-popover" id="aboutPopover" role="dialog" aria-labelledby="settingsTitle" hidden>
-          <h2 class="settings-title" id="settingsTitle">Model settings</h2>
-          <p class="settings-intro"><b id="modelSummary">United States · 79.0 years life expectancy</b></p>
-          <div class="settings-fields">
-            <label class="setting-field" for="ageInput">
-              <span class="setting-field-heading"><span>Age</span><output class="age-value" id="ageValue" aria-hidden="true">26</output></span>
-              <input id="ageInput" type="range" min="0" max="120" step="1" value="26">
-              <span class="range-scale" aria-hidden="true"><span>0</span><span>120</span></span>
-            </label>
-            <label class="setting-field" for="locationInput">
-              <span>Country or region</span>
-              <span class="country-combobox">
-                <input id="locationInput" type="text" value="United States" autocomplete="country-name" role="combobox" aria-autocomplete="list" aria-expanded="false" aria-controls="countryOptions" aria-describedby="locationStatus">
-                <button class="country-menu-trigger" id="countryMenuTrigger" type="button" aria-label="Show country options" aria-expanded="false" aria-controls="countryOptions">
-                  <svg viewBox="0 0 14 9" aria-hidden="true"><path d="m1 1 6 6 6-6"/></svg>
-                </button>
-                <span class="country-menu" id="countryOptions" role="listbox" aria-label="Countries" hidden></span>
-              </span>
-            </label>
-          </div>
-          <div class="settings-actions"><button class="locale-button" id="useLocaleButton" type="button">Use browser locale</button></div>
-          <p class="settings-status" id="locationStatus" role="status" aria-live="polite">Loading the latest country estimate…</p>
-        </div>
-      </div>
-    </div>
+    <a class="brand" href="#">You only have 3 billion heartbeats.</a>
   </nav>
 
   <section class="scene" aria-label="Heartbeats left visualization">
     <div class="stage">
-      <div id="countdownResult">
-        <output class="counter" id="remainingCount" aria-live="polite">2,007,022,147</output>
-        <span class="counter-label">heartbeats left</span>
-      </div>
+      <div class="result-cluster">
+        <p class="estimate-context">
+          If you are
+          <span class="context-control" id="ageControl">
+            <button class="context-trigger" id="ageSummaryTrigger" type="button" aria-label="Edit age, currently 26" aria-expanded="false" aria-controls="ageDropdown" aria-haspopup="dialog"><span id="ageSummary">26</span> years old</button>
+            <span class="control-dropdown age-dropdown" id="ageDropdown" role="dialog" aria-label="Adjust age" hidden>
+              <label class="setting-field" for="ageInput">
+                <span class="setting-field-heading"><span>Age</span><output class="age-value" id="ageValue" aria-hidden="true">26</output></span>
+                <input id="ageInput" type="range" min="0" max="120" step="1" value="26">
+                <span class="range-scale" aria-hidden="true"><span>0</span><span>120</span></span>
+              </label>
+            </span>
+          </span>
+          and live in
+          <span class="context-control" id="countryControl">
+            <button class="context-trigger" id="locationSummaryTrigger" type="button" aria-label="Edit country or region, currently United States" aria-expanded="false" aria-controls="countryDropdown" aria-haspopup="dialog"><span id="locationSummary">the United States</span></button>
+            <span class="control-dropdown country-dropdown" id="countryDropdown" role="dialog" aria-label="Select country or region" hidden>
+              <span class="country-summary"><b id="modelSummary">United States · 79.0 years life expectancy</b></span>
+              <label class="setting-field" for="locationInput">
+                <span>Country or region</span>
+                <span class="country-combobox">
+                  <input id="locationInput" type="text" value="United States" autocomplete="country-name" role="combobox" aria-autocomplete="list" aria-expanded="false" aria-controls="countryOptions" aria-describedby="locationStatus">
+                  <button class="country-menu-trigger" id="countryMenuTrigger" type="button" aria-label="Show country options" aria-expanded="false" aria-controls="countryOptions">
+                    <svg viewBox="0 0 14 9" aria-hidden="true"><path d="m1 1 6 6 6-6"/></svg>
+                  </button>
+                  <span class="country-menu" id="countryOptions" role="listbox" aria-label="Countries" hidden></span>
+                </span>
+              </label>
+              <span class="country-actions"><button class="locale-button" id="useLocaleButton" type="button">Use browser locale</button></span>
+              <span class="country-status" id="locationStatus" role="status" aria-live="polite">Loading the latest country estimate…</span>
+            </span>
+          </span>, you have
+        </p>
+        <div id="countdownResult">
+          <output class="counter" id="remainingCount" aria-live="polite">2,007,022,147</output>
+          <span class="counter-label">heartbeats left</span>
+        </div>
       <div class="bonus-time" id="bonusTime" role="status" aria-live="polite" aria-atomic="true" hidden>
         <b>You’re in bonus time.</b>
         <span>You’ve outpaced this population-average model. It can’t predict an individual life.</span>
+      </div>
       </div>
 
       <div class="visual-cluster">
@@ -938,8 +953,6 @@
               <stop offset="100%" stop-color="#a43a42"/>
             </linearGradient>
           </defs>
-          <path class="pulse-ring" d="M186 298C159 288 130 259 113 218C99 184 97 151 108 122C118 100 134 90 151 94C164 97 173 108 179 122C187 103 202 90 220 88C246 85 268 105 277 133C288 166 280 204 261 237C243 268 214 291 193 299C190 300 188 300 186 298Z" fill="none" stroke="#9d3035"/>
-
           <g aria-hidden="true">
             <path d="M204 138C207 100 199 65 219 41C237 20 268 26 276 49C283 72 266 92 247 93" fill="none" stroke="#541a24" stroke-width="32" stroke-linecap="round" stroke-linejoin="round"/>
             <path d="M204 138C207 100 199 65 219 41C237 20 268 26 276 49C283 72 266 92 247 93" fill="none" stroke="url(#vesselGradient)" stroke-width="20" stroke-linecap="round" stroke-linejoin="round"/>
@@ -985,12 +998,27 @@
     </div>
 
   </section>
+
+  <footer class="site-footer">
+    <span>Based on <a href="https://data.worldbank.org/indicator/SP.DYN.LE00.IN" target="_blank" rel="noreferrer">World Bank life-expectancy data</a>.</span>
+    <span>Assumes 72 BPM.</span>
+    <span>Made by <a href="https://x.com/anishthite" target="_blank" rel="noreferrer">Anish</a>.</span>
+  </footer>
 </main>
 
 <script>
   const BPM = 72;
   const DEFAULT_LIFE_YEARS = 79;
   const DEFAULT_COUNTRY = { code: "US", name: "United States" };
+  const LOCATIONS_WITH_DEFINITE_ARTICLE = new Set([
+    "Bahamas",
+    "Gambia",
+    "Netherlands",
+    "Philippines",
+    "United Arab Emirates",
+    "United Kingdom",
+    "United States"
+  ]);
   const WORLD_BANK_API = "https://api.worldbank.org/v2";
   const DAYS_PER_YEAR = 365.2425;
   const BEAT_DURATION_MS = 60_000 / BPM;
@@ -1000,7 +1028,15 @@
   const AGE_MIN = Number(ageInput.min);
   const AGE_MAX = Number(ageInput.max);
   const ageValue = document.getElementById("ageValue");
+  const ageSummary = document.getElementById("ageSummary");
+  const ageSummaryTrigger = document.getElementById("ageSummaryTrigger");
+  const ageControl = document.getElementById("ageControl");
+  const ageDropdown = document.getElementById("ageDropdown");
   const locationInput = document.getElementById("locationInput");
+  const locationSummary = document.getElementById("locationSummary");
+  const locationSummaryTrigger = document.getElementById("locationSummaryTrigger");
+  const countryControl = document.getElementById("countryControl");
+  const countryDropdown = document.getElementById("countryDropdown");
   const countryOptions = document.getElementById("countryOptions");
   const countryMenuTrigger = document.getElementById("countryMenuTrigger");
   const useLocaleButton = document.getElementById("useLocaleButton");
@@ -1015,9 +1051,8 @@
   const lifeBar = document.getElementById("lifeBar");
   const barFill = document.getElementById("barFill");
   const heart = document.querySelector(".heart");
-  const aboutWrap = document.getElementById("aboutPopoverWrap");
-  const aboutTrigger = document.getElementById("aboutTrigger");
-  const aboutPopover = document.getElementById("aboutPopover");
+  const prefersReducedMotion = window.matchMedia("(prefers-reduced-motion: reduce)");
+  const stage = document.querySelector(".stage");
 
   const numberFormat = new Intl.NumberFormat("en-US", { maximumFractionDigits: 0 });
   const percentFormat = new Intl.NumberFormat("en-US", {
@@ -1029,9 +1064,9 @@
   let lifeYears = DEFAULT_LIFE_YEARS;
   let totalBeats = BEATS_PER_YEAR * lifeYears;
   let baseRemaining = 0;
-  let startTime = performance.now();
-  let aboutPinned = false;
-  let aboutCloseTimer = 0;
+  let beatsSinceReset = 0;
+  let modelRevision = 0;
+  let beatTimerId;
   let countryRequestId = 0;
 
   const countriesByCode = new Map();
@@ -1055,6 +1090,10 @@
 
   function normalizeLocation(value) {
     return value.trim().toLocaleLowerCase();
+  }
+
+  function formatLocationForSentence(location) {
+    return LOCATIONS_WITH_DEFINITE_ARTICLE.has(location) ? `the ${location}` : location;
   }
 
   function registerCountry(country) {
@@ -1152,7 +1191,7 @@
 
   function chooseCountry(country) {
     locationInput.value = country.name;
-    setCountryMenuOpen(false);
+    setCountryDropdownOpen(false);
     applyCountry(country);
   }
 
@@ -1264,16 +1303,25 @@
     ageInput.style.setProperty("--age-progress", `${ageProgress}%`);
     ageValue.value = age;
     ageValue.textContent = age;
-    totalBeats = BEATS_PER_YEAR * lifeYears;
-    baseRemaining = Math.max(0, (lifeYears - age) * BEATS_PER_YEAR);
-    startTime = performance.now();
+    ageSummary.textContent = age;
+    ageSummaryTrigger.setAttribute("aria-label", `Edit age, currently ${age}`);
+    locationSummary.textContent = formatLocationForSentence(locationInput.value);
+    locationSummaryTrigger.setAttribute("aria-label", `Edit country or region, currently ${locationInput.value}`);
+    totalBeats = Math.round(BEATS_PER_YEAR * lifeYears);
+    baseRemaining = Math.max(0, Math.round((lifeYears - age) * BEATS_PER_YEAR));
+    beatsSinceReset = 0;
+    modelRevision += 1;
+    window.clearTimeout(beatTimerId);
+    if (prefersReducedMotion.matches) {
+      scheduleReducedMotionBeat(modelRevision);
+    } else {
+      restartHeartbeatAnimation();
+    }
     render();
   }
 
   function render() {
-    const elapsedSeconds = (performance.now() - startTime) / 1000;
-    const spentSinceReset = elapsedSeconds * (BPM / 60);
-    const remaining = Math.max(0, baseRemaining - spentSinceReset);
+    const remaining = Math.max(0, baseRemaining - beatsSinceReset);
     const fired = Math.max(0, totalBeats - remaining);
     const pct = totalBeats ? clamp((remaining / totalBeats) * 100, 0, 100) : 0;
     const isBonusTime = age > lifeYears;
@@ -1283,6 +1331,7 @@
     remainingCount.textContent = remainingText;
     countdownResult.hidden = isBonusTime;
     bonusTime.hidden = !isBonusTime;
+    stage.classList.toggle("is-bonus-time", isBonusTime);
     firedCount.textContent = numberFormat.format(fired);
     totalCount.textContent = numberFormat.format(totalBeats);
     remainingPct.textContent = `${percentFormat.format(pct)}%`;
@@ -1295,27 +1344,48 @@
     );
   }
 
-  function setAboutOpen(isOpen) {
-    window.clearTimeout(aboutCloseTimer);
-    aboutPopover.hidden = !isOpen;
-    aboutTrigger.setAttribute("aria-expanded", String(isOpen));
-    if (!isOpen) setCountryMenuOpen(false);
+  function setAgeDropdownOpen(isOpen) {
+    ageDropdown.hidden = !isOpen;
+    ageSummaryTrigger.setAttribute("aria-expanded", String(isOpen));
+    if (isOpen) {
+      setCountryDropdownOpen(false);
+      fitDropdownWithinViewport(ageDropdown);
+    } else {
+      ageDropdown.style.translate = "";
+    }
   }
 
-  function closeAboutSoon() {
-    window.clearTimeout(aboutCloseTimer);
-    aboutCloseTimer = window.setTimeout(() => {
-      const cursorIsInside = aboutWrap.matches(":hover") || aboutPopover.matches(":hover");
-      const focusIsInside = aboutWrap.contains(document.activeElement);
-      if (!aboutPinned && !cursorIsInside && !focusIsInside) {
-        setAboutOpen(false);
-      }
-    }, 260);
+  function setCountryDropdownOpen(isOpen) {
+    countryDropdown.hidden = !isOpen;
+    locationSummaryTrigger.setAttribute("aria-expanded", String(isOpen));
+    if (isOpen) {
+      setAgeDropdownOpen(false);
+      fitDropdownWithinViewport(countryDropdown);
+    } else {
+      setCountryMenuOpen(false);
+      countryDropdown.style.translate = "";
+    }
+  }
+
+  function closeDropdowns() {
+    setAgeDropdownOpen(false);
+    setCountryDropdownOpen(false);
+  }
+
+  function fitDropdownWithinViewport(dropdown) {
+    dropdown.style.translate = "";
+    const bounds = dropdown.getBoundingClientRect();
+    const inset = 14;
+    const shift = bounds.left < inset
+      ? inset - bounds.left
+      : Math.min(0, window.innerWidth - inset - bounds.right);
+    dropdown.style.translate = `${shift}px 0`;
   }
 
   function vibrateWithBeat() {
     if (document.visibilityState !== "visible" || !document.hasFocus()) return;
-    if (window.matchMedia("(prefers-reduced-motion: reduce)").matches) return;
+    if (prefersReducedMotion.matches) return;
+    if ("userActivation" in navigator && !navigator.userActivation.hasBeenActive) return;
     if (typeof navigator.vibrate === "function") {
       try {
         navigator.vibrate([14, 136, 18]);
@@ -1325,64 +1395,88 @@
     }
   }
 
-  function scheduleBeatHaptic(event) {
-    if (event.animationName !== "heartBeat") return;
-    window.setTimeout(vibrateWithBeat, BEAT_DURATION_MS * 0.1);
+  function restartHeartbeatAnimation() {
+    heart.style.animation = "none";
+    void heart.offsetWidth;
+    heart.style.animation = "";
   }
 
-  aboutWrap.addEventListener("mouseenter", () => {
-    setAboutOpen(true);
-  });
+  function recordBeat() {
+    beatsSinceReset += 1;
+    render();
+    vibrateWithBeat();
+  }
 
-  aboutWrap.addEventListener("mouseleave", () => {
-    if (!aboutPinned) closeAboutSoon();
-  });
+  function scheduleReducedMotionBeat(revision) {
+    beatTimerId = window.setTimeout(function tick() {
+      if (revision !== modelRevision) return;
+      recordBeat();
+      beatTimerId = window.setTimeout(tick, BEAT_DURATION_MS);
+    }, BEAT_DURATION_MS);
+  }
 
-  aboutPopover.addEventListener("mouseenter", () => {
-    setAboutOpen(true);
-  });
-
-  aboutPopover.addEventListener("mouseleave", () => {
-    if (!aboutPinned) closeAboutSoon();
-  });
-
-  aboutTrigger.addEventListener("focus", () => {
-    setAboutOpen(true);
-  });
-
-  aboutWrap.addEventListener("focusout", () => {
-    setTimeout(() => {
-      if (!aboutPinned && !aboutWrap.contains(document.activeElement)) {
-        setAboutOpen(false);
-      }
-    }, 0);
-  });
-
-  aboutTrigger.addEventListener("click", (event) => {
-    event.stopPropagation();
-    aboutPinned = !aboutPinned;
-    setAboutOpen(aboutPinned);
-  });
+  // Decision: see implementation-notes/2026-08-04-synchronized-heartbeat-counters.html#D-001
+  function scheduleBeat(event) {
+    if (event.animationName !== "heartBeat") return;
+    const revision = modelRevision;
+    window.clearTimeout(beatTimerId);
+    beatTimerId = window.setTimeout(() => {
+      if (revision !== modelRevision) return;
+      recordBeat();
+    }, BEAT_DURATION_MS * 0.1);
+  }
 
   document.addEventListener("click", (event) => {
-    if (!aboutWrap.contains(event.target)) {
-      aboutPinned = false;
-      setAboutOpen(false);
-    }
+    if (!ageControl.contains(event.target) && !countryControl.contains(event.target)) closeDropdowns();
   });
 
   document.addEventListener("keydown", (event) => {
-    if (event.key === "Escape") {
-      aboutPinned = false;
-      setAboutOpen(false);
-      aboutTrigger.blur();
+    if (event.key !== "Escape") return;
+
+    if (!ageDropdown.hidden) {
+      setAgeDropdownOpen(false);
+      ageSummaryTrigger.focus();
+    } else if (!countryDropdown.hidden) {
+      setCountryDropdownOpen(false);
+      locationSummaryTrigger.focus();
     }
   });
 
-  heart.addEventListener("animationstart", scheduleBeatHaptic);
-  heart.addEventListener("animationiteration", scheduleBeatHaptic);
+  window.addEventListener("resize", () => {
+    if (!ageDropdown.hidden) fitDropdownWithinViewport(ageDropdown);
+    if (!countryDropdown.hidden) fitDropdownWithinViewport(countryDropdown);
+  });
+
+  heart.addEventListener("animationstart", scheduleBeat);
+  heart.addEventListener("animationiteration", scheduleBeat);
 
   ageInput.addEventListener("input", resetModel);
+  ageSummaryTrigger.addEventListener("click", (event) => {
+    event.stopPropagation();
+    const willOpen = ageDropdown.hidden;
+    setAgeDropdownOpen(willOpen);
+    if (!willOpen) return;
+    ageInput.focus();
+  });
+  locationSummaryTrigger.addEventListener("click", (event) => {
+    event.stopPropagation();
+    const willOpen = countryDropdown.hidden;
+    setCountryDropdownOpen(willOpen);
+    if (!willOpen) return;
+    locationInput.focus();
+    locationInput.select();
+    setCountryMenuOpen(true, "");
+  });
+  ageControl.addEventListener("focusout", () => {
+    window.setTimeout(() => {
+      if (!ageControl.contains(document.activeElement)) setAgeDropdownOpen(false);
+    }, 0);
+  });
+  countryControl.addEventListener("focusout", () => {
+    window.setTimeout(() => {
+      if (!countryControl.contains(document.activeElement)) setCountryDropdownOpen(false);
+    }, 0);
+  });
   locationInput.addEventListener("change", applyLocationInput);
   locationInput.addEventListener("input", () => {
     setCountryMenuOpen(true, locationInput.value);
@@ -1410,7 +1504,7 @@
   });
   locationInput.addEventListener("blur", () => {
     window.setTimeout(() => {
-      if (!aboutWrap.contains(document.activeElement)) setCountryMenuOpen(false);
+      if (!countryControl.contains(document.activeElement)) setCountryMenuOpen(false);
     }, 0);
   });
   countryMenuTrigger.addEventListener("click", () => {
@@ -1442,7 +1536,6 @@
   lifeExpectancyDataPromise = loadLifeExpectancyData();
   loadCountryOptions();
   applyCountry(DEFAULT_COUNTRY);
-  setInterval(render, 250);
 </script>
 </body>
 </html>
