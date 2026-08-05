@@ -1,0 +1,94 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<title>Spec - Heartbeat Research Page</title>
+<meta name="task" content="Add a source-backed side page that derives an average lifetime heartbeat estimate.">
+<meta name="date-started" content="2026-08-04">
+<meta name="date-updated" content="2026-08-04">
+<meta name="status" content="shipped">
+<meta name="blast-radius" content="low">
+<meta name="tags" content="heartbeats,research,explanation,citations,static-html">
+<meta name="related" content="2026-08-04-lifetime-heartbeats-visualization.html,2026-08-04-single-pulsing-heart.html">
+<style>
+  body { font: 14px/1.45 -apple-system, system-ui, sans-serif; max-width: 880px; margin: 1.5rem auto; padding: 0 1rem; color: #111; }
+  h1 { font-size: 20px; margin: 0 0 .25rem; } h2 { font-size: 15px; margin: 1.4rem 0 .4rem; border-bottom: 1px solid #ddd; padding-bottom: .2rem; }
+  table { border-collapse: collapse; width: 100%; margin: .4rem 0 .8rem; } th, td { border: 1px solid #ddd; padding: 4px 8px; text-align: left; vertical-align: top; } th { background: #f6f6f6; font-weight: 600; }
+  code { font-family: ui-monospace, Menlo, monospace; background: #f1f1f1; padding: 1px 4px; border-radius: 3px; font-size: 12.5px; } ul, ol { margin: .3rem 0 .8rem 1.2rem; padding: 0; } li { margin: .15rem 0; }
+  .blast-low { color: #2a7a2a; } .meta { color: #555; font-size: 12.5px; margin-bottom: .8rem; } .kv { display: grid; grid-template-columns: 140px 1fr; gap: 2px 14px; font-size: 13px; margin: .4rem 0 1rem; } .kv b { color: #444; font-weight: 600; }
+</style>
+</head>
+<body>
+<h1>Heartbeat Research Page</h1>
+<p class="meta"><code>flight-delay-trends</code> · worktree <code>/Users/anishthite/conductor/workspaces/heartbeats/madrid</code> · 2026-08-04 · status <b>shipped</b> · blast <span class="blast-low">low</span></p>
+
+<h2>Summary</h2>
+<div class="kv">
+  <b>Goal</b><div>Ship a linked research page that derives global and U.S. lifetime heartbeat ballparks.</div>
+  <b>Sources</b><div><code>WHO</code> global and <code>CDC</code> U.S. life expectancy; <code>Mayo Clinic</code> daily heartbeat estimate; <code>NHLBI</code> resting-rate context.</div>
+  <b>Surface</b><div><code>research.html</code> linked from <code>index.html</code>.</div>
+  <b>Model</b><div><code>100,000 × 365.2425 × 71.4 = 2,607,831,450</code>; <code>100,000 × 365.2425 × 79.0 = 2,885,415,750</code>.</div>
+  <b>Mobile</b><div>Collapse the calculation and controls to one column at <code>640px</code>.</div>
+  <b>Open Qs</b><div>0.</div>
+</div>
+
+<h2>Algorithm</h2>
+<ol>
+  <li>Multiply the editable daily count by <code>365.2425</code> and the editable lifespan.</li>
+  <li>Format the product as a whole-beat count and as billions to two decimals.</li>
+  <li>Expose the <code>60–100 bpm</code> resting range as context, not as a lifetime-rate range.</li>
+</ol>
+
+<h2>UI layout</h2>
+<ol>
+  <li><b>Answer</b>: state the rounded estimate and its scope before the derivation.</li>
+  <li><b>Working model</b>: place two editable assumptions beside live arithmetic and result.</li>
+  <li><b>Limits</b>: distinguish population estimates from individual medical predictions.</li>
+  <li><b>Sources and glossary</b>: place linked evidence and equation definitions near the calculation.</li>
+</ol>
+
+<h2>Files</h2>
+<table>
+  <tr><th>Path</th><th>Kind</th><th>Delta</th></tr>
+  <tr><td><code>research.html</code></td><td>new</td><td>Source-backed interactive derivation and cited caveats.</td></tr>
+  <tr><td><code>research.html</code></td><td>touch</td><td>Add a U.S. estimate derived from the same editable daily-beat input.</td></tr>
+  <tr><td><code>index.html</code></td><td>touch</td><td>Add a route to the research page.</td></tr>
+  <tr><td><code>implementation-notes/INDEX.html</code></td><td>touch</td><td>Index this task.</td></tr>
+  <tr><td><code>implementation-notes/2026-08-04-heartbeat-research-page.html</code></td><td>new</td><td>Record sources, scope, and reversibility.</td></tr>
+</table>
+
+<h2>Decisions</h2>
+<table>
+  <tr><th>ID</th><th>Choice · Rationale</th></tr>
+  <tr><td>D-001</td><td>Use <code>2.61 billion</code> as the headline. It follows the latest WHO global figure available in the sourced report and Mayo Clinic’s daily estimate.</td></tr>
+  <tr><td>D-002</td><td>Expose inputs as editable values. It shows the estimate is arithmetic, not a personal forecast.</td></tr>
+  <tr><td>D-003</td><td>Link a standalone <code>research.html</code> page. It satisfies “side page” without crowding the countdown.</td></tr>
+  <tr><td>D-004</td><td>Use <code>79.0 years</code> for the U.S. comparison. It is CDC’s latest final total-population life expectancy at birth for 2024.</td></tr>
+</table>
+
+<h2>Tradeoffs</h2>
+<table>
+  <tr><th>ID</th><th>Picked over Rejected · Reason</th></tr>
+  <tr><td>T-001</td><td><code>WHO 2021 global life expectancy</code> over the main page’s <code>79 years</code>. It answers a global-average question rather than preserving the app’s illustrative default.</td></tr>
+  <tr><td>T-002</td><td><code>100,000 beats/day</code> over the midpoint of a resting-rate range. The source directly describes an average daily total; resting rate excludes exercise and varies across life stages.</td></tr>
+  <tr><td>T-003</td><td>Reuse the editable daily-beat input for U.S. and global results over claiming a U.S.-specific heartbeat rate. The available source supports a general daily estimate, not a country-specific rate.</td></tr>
+</table>
+
+<h2>Assumptions</h2>
+<ul>
+  <li>A-001 · Interpret “average human” as a global population-level ballpark; if wrong, substitute a specified country or demographic.</li>
+  <li>A-002 · Treat <code>100,000 beats/day</code> as a rounded all-day average; if wrong, the headline moves with the daily input.</li>
+</ul>
+
+<h2>Reversibility</h2>
+<p>R-001 · <span class="blast-low">low</span>. Remove <code>research.html</code> and its navigation link to return to the original single page.</p>
+
+<h2>Definition of done</h2>
+<ul>
+  <li>Show sources, assumptions, live arithmetic, and a non-diagnostic scope note.</li>
+  <li>Verify the page at desktop and <code>390px</code> widths with no horizontal overflow.</li>
+  <li>Verify links, controls, JavaScript syntax, and <code>390px</code> horizontal overflow.</li>
+  <li>Show the U.S. calculation and CDC source beside the global estimate.</li>
+</ul>
+</body>
+</html>

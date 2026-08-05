@@ -1,0 +1,68 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="1200" height="630" viewBox="0 0 1200 630" role="img" aria-labelledby="title desc">
+  <title id="title">you only have 3 billion heartbeats. use them well.</title>
+  <desc id="desc">An editorial share card showing an anatomical heart beside the words: you only have 3 billion heartbeats. use them well.</desc>
+  <defs>
+    <pattern id="dots" width="38" height="38" patternUnits="userSpaceOnUse">
+      <circle cx="2" cy="2" r="1.15" fill="#1d1a16" opacity="0.08"/>
+    </pattern>
+    <radialGradient id="glow" cx="68%" cy="43%" r="55%">
+      <stop offset="0%" stop-color="#e5a29b" stop-opacity="0.36"/>
+      <stop offset="58%" stop-color="#e5a29b" stop-opacity="0.1"/>
+      <stop offset="100%" stop-color="#e5a29b" stop-opacity="0"/>
+    </radialGradient>
+    <radialGradient id="heartGradient" cx="39%" cy="29%" r="76%">
+      <stop offset="0%" stop-color="#eb978d"/>
+      <stop offset="39%" stop-color="#ad3d42"/>
+      <stop offset="78%" stop-color="#7a252d"/>
+      <stop offset="100%" stop-color="#521923"/>
+    </radialGradient>
+    <linearGradient id="vesselGradient" x1="0%" x2="100%" y1="10%" y2="100%">
+      <stop offset="0%" stop-color="#ec9d94"/>
+      <stop offset="49%" stop-color="#aa343b"/>
+      <stop offset="100%" stop-color="#63202a"/>
+    </linearGradient>
+    <linearGradient id="cavaGradient" x1="0%" x2="100%">
+      <stop offset="0%" stop-color="#571c28"/>
+      <stop offset="100%" stop-color="#a43a42"/>
+    </linearGradient>
+  </defs>
+
+  <rect width="1200" height="630" fill="#f8f4ea"/>
+  <rect width="1200" height="630" fill="url(#dots)"/>
+  <rect width="1200" height="630" fill="url(#glow)"/>
+  <g fill="#1d1a16" font-family="Georgia, 'Times New Roman', serif">
+    <text x="82" y="194" font-size="52">you only have</text>
+    <text x="72" y="291" font-size="90" fill="#9d3035" letter-spacing="-3">3 billion</text>
+    <text x="82" y="359" font-size="56">heartbeats.</text>
+    <text x="82" y="451" font-size="58" fill="#9d3035">use them well.</text>
+  </g>
+
+  <g transform="translate(680 63) scale(1.55)">
+    <ellipse cx="184" cy="307" rx="88" ry="15" fill="#5d1c24" opacity="0.2"/>
+    <path d="M186 298C159 288 130 259 113 218C99 184 97 151 108 122C118 100 134 90 151 94C164 97 173 108 179 122C187 103 202 90 220 88C246 85 268 105 277 133C288 166 280 204 261 237C243 268 214 291 193 299C190 300 188 300 186 298Z" fill="none" stroke="#9d3035" stroke-width="1.8" opacity="0.23" transform="scale(1.1) translate(-17 -15)"/>
+
+    <g>
+      <path d="M204 138C207 100 199 65 219 41C237 20 268 26 276 49C283 72 266 92 247 93" fill="none" stroke="#541a24" stroke-width="32" stroke-linecap="round" stroke-linejoin="round"/>
+      <path d="M204 138C207 100 199 65 219 41C237 20 268 26 276 49C283 72 266 92 247 93" fill="none" stroke="url(#vesselGradient)" stroke-width="20" stroke-linecap="round" stroke-linejoin="round"/>
+      <path d="M252 89C268 85 285 75 296 61" fill="none" stroke="#6f222c" stroke-width="13" stroke-linecap="round"/>
+      <path d="M251 88C267 83 283 74 294 61" fill="none" stroke="#c4524e" stroke-width="7" stroke-linecap="round"/>
+      <path d="M135 126C135 99 127 77 111 62" fill="none" stroke="#531b28" stroke-width="27" stroke-linecap="round"/>
+      <path d="M135 126C135 99 127 77 111 62" fill="none" stroke="url(#cavaGradient)" stroke-width="16" stroke-linecap="round"/>
+      <path d="M181 136C165 108 142 95 115 99" fill="none" stroke="#63202a" stroke-width="25" stroke-linecap="round"/>
+      <path d="M181 136C165 108 142 95 115 99" fill="none" stroke="#bd4a48" stroke-width="14" stroke-linecap="round"/>
+      <path d="M164 117C149 111 133 113 121 122" fill="none" stroke="#e58c84" stroke-width="4" stroke-linecap="round" opacity="0.65"/>
+    </g>
+
+    <path d="M186 298C159 288 130 259 113 218C99 184 97 151 108 122C118 100 134 90 151 94C164 97 173 108 179 122C187 103 202 90 220 88C246 85 268 105 277 133C288 166 280 204 261 237C243 268 214 291 193 299C190 300 188 300 186 298Z" fill="url(#heartGradient)"/>
+    <path d="M151 94C138 101 129 113 127 131C124 151 133 168 149 177C161 184 173 182 182 172C184 151 184 135 179 122C173 108 164 97 151 94Z" fill="#c95450" opacity="0.58"/>
+    <path d="M187 126C200 104 219 98 236 105C257 114 268 138 266 164C264 191 251 218 233 244C216 268 198 283 187 289C174 266 167 239 171 212C175 180 183 153 187 126Z" fill="#862a34" opacity="0.52"/>
+    <path d="M179 122C184 147 184 171 176 195C168 220 171 255 187 289" fill="none" stroke="#641f2a" stroke-width="9" stroke-linecap="round" opacity="0.72"/>
+    <path d="M151 120C138 131 135 150 143 165C151 180 163 190 174 200" fill="none" stroke="#f1aaa2" stroke-width="8" stroke-linecap="round" opacity="0.4"/>
+    <path d="M188 155C204 162 222 165 240 160C251 157 260 161 267 168" fill="none" stroke="#561b27" stroke-width="6" stroke-linecap="round" opacity="0.58"/>
+    <path d="M184 186C201 195 216 207 224 225C230 239 229 252 222 267" fill="none" stroke="#d96a62" stroke-width="5" stroke-linecap="round" opacity="0.62"/>
+    <path d="M175 201C158 205 145 218 139 235" fill="none" stroke="#5e1d28" stroke-width="5" stroke-linecap="round" opacity="0.57"/>
+    <path d="M143 188C156 200 164 212 167 228" fill="none" stroke="#e98b82" stroke-width="4" stroke-linecap="round" opacity="0.48"/>
+    <path d="M216 102C231 102 243 111 250 125" fill="none" stroke="#f0a095" stroke-width="5" stroke-linecap="round" opacity="0.42"/>
+    <ellipse cx="147" cy="117" rx="18" ry="12" fill="#f5b1a9" opacity="0.19" transform="rotate(-28 147 117)"/>
+  </g>
+</svg>

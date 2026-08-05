@@ -1,0 +1,101 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<title>Spec - Lifetime Heartbeats Visualization</title>
+<meta name="task" content="Create an AI-2040 themed visualization estimating lifetime human heartbeats.">
+<meta name="date-started" content="2026-08-04">
+<meta name="date-updated" content="2026-08-04">
+<meta name="status" content="shipped">
+<meta name="blast-radius" content="low">
+<meta name="tags" content="heartbeats,visualization,ai-2040,static-html">
+<meta name="related" content="">
+<style>
+  body { font: 14px/1.45 -apple-system, system-ui, sans-serif; max-width: 880px; margin: 1.5rem auto; padding: 0 1rem; color: #111; }
+  h1 { font-size: 20px; margin: 0 0 .25rem; }
+  h2 { font-size: 15px; margin: 1.4rem 0 .4rem; border-bottom: 1px solid #ddd; padding-bottom: .2rem; }
+  table { border-collapse: collapse; width: 100%; margin: .4rem 0 .8rem; }
+  th, td { border: 1px solid #ddd; padding: 4px 8px; text-align: left; vertical-align: top; }
+  th { background: #f6f6f6; font-weight: 600; }
+  code { font-family: ui-monospace, Menlo, monospace; background: #f1f1f1; padding: 1px 4px; border-radius: 3px; font-size: 12.5px; }
+  ul, ol { margin: .3rem 0 .8rem 1.2rem; padding: 0; }
+  li { margin: .15rem 0; }
+  .blast-low { color: #2a7a2a; }
+  .status-shipped { color: #2a7a2a; }
+  .meta { color: #555; font-size: 12.5px; margin-bottom: .8rem; }
+  .kv { display: grid; grid-template-columns: 140px 1fr; gap: 2px 14px; font-size: 13px; margin: .4rem 0 1rem; }
+  .kv b { color: #444; font-weight: 600; }
+</style>
+</head>
+<body>
+<h1>Lifetime Heartbeats Visualization</h1>
+<p class="meta">
+  <code>flight-delay-trends</code> - worktree <code>/Users/anishthite/conductor/workspaces/heartbeats/madrid</code> - 2026-08-04 - status <b class="status-shipped">shipped</b> - blast <span class="blast-low">low</span>
+</p>
+
+<h2>Summary</h2>
+<div class="kv">
+  <b>Goal</b><div>Ship a static interactive page that estimates lifetime heartbeats.</div>
+  <b>Source</b><div><code>AHA</code> resting heart-rate range; <code>CDC</code> U.S. life expectancy anchor.</div>
+  <b>Surface</b><div><code>index.html</code>.</div>
+  <b>Schema</b><div>None.</div>
+  <b>Mobile</b><div>Single-column layout below <code>720px</code>; controls remain native sliders.</div>
+  <b>Open Qs</b><div>0.</div>
+</div>
+
+<h2>Algorithm</h2>
+<ol>
+  <li>Read <code>bpm</code> and <code>years</code> from native range inputs.</li>
+  <li>Compute <code>beats = bpm * 60 * 24 * 365.2425 * years</code>.</li>
+  <li>Render the result as rounded billions and map it to a finite bead grid where each bead equals <code>50,000,000</code> beats.</li>
+</ol>
+
+<h2>UI layout</h2>
+<ol>
+  <li><b>Header</b>: state the approximate answer first and put the formula close to it.</li>
+  <li><b>Diagram</b>: use a bead field, annotation ticks, and a pulse trace to show scale without dashboard chrome.</li>
+  <li><b>Controls</b>: expose only average BPM and lifespan because both visibly change the estimate.</li>
+  <li><b>Notes</b>: cite heart-rate range and life-expectancy anchor near the assumptions they support.</li>
+</ol>
+
+<h2>Files</h2>
+<table>
+  <tr><th>Path</th><th>Kind</th><th>Delta</th></tr>
+  <tr><td><code>index.html</code></td><td>new</td><td>Standalone AI-2040 themed interactive heartbeat estimate.</td></tr>
+  <tr><td><code>implementation-notes/INDEX.html</code></td><td>new</td><td>Index row for this task.</td></tr>
+  <tr><td><code>implementation-notes/2026-08-04-lifetime-heartbeats-visualization.html</code></td><td>new</td><td>Decision log for the visualization.</td></tr>
+</table>
+
+<h2>Decisions</h2>
+<table>
+  <tr><th>ID</th><th>Choice - Rationale</th></tr>
+  <tr><td>D-001</td><td>Use a static <code>index.html</code>. The workspace has no existing app scaffold.</td></tr>
+  <tr><td>D-002</td><td>Default to <code>72 bpm</code> and <code>79 years</code>. These values make the common <code>~3B</code> estimate visible while controls show sensitivity.</td></tr>
+  <tr><td>D-003</td><td>Use an AI-2040 paper visual system. The user explicitly confirmed the theme.</td></tr>
+</table>
+
+<h2>Tradeoffs</h2>
+<table>
+  <tr><th>ID</th><th>Picked over Rejected - Reason</th></tr>
+  <tr><td>T-001</td><td>Bead grid over literal beat animation. Billions of events require compression to remain legible.</td></tr>
+  <tr><td>T-002</td><td>Vanilla HTML/CSS/JS over a framework. No build step is needed for one interactive explainer.</td></tr>
+</table>
+
+<h2>Assumptions</h2>
+<ul>
+  <li>A-001 - The user wants a shareable local visualization rather than only a text answer; if wrong, the static page is extra but harmless.</li>
+  <li>A-002 - Average lifetime BPM is modeled as a constant; if wrong, the controls still show the arithmetic range.</li>
+</ul>
+
+<h2>Reversibility</h2>
+<p>R-001 - <span class="blast-low">low</span>. Delete <code>index.html</code> and this task's implementation-note files.</p>
+
+<h2>Definition of done</h2>
+<ul>
+  <li><code>index.html</code> opens without a build step.</li>
+  <li>Slider changes update total beats, bead count, annotations, and formula readout.</li>
+  <li>Desktop and mobile browser checks show no overlap or horizontal page scroll.</li>
+  <li>Playwright smoke confirms slider updates and clean console.</li>
+</ul>
+</body>
+</html>

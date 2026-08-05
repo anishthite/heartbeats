@@ -1,0 +1,1111 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<link rel="icon" href="data:,">
+<title>you only have 3 billion heartbeats. use them well.</title>
+<meta name="description" content="you only have 3 billion heartbeats. use them well.">
+<meta property="og:type" content="website">
+<meta property="og:title" content="you only have 3 billion heartbeats. use them well.">
+<meta property="og:description" content="you only have 3 billion heartbeats. use them well.">
+<meta property="og:image" content="social-preview.png">
+<meta property="og:image:type" content="image/png">
+<meta property="og:image:width" content="1200">
+<meta property="og:image:height" content="630">
+<meta property="og:image:alt" content="An anatomical heart beside the words: you only have 3 billion heartbeats. use them well.">
+<meta name="twitter:card" content="summary_large_image">
+<meta name="twitter:title" content="you only have 3 billion heartbeats. use them well.">
+<meta name="twitter:description" content="you only have 3 billion heartbeats. use them well.">
+<meta name="twitter:image" content="social-preview.png">
+<meta name="twitter:image:alt" content="An anatomical heart beside the words: you only have 3 billion heartbeats. use them well.">
+<style>
+  :root {
+    --paper: #f8f4ea;
+    --ink: #1d1a16;
+    --muted: #6b6257;
+    --rule: #cabfaf;
+    --heart: #9d3035;
+    --heart-dark: #5d1c24;
+    --heart-light: #d8746d;
+    --left: #7a2931;
+    --spent: rgba(157, 48, 53, 0.18);
+    --wash: rgba(255, 250, 240, 0.66);
+    --beat-duration: 0.833333s;
+    font-family: et-book, Palatino, "Palatino Linotype", "Palatino LT STD", "Book Antiqua", Georgia, serif;
+    color: var(--ink);
+    background: var(--paper);
+  }
+
+  * { box-sizing: border-box; }
+
+  html {
+    scroll-behavior: smooth;
+  }
+
+  body {
+    min-width: 320px;
+    margin: 0;
+    font-family: et-book, Palatino, "Palatino Linotype", "Palatino LT STD", "Book Antiqua", Georgia, serif;
+    font-weight: 400;
+    background:
+      radial-gradient(circle at 26px 24px, rgba(29, 26, 22, 0.035), transparent 2px) 0 0 / 48px 48px,
+      var(--paper);
+  }
+
+  body::before {
+    content: "";
+    position: fixed;
+    inset: 0;
+    pointer-events: none;
+    background:
+      radial-gradient(circle at 50% 12%, rgba(157, 48, 53, 0.06), transparent 34%);
+  }
+
+  main {
+    width: min(1080px, calc(100% - 36px));
+    margin: 0 auto;
+    padding: 28px 0 54px;
+  }
+
+  h1,
+  h2,
+  p {
+    margin: 0;
+  }
+
+  a {
+    color: var(--left);
+    text-decoration: underline;
+    text-decoration-thickness: 1px;
+    text-underline-offset: 4px;
+  }
+
+  a:focus-visible,
+  button:focus-visible,
+  input:focus-visible,
+  select:focus-visible {
+    outline: 2px solid var(--left);
+    outline-offset: 4px;
+  }
+
+  button {
+    font: inherit;
+  }
+
+  .topbar {
+    display: flex;
+    justify-content: space-between;
+    gap: 18px;
+    align-items: center;
+    padding-bottom: 18px;
+  }
+
+  .brand {
+    color: var(--ink);
+    font-size: 22px;
+    line-height: 1;
+    text-decoration: none;
+  }
+
+  .top-actions {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: flex-end;
+    gap: 14px 20px;
+    align-items: center;
+    color: var(--muted);
+    font-size: 17px;
+  }
+
+  .about-popover-wrap {
+    position: relative;
+    display: inline-flex;
+    align-items: baseline;
+  }
+
+  .about-trigger {
+    border: 0;
+    border-radius: 0;
+    padding: 0;
+    color: var(--left);
+    background: transparent;
+    cursor: pointer;
+    text-decoration: underline;
+    text-decoration-thickness: 1px;
+    text-underline-offset: 4px;
+  }
+
+  .about-popover {
+    position: absolute;
+    top: calc(100% + 12px);
+    right: 0;
+    z-index: 20;
+    width: 330px;
+    border: 1px solid var(--rule);
+    padding: 13px 15px 14px;
+    color: var(--muted);
+    background: rgba(248, 244, 234, 0.98);
+    box-shadow: 0 14px 26px rgba(29, 26, 22, 0.1);
+    text-align: left;
+  }
+
+  .about-popover::before {
+    content: "";
+    position: absolute;
+    right: 0;
+    bottom: 100%;
+    width: 100%;
+    height: 14px;
+  }
+
+  .about-popover[hidden] {
+    display: none;
+  }
+
+  .settings-title {
+    margin: 0;
+    color: var(--ink);
+    font-size: 20px;
+    font-weight: 400;
+    line-height: 1.1;
+  }
+
+  .settings-intro,
+  .settings-status {
+    color: var(--muted);
+    font-size: 16px;
+    line-height: 1.4;
+  }
+
+  .settings-intro {
+    margin-top: 7px;
+  }
+
+  .settings-intro b {
+    color: var(--ink);
+    font-weight: 400;
+  }
+
+  .settings-fields {
+    display: grid;
+    gap: 12px;
+    margin-top: 16px;
+  }
+
+  .setting-field {
+    display: grid;
+    gap: 5px;
+    color: var(--muted);
+    font-size: 15px;
+  }
+
+  .setting-field input:not([type="range"]) {
+    width: 100%;
+    min-height: 38px;
+    border: 0;
+    border-bottom: 1px solid var(--rule);
+    border-radius: 0;
+    padding: 5px 0;
+    color: var(--ink);
+    background: transparent;
+    font: inherit;
+    font-size: 18px;
+  }
+
+  .setting-field-heading {
+    display: flex;
+    align-items: baseline;
+    justify-content: space-between;
+    gap: 12px;
+  }
+
+  .age-value {
+    color: var(--ink);
+    font-variant-numeric: tabular-nums;
+    font-size: 20px;
+  }
+
+  .setting-field input[type="range"] {
+    width: 100%;
+    height: 28px;
+    margin: 0;
+    padding: 0;
+    cursor: ew-resize;
+    appearance: none;
+    background: transparent;
+  }
+
+  .setting-field input[type="range"]::-webkit-slider-runnable-track {
+    width: 100%;
+    height: 4px;
+    border: 0;
+    background: linear-gradient(to right, var(--heart) 0 var(--age-progress), var(--rule) var(--age-progress) 100%);
+  }
+
+  .setting-field input[type="range"]::-webkit-slider-thumb {
+    width: 16px;
+    height: 16px;
+    margin-top: -6px;
+    border: 1px solid var(--heart-dark);
+    border-radius: 50%;
+    background: var(--heart);
+    appearance: none;
+  }
+
+  .setting-field input[type="range"]::-moz-range-track {
+    width: 100%;
+    height: 4px;
+    border: 0;
+    background: var(--rule);
+  }
+
+  .setting-field input[type="range"]::-moz-range-progress {
+    height: 4px;
+    background: var(--heart);
+  }
+
+  .setting-field input[type="range"]::-moz-range-thumb {
+    width: 14px;
+    height: 14px;
+    border: 1px solid var(--heart-dark);
+    border-radius: 50%;
+    background: var(--heart);
+  }
+
+  .range-scale {
+    display: flex;
+    justify-content: space-between;
+    margin-top: -4px;
+    color: var(--muted);
+    font-size: 13px;
+    font-variant-numeric: tabular-nums;
+  }
+
+  .settings-actions {
+    margin-top: 13px;
+  }
+
+  .locale-button {
+    border: 0;
+    border-radius: 0;
+    padding: 0;
+    color: var(--left);
+    background: transparent;
+    cursor: pointer;
+    font: inherit;
+    text-decoration: underline;
+    text-decoration-thickness: 1px;
+    text-underline-offset: 4px;
+  }
+
+  .settings-status {
+    min-height: 22px;
+    margin-top: 11px;
+    font-size: 14px;
+  }
+
+  .scene {
+    position: relative;
+    display: grid;
+    align-items: center;
+    min-height: calc(100svh - 96px);
+    padding: 30px 0 28px;
+  }
+
+  .stage {
+    width: min(100%, 720px);
+    min-width: 0;
+    text-align: center;
+  }
+
+  .counter {
+    display: inline-block;
+    max-width: 100%;
+    color: var(--heart);
+    font-size: 76px;
+    line-height: 0.96;
+    font-weight: 400;
+    letter-spacing: 0;
+    white-space: nowrap;
+    font-variant-numeric: tabular-nums;
+  }
+
+  .counter-label {
+    display: block;
+    margin-top: 10px;
+    color: var(--muted);
+    font-size: 22px;
+    line-height: 1.25;
+  }
+
+  .bonus-time {
+    max-width: 500px;
+    margin: 0 auto;
+  }
+
+  .bonus-time b {
+    display: block;
+    color: var(--heart);
+    font-size: 52px;
+    font-weight: 400;
+    line-height: 0.98;
+  }
+
+  .bonus-time span {
+    display: block;
+    margin-top: 12px;
+    color: var(--muted);
+    font-size: 19px;
+    line-height: 1.35;
+  }
+
+  .visual-cluster {
+    display: block;
+    margin: 38px auto 24px;
+  }
+
+  .heart-space {
+    display: grid;
+    place-items: center;
+    min-height: min(420px, 46vh);
+    margin: 0;
+  }
+
+  .heart {
+    width: auto;
+    height: min(420px, 46vh);
+    max-height: none;
+    overflow: visible;
+    transform-origin: 50% 54%;
+    animation: heartBeat var(--beat-duration) ease-in-out infinite;
+  }
+
+  .pulse-ring {
+    opacity: 0;
+    transform-origin: 50% 54%;
+    animation: ringBeat var(--beat-duration) ease-out infinite;
+  }
+
+  @keyframes heartBeat {
+    0%, 100% { transform: scale(1); }
+    10% { transform: scale(1.045); }
+    18% { transform: scale(0.985); }
+    28% { transform: scale(1.025); }
+    42% { transform: scale(1); }
+  }
+
+  @keyframes ringBeat {
+    0% { opacity: 0.22; transform: scale(0.86); stroke-width: 10; }
+    46% { opacity: 0; transform: scale(1.22); stroke-width: 1; }
+    100% { opacity: 0; transform: scale(1.22); stroke-width: 1; }
+  }
+
+  .readout {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: center;
+    gap: 12px 24px;
+    color: var(--muted);
+    font-size: 17px;
+    line-height: 1.3;
+  }
+
+  .readout b {
+    color: var(--ink);
+    font-weight: 400;
+    font-variant-numeric: tabular-nums;
+  }
+
+  .meter {
+    position: absolute;
+    top: 50%;
+    right: clamp(0px, 2.5vw, 34px);
+    transform: translateY(-37%);
+    display: grid;
+    grid-template-rows: auto auto auto;
+    align-content: center;
+    justify-items: center;
+    gap: 12px;
+    min-height: 0;
+    color: var(--muted);
+  }
+
+  .meter::before {
+    content: "remaining";
+    color: var(--muted);
+    font-size: 12px;
+    letter-spacing: 0.12em;
+    text-transform: uppercase;
+  }
+
+  .meter-title,
+  .meter-caption {
+    width: 100%;
+    font-size: 17px;
+    line-height: 1.2;
+    text-align: center;
+  }
+
+  .life-bar {
+    position: relative;
+    width: 40px;
+    height: min(330px, 38vh);
+    min-height: 230px;
+    border: 1px solid var(--rule);
+    background:
+      linear-gradient(to bottom, var(--spent), var(--spent)),
+      var(--wash);
+    overflow: hidden;
+  }
+
+  .life-bar::before {
+    content: "";
+    position: absolute;
+    inset: 0;
+    background:
+      repeating-linear-gradient(to bottom, transparent 0, transparent 39px, rgba(29, 26, 22, 0.08) 40px),
+      linear-gradient(to right, transparent 0, rgba(255, 250, 240, 0.5) 50%, transparent 100%);
+    pointer-events: none;
+    z-index: 2;
+  }
+
+  .life-bar span {
+    position: absolute;
+    right: 0;
+    bottom: 0;
+    left: 0;
+    height: var(--remaining-pct, 62%);
+    background: linear-gradient(to top, var(--heart-dark), var(--heart));
+    transition: height 180ms ease;
+  }
+
+  .meter-caption b {
+    display: block;
+    color: var(--ink);
+    font-size: 22px;
+    font-weight: 400;
+    font-variant-numeric: tabular-nums;
+  }
+
+  @media (prefers-reduced-motion: reduce) {
+    html { scroll-behavior: auto; }
+    .heart,
+    .pulse-ring {
+      animation: none;
+    }
+  }
+
+  @media (max-width: 760px) {
+    main {
+      width: min(100% - 28px, 640px);
+      padding-top: 22px;
+    }
+
+    .topbar {
+      align-items: flex-start;
+    }
+
+    .brand {
+      font-size: 20px;
+    }
+
+    .top-actions {
+      gap: 10px 14px;
+      font-size: 16px;
+    }
+
+    .about-popover {
+      width: min(330px, calc(100vw - 28px));
+    }
+
+    .scene {
+      display: block;
+      min-height: 0;
+      padding: 34px 0 32px;
+    }
+
+    .stage {
+      width: 100%;
+    }
+
+    .counter {
+      font-size: 48px;
+    }
+
+    .counter-label {
+      font-size: 19px;
+    }
+
+    .bonus-time b {
+      font-size: 40px;
+    }
+
+    .bonus-time span {
+      font-size: 18px;
+    }
+
+    .visual-cluster {
+      display: block;
+      margin: 12px auto 20px;
+    }
+
+    .heart-space {
+      min-height: 330px;
+    }
+
+    .heart {
+      width: min(300px, 86%);
+      height: auto;
+    }
+
+    .meter {
+      position: static;
+      transform: none;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      gap: 16px;
+      min-height: 0;
+      width: 100%;
+      margin: 0 auto;
+    }
+
+    .meter::before {
+      display: none;
+    }
+
+    .meter-caption {
+      width: auto;
+      text-align: left;
+    }
+
+    .life-bar {
+      height: 230px;
+      min-height: 230px;
+    }
+
+  }
+
+  @media (max-width: 430px) {
+    main {
+      width: min(100% - 24px, 390px);
+    }
+
+    .topbar {
+      gap: 12px;
+    }
+
+    .top-actions {
+      max-width: 158px;
+    }
+
+    .about-popover {
+      position: fixed;
+      top: 72px;
+      right: 12px;
+      left: 12px;
+      width: auto;
+      transform: none;
+    }
+
+    .counter {
+      font-size: 40px;
+    }
+
+    .counter-label {
+      font-size: 18px;
+    }
+
+    .bonus-time b {
+      font-size: 36px;
+    }
+
+    .heart-space {
+      min-height: 300px;
+    }
+
+    .readout {
+      justify-content: flex-start;
+      text-align: left;
+    }
+  }
+
+  @media (max-width: 360px) {
+    .topbar {
+      gap: 8px;
+      align-items: center;
+      flex-wrap: wrap;
+    }
+
+    .brand {
+      font-size: 19px;
+      flex: 1 1 100%;
+      white-space: normal;
+    }
+
+    .top-actions {
+      max-width: none;
+      flex: 1 1 100%;
+      justify-content: flex-start;
+      flex-wrap: wrap;
+      gap: 8px;
+    }
+
+  }
+</style>
+</head>
+<body>
+<main>
+  <nav class="topbar" aria-label="Primary">
+    <a class="brand" href="#">you only have 3 billion heartbeats. use them well.</a>
+    <div class="top-actions">
+      <div class="about-popover-wrap" id="aboutPopoverWrap">
+        <button class="about-trigger" id="aboutTrigger" type="button" aria-expanded="false" aria-controls="aboutPopover">Model</button>
+        <div class="about-popover" id="aboutPopover" role="dialog" aria-labelledby="settingsTitle" hidden>
+          <h2 class="settings-title" id="settingsTitle">Model settings</h2>
+          <p class="settings-intro"><b id="modelSummary">United States · 79.0 years life expectancy</b></p>
+          <div class="settings-fields">
+            <label class="setting-field" for="ageInput">
+              <span class="setting-field-heading"><span>Age</span><output class="age-value" id="ageValue" aria-hidden="true">26</output></span>
+              <input id="ageInput" type="range" min="0" max="120" step="1" value="26">
+              <span class="range-scale" aria-hidden="true"><span>0</span><span>120</span></span>
+            </label>
+            <label class="setting-field" for="locationInput">
+              <span>Country or region</span>
+              <input id="locationInput" type="text" list="countryOptions" value="United States" autocomplete="country-name" aria-describedby="locationStatus">
+            </label>
+          </div>
+          <datalist id="countryOptions"></datalist>
+          <div class="settings-actions"><button class="locale-button" id="useLocaleButton" type="button">Use browser locale</button></div>
+          <p class="settings-status" id="locationStatus" role="status" aria-live="polite">Loading the latest country estimate…</p>
+        </div>
+      </div>
+    </div>
+  </nav>
+
+  <section class="scene" aria-label="Heartbeats left visualization">
+    <div class="stage">
+      <div id="countdownResult">
+        <output class="counter" id="remainingCount" aria-live="polite">2,007,022,147</output>
+        <span class="counter-label">heartbeats left</span>
+      </div>
+      <div class="bonus-time" id="bonusTime" role="status" aria-live="polite" aria-atomic="true" hidden>
+        <b>You’re in bonus time.</b>
+        <span>You’ve outpaced this population-average model. It can’t predict an individual life.</span>
+      </div>
+
+      <div class="visual-cluster">
+        <div class="heart-space">
+          <svg class="heart" viewBox="80 10 240 310" role="img" aria-labelledby="heartTitle heartDesc">
+          <title id="heartTitle">Pulsing heart</title>
+          <desc id="heartDesc">An anatomical red heart with chambers and vessels, pulsing once every 0.833 seconds.</desc>
+          <defs>
+            <radialGradient id="heartGradient" cx="39%" cy="29%" r="76%">
+              <stop offset="0%" stop-color="#eb978d"/>
+              <stop offset="39%" stop-color="#ad3d42"/>
+              <stop offset="78%" stop-color="#7a252d"/>
+              <stop offset="100%" stop-color="#521923"/>
+            </radialGradient>
+            <linearGradient id="vesselGradient" x1="0%" x2="100%" y1="10%" y2="100%">
+              <stop offset="0%" stop-color="#ec9d94"/>
+              <stop offset="49%" stop-color="#aa343b"/>
+              <stop offset="100%" stop-color="#63202a"/>
+            </linearGradient>
+            <linearGradient id="cavaGradient" x1="0%" x2="100%">
+              <stop offset="0%" stop-color="#571c28"/>
+              <stop offset="100%" stop-color="#a43a42"/>
+            </linearGradient>
+          </defs>
+          <path class="pulse-ring" d="M186 298C159 288 130 259 113 218C99 184 97 151 108 122C118 100 134 90 151 94C164 97 173 108 179 122C187 103 202 90 220 88C246 85 268 105 277 133C288 166 280 204 261 237C243 268 214 291 193 299C190 300 188 300 186 298Z" fill="none" stroke="#9d3035"/>
+
+          <g aria-hidden="true">
+            <path d="M204 138C207 100 199 65 219 41C237 20 268 26 276 49C283 72 266 92 247 93" fill="none" stroke="#541a24" stroke-width="32" stroke-linecap="round" stroke-linejoin="round"/>
+            <path d="M204 138C207 100 199 65 219 41C237 20 268 26 276 49C283 72 266 92 247 93" fill="none" stroke="url(#vesselGradient)" stroke-width="20" stroke-linecap="round" stroke-linejoin="round"/>
+            <path d="M252 89C268 85 285 75 296 61" fill="none" stroke="#6f222c" stroke-width="13" stroke-linecap="round"/>
+            <path d="M251 88C267 83 283 74 294 61" fill="none" stroke="#c4524e" stroke-width="7" stroke-linecap="round"/>
+            <path d="M135 126C135 99 127 77 111 62" fill="none" stroke="#531b28" stroke-width="27" stroke-linecap="round"/>
+            <path d="M135 126C135 99 127 77 111 62" fill="none" stroke="url(#cavaGradient)" stroke-width="16" stroke-linecap="round"/>
+            <path d="M181 136C165 108 142 95 115 99" fill="none" stroke="#63202a" stroke-width="25" stroke-linecap="round"/>
+            <path d="M181 136C165 108 142 95 115 99" fill="none" stroke="#bd4a48" stroke-width="14" stroke-linecap="round"/>
+            <path d="M164 117C149 111 133 113 121 122" fill="none" stroke="#e58c84" stroke-width="4" stroke-linecap="round" opacity="0.65"/>
+          </g>
+
+          <path d="M186 298C159 288 130 259 113 218C99 184 97 151 108 122C118 100 134 90 151 94C164 97 173 108 179 122C187 103 202 90 220 88C246 85 268 105 277 133C288 166 280 204 261 237C243 268 214 291 193 299C190 300 188 300 186 298Z" fill="url(#heartGradient)"/>
+          <path d="M151 94C138 101 129 113 127 131C124 151 133 168 149 177C161 184 173 182 182 172C184 151 184 135 179 122C173 108 164 97 151 94Z" fill="#c95450" opacity="0.58"/>
+          <path d="M187 126C200 104 219 98 236 105C257 114 268 138 266 164C264 191 251 218 233 244C216 268 198 283 187 289C174 266 167 239 171 212C175 180 183 153 187 126Z" fill="#862a34" opacity="0.52"/>
+          <path d="M179 122C184 147 184 171 176 195C168 220 171 255 187 289" fill="none" stroke="#641f2a" stroke-width="9" stroke-linecap="round" opacity="0.72"/>
+          <path d="M151 120C138 131 135 150 143 165C151 180 163 190 174 200" fill="none" stroke="#f1aaa2" stroke-width="8" stroke-linecap="round" opacity="0.4"/>
+          <path d="M188 155C204 162 222 165 240 160C251 157 260 161 267 168" fill="none" stroke="#561b27" stroke-width="6" stroke-linecap="round" opacity="0.58"/>
+          <path d="M184 186C201 195 216 207 224 225C230 239 229 252 222 267" fill="none" stroke="#d96a62" stroke-width="5" stroke-linecap="round" opacity="0.62"/>
+          <path d="M175 201C158 205 145 218 139 235" fill="none" stroke="#5e1d28" stroke-width="5" stroke-linecap="round" opacity="0.57"/>
+          <path d="M143 188C156 200 164 212 167 228" fill="none" stroke="#e98b82" stroke-width="4" stroke-linecap="round" opacity="0.48"/>
+          <path d="M216 102C231 102 243 111 250 125" fill="none" stroke="#f0a095" stroke-width="5" stroke-linecap="round" opacity="0.42"/>
+          <ellipse cx="147" cy="117" rx="18" ry="12" fill="#f5b1a9" opacity="0.19" transform="rotate(-28 147 117)"/>
+          </svg>
+        </div>
+
+      </div>
+
+      <aside class="meter" aria-label="Remaining beats bar">
+        <div class="life-bar" id="lifeBar" role="img" aria-label="62 percent of modeled heartbeats remain">
+          <span id="barFill"></span>
+        </div>
+        <div class="meter-caption">
+          <b id="remainingPct">62.000%</b>
+          left
+        </div>
+      </aside>
+
+      <div class="readout" aria-label="Heartbeat totals">
+        <span><b id="firedCount">1,136,098,368</b> fired</span>
+        <span><b id="totalCount">2,991,725,702</b> total</span>
+      </div>
+    </div>
+
+  </section>
+</main>
+
+<script>
+  const BPM = 72;
+  const DEFAULT_LIFE_YEARS = 79;
+  const DEFAULT_COUNTRY = { code: "US", name: "United States" };
+  const WORLD_BANK_API = "https://api.worldbank.org/v2";
+  const DAYS_PER_YEAR = 365.2425;
+  const BEAT_DURATION_MS = 60_000 / BPM;
+  const BEATS_PER_YEAR = BPM * 60 * 24 * DAYS_PER_YEAR;
+
+  const ageInput = document.getElementById("ageInput");
+  const AGE_MIN = Number(ageInput.min);
+  const AGE_MAX = Number(ageInput.max);
+  const ageValue = document.getElementById("ageValue");
+  const locationInput = document.getElementById("locationInput");
+  const countryOptions = document.getElementById("countryOptions");
+  const useLocaleButton = document.getElementById("useLocaleButton");
+  const locationStatus = document.getElementById("locationStatus");
+  const modelSummary = document.getElementById("modelSummary");
+  const remainingCount = document.getElementById("remainingCount");
+  const countdownResult = document.getElementById("countdownResult");
+  const bonusTime = document.getElementById("bonusTime");
+  const firedCount = document.getElementById("firedCount");
+  const totalCount = document.getElementById("totalCount");
+  const remainingPct = document.getElementById("remainingPct");
+  const lifeBar = document.getElementById("lifeBar");
+  const barFill = document.getElementById("barFill");
+  const heart = document.querySelector(".heart");
+  const aboutWrap = document.getElementById("aboutPopoverWrap");
+  const aboutTrigger = document.getElementById("aboutTrigger");
+  const aboutPopover = document.getElementById("aboutPopover");
+
+  const numberFormat = new Intl.NumberFormat("en-US", { maximumFractionDigits: 0 });
+  const percentFormat = new Intl.NumberFormat("en-US", {
+    minimumFractionDigits: 3,
+    maximumFractionDigits: 3
+  });
+
+  let age = Number(ageInput.value);
+  let lifeYears = DEFAULT_LIFE_YEARS;
+  let totalBeats = BEATS_PER_YEAR * lifeYears;
+  let baseRemaining = 0;
+  let startTime = performance.now();
+  let aboutPinned = false;
+  let aboutCloseTimer = 0;
+  let countryRequestId = 0;
+
+  const countriesByCode = new Map();
+  const countriesByName = new Map();
+  const lifeExpectanciesByCode = new Map();
+  let lifeExpectancyDataPromise;
+
+  function clamp(value, min, max) {
+    return Math.min(max, Math.max(min, value));
+  }
+
+  function normalizeAge(value) {
+    const parsed = Number(value);
+    if (!Number.isFinite(parsed)) return AGE_MIN;
+    return clamp(parsed, AGE_MIN, AGE_MAX);
+  }
+
+  function normalizeLocation(value) {
+    return value.trim().toLocaleLowerCase();
+  }
+
+  function registerCountry(country) {
+    if (!country?.iso2Code || !country?.name) return null;
+
+    const record = {
+      code: country.iso2Code.toUpperCase(),
+      name: country.name
+    };
+    countriesByCode.set(record.code, record);
+    countriesByName.set(normalizeLocation(record.name), record);
+    return record;
+  }
+
+  function findCountry(value) {
+    const text = value.trim();
+    return countriesByCode.get(text.toUpperCase()) ?? countriesByName.get(normalizeLocation(text)) ?? null;
+  }
+
+  function setLocationStatus(message) {
+    locationStatus.hidden = !message;
+    locationStatus.textContent = message;
+  }
+
+  function updateModelSummary(country) {
+    modelSummary.textContent = `${country.name} · ${lifeYears.toFixed(1)} years life expectancy`;
+  }
+
+  async function loadCountryOptions() {
+    try {
+      const response = await fetch(`${WORLD_BANK_API}/country?format=json&per_page=400`);
+      if (!response.ok) throw new Error("Country list unavailable");
+
+      const payload = await response.json();
+      const countries = payload?.[1]?.filter((country) => country.region?.id !== "NA") ?? [];
+      const options = document.createDocumentFragment();
+
+      countries
+        .map(registerCountry)
+        .filter(Boolean)
+        .sort((a, b) => a.name.localeCompare(b.name))
+        .forEach((country) => {
+          const option = document.createElement("option");
+          option.value = country.name;
+          options.append(option);
+        });
+
+      countryOptions.replaceChildren(options);
+    } catch {
+      setLocationStatus("Country search is unavailable. Enter a two-letter country code.");
+    }
+  }
+
+  async function loadLifeExpectancyData() {
+    try {
+      const response = await fetch(`${WORLD_BANK_API}/country/all/indicator/SP.DYN.LE00.IN?format=json&mrnev=1&per_page=400`);
+      if (!response.ok) throw new Error("Life expectancy data unavailable");
+
+      const payload = await response.json();
+      const observations = payload?.[1] ?? [];
+
+      observations.forEach((observation) => {
+        const countryCode = observation.country?.id?.toUpperCase();
+        if (!countryCode || !Number.isFinite(observation.value)) return;
+
+        lifeExpectanciesByCode.set(countryCode, {
+          value: observation.value,
+          year: observation.date,
+          countryName: observation.country.value
+        });
+      });
+    } catch {
+      // Keep the fixed default model available when the public dataset is unreachable.
+    }
+  }
+
+  async function applyCountry(country) {
+    const requestId = ++countryRequestId;
+    locationInput.value = country.name;
+    setLocationStatus("Loading the latest country estimate…");
+
+    try {
+      await lifeExpectancyDataPromise;
+      const observation = lifeExpectanciesByCode.get(country.code);
+      if (!observation) throw new Error("Life expectancy unavailable");
+      if (requestId !== countryRequestId) return;
+
+      lifeYears = observation.value;
+      totalBeats = BEATS_PER_YEAR * lifeYears;
+      const selectedCountry = {
+        code: country.code,
+        name: observation.countryName || country.name
+      };
+      registerCountry({ iso2Code: selectedCountry.code, name: selectedCountry.name });
+      locationInput.value = selectedCountry.name;
+      updateModelSummary(selectedCountry);
+      setLocationStatus("");
+      resetModel();
+    } catch {
+      if (requestId !== countryRequestId) return;
+      setLocationStatus(`Couldn’t update country data. Still using ${modelSummary.textContent}.`);
+    }
+  }
+
+  function applyLocationInput() {
+    const country = findCountry(locationInput.value);
+    if (!country) {
+      setLocationStatus("Choose a country from the list or enter its two-letter country code.");
+      return;
+    }
+
+    applyCountry(country);
+  }
+
+  function getBrowserLocaleCountry() {
+    const locales = [navigator.language, ...(navigator.languages ?? [])].filter(Boolean);
+
+    for (const locale of locales) {
+      try {
+        const region = new Intl.Locale(locale).region;
+        if (region?.length === 2) return region.toUpperCase();
+      } catch {
+        const region = locale.match(/-([A-Za-z]{2})(?:-|$)/)?.[1];
+        if (region) return region.toUpperCase();
+      }
+    }
+
+    return null;
+  }
+
+  function resetModel() {
+    age = normalizeAge(ageInput.value);
+    ageInput.value = age;
+    const ageProgress = ((age - AGE_MIN) / (AGE_MAX - AGE_MIN)) * 100;
+    ageInput.style.setProperty("--age-progress", `${ageProgress}%`);
+    ageValue.value = age;
+    ageValue.textContent = age;
+    totalBeats = BEATS_PER_YEAR * lifeYears;
+    baseRemaining = Math.max(0, (lifeYears - age) * BEATS_PER_YEAR);
+    startTime = performance.now();
+    render();
+  }
+
+  function render() {
+    const elapsedSeconds = (performance.now() - startTime) / 1000;
+    const spentSinceReset = elapsedSeconds * (BPM / 60);
+    const remaining = Math.max(0, baseRemaining - spentSinceReset);
+    const fired = Math.max(0, totalBeats - remaining);
+    const pct = totalBeats ? clamp((remaining / totalBeats) * 100, 0, 100) : 0;
+    const isBonusTime = age > lifeYears;
+
+    const remainingText = numberFormat.format(remaining);
+    remainingCount.value = remainingText;
+    remainingCount.textContent = remainingText;
+    countdownResult.hidden = isBonusTime;
+    bonusTime.hidden = !isBonusTime;
+    firedCount.textContent = numberFormat.format(fired);
+    totalCount.textContent = numberFormat.format(totalBeats);
+    remainingPct.textContent = `${percentFormat.format(pct)}%`;
+    barFill.style.setProperty("--remaining-pct", `${pct}%`);
+    lifeBar.setAttribute(
+      "aria-label",
+      isBonusTime
+        ? "Past the population-average model; this is not a personal forecast"
+        : `${percentFormat.format(pct)} percent of modeled heartbeats remain`
+    );
+  }
+
+  function setAboutOpen(isOpen) {
+    window.clearTimeout(aboutCloseTimer);
+    aboutPopover.hidden = !isOpen;
+    aboutTrigger.setAttribute("aria-expanded", String(isOpen));
+  }
+
+  function closeAboutSoon() {
+    window.clearTimeout(aboutCloseTimer);
+    aboutCloseTimer = window.setTimeout(() => {
+      const cursorIsInside = aboutWrap.matches(":hover") || aboutPopover.matches(":hover");
+      const focusIsInside = aboutWrap.contains(document.activeElement);
+      if (!aboutPinned && !cursorIsInside && !focusIsInside) {
+        setAboutOpen(false);
+      }
+    }, 260);
+  }
+
+  function vibrateWithBeat() {
+    if (document.visibilityState !== "visible" || !document.hasFocus()) return;
+    if (window.matchMedia("(prefers-reduced-motion: reduce)").matches) return;
+    if (typeof navigator.vibrate === "function") {
+      try {
+        navigator.vibrate([14, 136, 18]);
+      } catch {
+        // Best-effort haptics can be unavailable even when the API exists.
+      }
+    }
+  }
+
+  function scheduleBeatHaptic(event) {
+    if (event.animationName !== "heartBeat") return;
+    window.setTimeout(vibrateWithBeat, BEAT_DURATION_MS * 0.1);
+  }
+
+  aboutWrap.addEventListener("mouseenter", () => {
+    setAboutOpen(true);
+  });
+
+  aboutWrap.addEventListener("mouseleave", () => {
+    if (!aboutPinned) closeAboutSoon();
+  });
+
+  aboutPopover.addEventListener("mouseenter", () => {
+    setAboutOpen(true);
+  });
+
+  aboutPopover.addEventListener("mouseleave", () => {
+    if (!aboutPinned) closeAboutSoon();
+  });
+
+  aboutTrigger.addEventListener("focus", () => {
+    setAboutOpen(true);
+  });
+
+  aboutWrap.addEventListener("focusout", () => {
+    setTimeout(() => {
+      if (!aboutPinned && !aboutWrap.contains(document.activeElement)) {
+        setAboutOpen(false);
+      }
+    }, 0);
+  });
+
+  aboutTrigger.addEventListener("click", (event) => {
+    event.stopPropagation();
+    aboutPinned = !aboutPinned;
+    setAboutOpen(aboutPinned);
+  });
+
+  document.addEventListener("click", (event) => {
+    if (!aboutWrap.contains(event.target)) {
+      aboutPinned = false;
+      setAboutOpen(false);
+    }
+  });
+
+  document.addEventListener("keydown", (event) => {
+    if (event.key === "Escape") {
+      aboutPinned = false;
+      setAboutOpen(false);
+      aboutTrigger.blur();
+    }
+  });
+
+  heart.addEventListener("animationstart", scheduleBeatHaptic);
+  heart.addEventListener("animationiteration", scheduleBeatHaptic);
+
+  ageInput.addEventListener("input", resetModel);
+  locationInput.addEventListener("change", applyLocationInput);
+  locationInput.addEventListener("keydown", (event) => {
+    if (event.key !== "Enter") return;
+    event.preventDefault();
+    applyLocationInput();
+  });
+  useLocaleButton.addEventListener("click", () => {
+    const countryCode = getBrowserLocaleCountry();
+    if (!countryCode) {
+      setLocationStatus("Your browser locale does not include a country. Choose one from the list.");
+      return;
+    }
+
+    applyCountry(findCountry(countryCode) ?? { code: countryCode, name: countryCode });
+  });
+
+  registerCountry({ iso2Code: DEFAULT_COUNTRY.code, name: DEFAULT_COUNTRY.name });
+  resetModel();
+  lifeExpectancyDataPromise = loadLifeExpectancyData();
+  loadCountryOptions();
+  applyCountry(DEFAULT_COUNTRY);
+  setInterval(render, 250);
+</script>
+</body>
+</html>

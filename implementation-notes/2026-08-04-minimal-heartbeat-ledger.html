@@ -1,0 +1,101 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<title>Spec - Minimal Heartbeat Ledger</title>
+<meta name="task" content="Simplify the heartbeat page to a bank and calendar view.">
+<meta name="date-started" content="2026-08-04">
+<meta name="date-updated" content="2026-08-04">
+<meta name="status" content="shipped">
+<meta name="blast-radius" content="low">
+<meta name="tags" content="heartbeats,minimal,calendar,bank,ai-2040,static-html">
+<meta name="related" content="2026-08-04-lifetime-heartbeats-visualization.html,2026-08-04-heartbeat-bank-countdown.html">
+<style>
+  body { font: 14px/1.45 -apple-system, system-ui, sans-serif; max-width: 880px; margin: 1.5rem auto; padding: 0 1rem; color: #111; }
+  h1 { font-size: 20px; margin: 0 0 .25rem; }
+  h2 { font-size: 15px; margin: 1.4rem 0 .4rem; border-bottom: 1px solid #ddd; padding-bottom: .2rem; }
+  table { border-collapse: collapse; width: 100%; margin: .4rem 0 .8rem; }
+  th, td { border: 1px solid #ddd; padding: 4px 8px; text-align: left; vertical-align: top; }
+  th { background: #f6f6f6; font-weight: 600; }
+  code { font-family: ui-monospace, Menlo, monospace; background: #f1f1f1; padding: 1px 4px; border-radius: 3px; font-size: 12.5px; }
+  ul, ol { margin: .3rem 0 .8rem 1.2rem; padding: 0; }
+  li { margin: .15rem 0; }
+  .blast-low { color: #2a7a2a; }
+  .status-shipped { color: #2a7a2a; }
+  .meta { color: #555; font-size: 12.5px; margin-bottom: .8rem; }
+  .kv { display: grid; grid-template-columns: 140px 1fr; gap: 2px 14px; font-size: 13px; margin: .4rem 0 1rem; }
+  .kv b { color: #444; font-weight: 600; }
+</style>
+</head>
+<body>
+<h1>Minimal Heartbeat Ledger</h1>
+<p class="meta">
+  <code>flight-delay-trends</code> - worktree <code>/Users/anishthite/conductor/workspaces/heartbeats/madrid</code> - 2026-08-04 - status <b class="status-shipped">shipped</b> - blast <span class="blast-low">low</span>
+</p>
+
+<h2>Summary</h2>
+<div class="kv">
+  <b>Goal</b><div>Replace the explainer with a minimal heartbeat bank and life-calendar grid.</div>
+  <b>Source</b><div>Reuse <code>AHA</code> pulse range and <code>CDC</code> 2024 life expectancy default.</div>
+  <b>Surface</b><div><code>index.html</code>.</div>
+  <b>Schema</b><div>None.</div>
+  <b>Mobile</b><div>Two-column layout collapses to bank then calendar under <code>820px</code>.</div>
+  <b>Open Qs</b><div>0.</div>
+</div>
+
+<h2>Algorithm</h2>
+<ol>
+  <li>Compute <code>beatsPerYear = bpm * 60 * 24 * 365.2425</code>.</li>
+  <li>Compute <code>total = beatsPerYear * lifespan</code>, <code>spent = min(age, lifespan) * beatsPerYear + elapsedSeconds * bpm / 60</code>, and <code>left = max(0, total - spent)</code>.</li>
+  <li>Render <code>100</code> calendar cells where cells below <code>age</code> are spent, cells below <code>lifespan</code> are left, and later cells are muted.</li>
+</ol>
+
+<h2>UI layout</h2>
+<ol>
+  <li><b>Bank</b>: show remaining beats, spent beats, total beats, and a single progress rule.</li>
+  <li><b>Calendar</b>: show a <code>10x10</code> life grid with decade labels and a small legend.</li>
+  <li><b>Controls</b>: keep only <code>age</code>, <code>lifespan</code>, and <code>bpm</code>.</li>
+  <li><b>Footnote</b>: keep one source line and delete the explainer sections.</li>
+</ol>
+
+<h2>Files</h2>
+<table>
+  <tr><th>Path</th><th>Kind</th><th>Delta</th></tr>
+  <tr><td><code>index.html</code></td><td>touch</td><td>Replace multi-section explainer with a compact ledger.</td></tr>
+  <tr><td><code>implementation-notes/INDEX.html</code></td><td>touch</td><td>Add this task row.</td></tr>
+  <tr><td><code>implementation-notes/2026-08-04-minimal-heartbeat-ledger.html</code></td><td>new</td><td>Decision log for the simplification.</td></tr>
+</table>
+
+<h2>Decisions</h2>
+<table>
+  <tr><th>ID</th><th>Choice - Rationale</th></tr>
+  <tr><td>D-001</td><td>Use <code>pulse ledger</code> over <code>hourglass</code>. It keeps the finite-balance idea without leaving the heartbeat subject.</td></tr>
+  <tr><td>D-002</td><td>Delete equation, pulse trace, bead grid, glossary, and reference list. The user asked for less.</td></tr>
+  <tr><td>D-003</td><td>Keep the live countdown. It is the emotional center of the bank model.</td></tr>
+</table>
+
+<h2>Tradeoffs</h2>
+<table>
+  <tr><th>ID</th><th>Picked over Rejected - Reason</th></tr>
+  <tr><td>T-001</td><td><code>100</code> fixed year cells over variable lifespan cells. The calendar stays visually stable as sliders move.</td></tr>
+  <tr><td>T-002</td><td>Native sliders over typed birthdate. Less input friction for an estimate.</td></tr>
+</table>
+
+<h2>Assumptions</h2>
+<ul>
+  <li>A-001 - The page remains an estimate, not personal medical guidance; if wrong, the model needs real patient inputs.</li>
+</ul>
+
+<h2>Reversibility</h2>
+<p>R-001 - <span class="blast-low">low</span>. Restore prior <code>index.html</code> from version control or remove this note row.</p>
+
+<h2>Definition of done</h2>
+<ul>
+  <li>Page contains only bank, controls, calendar, and one footnote.</li>
+  <li>Calendar updates for age, lifespan, and pulse changes.</li>
+  <li>Live remaining-beats counter decrements.</li>
+  <li>Desktop and mobile browser checks show no page overflow and clean console.</li>
+  <li>Playwright verifies countdown and slider-driven calendar updates.</li>
+</ul>
+</body>
+</html>

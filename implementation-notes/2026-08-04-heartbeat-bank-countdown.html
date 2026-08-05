@@ -1,0 +1,102 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<title>Spec - Heartbeat Bank Countdown</title>
+<meta name="task" content="Add age-based heartbeat bank and live remaining-beats countdown.">
+<meta name="date-started" content="2026-08-04">
+<meta name="date-updated" content="2026-08-04">
+<meta name="status" content="shipped">
+<meta name="blast-radius" content="low">
+<meta name="tags" content="heartbeats,countdown,bank,ai-2040,static-html">
+<meta name="related" content="2026-08-04-lifetime-heartbeats-visualization.html">
+<style>
+  body { font: 14px/1.45 -apple-system, system-ui, sans-serif; max-width: 880px; margin: 1.5rem auto; padding: 0 1rem; color: #111; }
+  h1 { font-size: 20px; margin: 0 0 .25rem; }
+  h2 { font-size: 15px; margin: 1.4rem 0 .4rem; border-bottom: 1px solid #ddd; padding-bottom: .2rem; }
+  table { border-collapse: collapse; width: 100%; margin: .4rem 0 .8rem; }
+  th, td { border: 1px solid #ddd; padding: 4px 8px; text-align: left; vertical-align: top; }
+  th { background: #f6f6f6; font-weight: 600; }
+  code { font-family: ui-monospace, Menlo, monospace; background: #f1f1f1; padding: 1px 4px; border-radius: 3px; font-size: 12.5px; }
+  ul, ol { margin: .3rem 0 .8rem 1.2rem; padding: 0; }
+  li { margin: .15rem 0; }
+  .blast-low { color: #2a7a2a; }
+  .status-shipped { color: #2a7a2a; }
+  .meta { color: #555; font-size: 12.5px; margin-bottom: .8rem; }
+  .kv { display: grid; grid-template-columns: 140px 1fr; gap: 2px 14px; font-size: 13px; margin: .4rem 0 1rem; }
+  .kv b { color: #444; font-weight: 600; }
+</style>
+</head>
+<body>
+<h1>Heartbeat Bank Countdown</h1>
+<p class="meta">
+  <code>flight-delay-trends</code> - worktree <code>/Users/anishthite/conductor/workspaces/heartbeats/madrid</code> - 2026-08-04 - status <b class="status-shipped">shipped</b> - blast <span class="blast-low">low</span>
+</p>
+
+<h2>Summary</h2>
+<div class="kv">
+  <b>Goal</b><div>Add an age-aware spent-vs-left heartbeat bank and live countdown.</div>
+  <b>Source</b><div>Reuse <code>AHA</code> pulse range and <code>CDC</code> 2024 life expectancy default.</div>
+  <b>Surface</b><div><code>index.html</code>.</div>
+  <b>Schema</b><div>None.</div>
+  <b>Mobile</b><div>Bank summary stacks before controls below <code>820px</code>.</div>
+  <b>Open Qs</b><div>0.</div>
+</div>
+
+<h2>Algorithm</h2>
+<ol>
+  <li>Compute <code>total = bpm * 60 * 24 * 365.2425 * lifespan</code>.</li>
+  <li>Compute <code>baseSpent = bpm * 60 * 24 * 365.2425 * min(age, lifespan)</code>.</li>
+  <li>On an interval, add <code>elapsedBeats = elapsedSeconds * bpm / 60</code> to spent beats and subtract it from remaining beats.</li>
+  <li>Clamp <code>spent</code> to <code>total</code> and <code>remaining</code> to <code>0</code>.</li>
+</ol>
+
+<h2>UI layout</h2>
+<ol>
+  <li><b>Bank</b>: show remaining beats as the primary number, with spent and remaining totals underneath.</li>
+  <li><b>Progress rule</b>: show spent percentage as a thin filled rule with labels at birth, now, and selected lifespan.</li>
+  <li><b>Controls</b>: add <code>age</code> to the existing pulse and lifespan controls.</li>
+  <li><b>Scale</b>: add a fixed <code>60 bpm * 60 years</code> line for the once-per-second intuition.</li>
+</ol>
+
+<h2>Files</h2>
+<table>
+  <tr><th>Path</th><th>Kind</th><th>Delta</th></tr>
+  <tr><td><code>index.html</code></td><td>touch</td><td>Add age slider, heartbeat bank, live countdown, and related scale row.</td></tr>
+  <tr><td><code>implementation-notes/INDEX.html</code></td><td>touch</td><td>Add this task row.</td></tr>
+  <tr><td><code>implementation-notes/2026-08-04-heartbeat-bank-countdown.html</code></td><td>new</td><td>Decision log for the age-aware countdown.</td></tr>
+</table>
+
+<h2>Decisions</h2>
+<table>
+  <tr><th>ID</th><th>Choice - Rationale</th></tr>
+  <tr><td>D-001</td><td>Default <code>age</code> to <code>30</code>. No personal age was supplied.</td></tr>
+  <tr><td>D-002</td><td>Count down from estimated remaining beats in real time. The user asked for the feeling of beats left.</td></tr>
+  <tr><td>D-003</td><td>Keep the countdown in the existing static page. The current artifact already has the needed controls and sources.</td></tr>
+</table>
+
+<h2>Tradeoffs</h2>
+<table>
+  <tr><th>ID</th><th>Picked over Rejected - Reason</th></tr>
+  <tr><td>T-001</td><td><code>setInterval</code> over frame-by-frame animation. Integer counters only need periodic updates.</td></tr>
+  <tr><td>T-002</td><td>Age slider over birthdate input. The visualization estimates scale, not a personal actuarial forecast.</td></tr>
+</table>
+
+<h2>Assumptions</h2>
+<ul>
+  <li>A-001 - Remaining beats are modeled from selected lifespan, not medical prognosis; if wrong, the page would need mortality tables.</li>
+</ul>
+
+<h2>Reversibility</h2>
+<p>R-001 - <span class="blast-low">low</span>. Remove the bank markup, age control, countdown script state, and this note row.</p>
+
+<h2>Definition of done</h2>
+<ul>
+  <li>Age, pulse, and lifespan controls update spent, remaining, total, formula, and grid values.</li>
+  <li>Remaining counter decrements over real elapsed time at the selected pulse rate.</li>
+  <li>Desktop and <code>390px</code> mobile checks show no horizontal page scroll.</li>
+  <li>Browser console is clean.</li>
+  <li>Playwright verifies live countdown decrement at selected pulse rate.</li>
+</ul>
+</body>
+</html>

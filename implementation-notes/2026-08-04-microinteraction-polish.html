@@ -1,0 +1,60 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<title>Spec — Heartbeat Microinteraction Polish</title>
+<meta name="task" content="Polish motion and interactive states without changing the heartbeat model.">
+<meta name="date-started" content="2026-08-04">
+<meta name="date-updated" content="2026-08-04">
+<meta name="status" content="in-progress">
+<meta name="blast-radius" content="low">
+<meta name="tags" content="heartbeats,motion,polish,microinteractions,static-html">
+<meta name="related" content="2026-08-04-single-pulsing-heart.html,2026-08-04-hero-composition.html,2026-08-04-about-popover.html,2026-08-04-mobile-responsive-audit.html">
+<style>
+  body { font: 14px/1.45 -apple-system, system-ui, sans-serif; max-width: 880px; margin: 1.5rem auto; padding: 0 1rem; color: #111; }
+  h1 { font-size: 20px; margin: 0 0 .25rem; } h2 { font-size: 15px; margin: 1.4rem 0 .4rem; border-bottom: 1px solid #ddd; padding-bottom: .2rem; }
+  table { border-collapse: collapse; width: 100%; margin: .4rem 0 .8rem; } th, td { border: 1px solid #ddd; padding: 4px 8px; text-align: left; vertical-align: top; } th { background: #f6f6f6; font-weight: 600; }
+  code { font-family: ui-monospace, Menlo, monospace; background: #f1f1f1; padding: 1px 4px; border-radius: 3px; font-size: 12.5px; } ul, ol { margin: .3rem 0 .8rem 1.2rem; padding: 0; } li { margin: .15rem 0; }
+  .blast-low, .status-ready { color: #2a7a2a; } .status-progress { color: #b85c00; } .meta { color: #555; font-size: 12.5px; margin-bottom: .8rem; } .kv { display: grid; grid-template-columns: 140px 1fr; gap: 2px 14px; font-size: 13px; margin: .4rem 0 1rem; } .kv b { color: #444; font-weight: 600; }
+</style>
+</head>
+<body>
+<h1>Heartbeat Microinteraction Polish</h1>
+<p class="meta"><code>flight-delay-trends</code> · worktree <code>/Users/anishthite/conductor/workspaces/heartbeats/madrid</code> · 2026-08-04 · status <b class="status-progress">in-progress</b> · blast <span class="blast-low">low</span></p>
+
+<h2>Summary</h2>
+<div class="kv">
+  <b>Goal</b><div>Refine feedback and motion while preserving the editorial heartbeat composition.</div>
+  <b>Source</b><div>Existing inline static page plus <code>ui-skills</code> <code>better-ui</code> guidance.</div>
+  <b>Surface</b><div><code>index.html</code> controls, popover, heartbeat, and remaining-beats meter.</div>
+  <b>Schema</b><div>None.</div>
+  <b>Mobile</b><div>Keep the established <code>320px</code> layout and suppress spatial motion for reduced-motion users.</div>
+  <b>Open Qs</b><div>0.</div>
+</div>
+
+<h2>UI layout</h2>
+<ol>
+  <li><b>Controls</b>: add quiet hover and press feedback to text buttons and input underlines.</li>
+  <li><b>Model popover</b>: enter from its trigger with a short opacity and translate transition.</li>
+  <li><b>Hero</b>: keep the existing beat; restrict the pulse ring and bar update to compositor-friendly transforms.</li>
+</ol>
+
+<h2>Files</h2>
+<table><tr><th>Path</th><th>Kind</th><th>Delta</th></tr><tr><td><code>index.html</code></td><td>touch</td><td>Polish motion tokens, interaction feedback, popover entrance, and meter rendering.</td></tr><tr><td><code>implementation-notes/2026-08-04-microinteraction-polish.html</code></td><td>new</td><td>Record polish scope and motion decisions.</td></tr><tr><td><code>implementation-notes/INDEX.html</code></td><td>touch</td><td>Index this polish pass.</td></tr></table>
+
+<h2>Decisions</h2>
+<table><tr><th>ID</th><th>Choice · Rationale</th></tr><tr><td>D-001</td><td>Use one custom motion token set. Controls, the meter, and the popover now share a responsive editorial cadence.</td></tr><tr><td>D-002</td><td>Keep the heartbeat as the only continuous motion. Additional effects only communicate interaction or state changes.</td></tr><tr><td>D-003</td><td>Scale the meter fill with <code>transform</code> over <code>height</code>. The periodic update stays on the compositor.</td></tr></table>
+
+<h2>Tradeoffs</h2>
+<table><tr><th>ID</th><th>Picked over Rejected · Reason</th></tr><tr><td>T-001</td><td>CSS-only refinements over a motion dependency. The static single-file surface needs no library for this scope.</td></tr><tr><td>T-002</td><td>Popover entrance over a repeated page-load sequence. The model setting needs spatial context; routine values stay instant.</td></tr></table>
+
+<h2>Assumptions</h2>
+<ul><li>A-001 · Preserve the paper-and-burgundy editorial direction; if wrong, this pass should be restyled rather than expanded.</li></ul>
+
+<h2>Reversibility</h2>
+<p>R-001 · <span class="blast-low">low</span>. Remove the motion token, state, and meter declarations from <code>index.html</code>.</p>
+
+<h2>Definition of done</h2>
+<ul><li>Pointer and keyboard states remain clear without relying on animation.</li><li>Reduced-motion mode removes spatial motion.</li><li>Desktop and narrow-mobile browser checks report no console errors.</li></ul>
+</body>
+</html>
