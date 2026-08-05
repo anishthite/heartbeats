@@ -2,7 +2,7 @@
 <html lang="en">
 <head>
 <meta charset="utf-8">
-<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
 <link rel="icon" href="data:,">
 <title>You only have 3 billion heartbeats. Use them well.</title>
 <meta name="description" content="You only have 3 billion heartbeats. Use them well.">
@@ -188,6 +188,25 @@
 
   .country-summary {
     margin: 0 0 13px;
+  }
+
+  .setting-field-actions {
+    display: inline-flex;
+    align-items: baseline;
+    gap: 12px;
+  }
+
+  .control-close {
+    display: none;
+    border: 0;
+    padding: 0;
+    color: var(--left);
+    background: transparent;
+    cursor: pointer;
+    font: inherit;
+    text-decoration: underline;
+    text-decoration-thickness: 1px;
+    text-underline-offset: 4px;
   }
 
   .country-summary b {
@@ -739,7 +758,8 @@
   @media (max-width: 760px) {
     main {
       width: min(100% - 28px, 640px);
-      padding-top: 22px;
+      padding-top: max(22px, env(safe-area-inset-top));
+      padding-bottom: max(20px, env(safe-area-inset-bottom));
     }
 
     .topbar {
@@ -755,13 +775,63 @@
     }
 
     .control-dropdown {
-      width: min(330px, calc(100vw - 28px));
+      position: fixed;
+      inset: auto max(12px, env(safe-area-inset-right)) max(12px, env(safe-area-inset-bottom)) max(12px, env(safe-area-inset-left));
+      width: auto;
+      max-width: none;
+      max-height: calc(100svh - 24px - env(safe-area-inset-top) - env(safe-area-inset-bottom));
+      overflow-y: auto;
+      padding: 16px 16px 18px;
+      transform-origin: bottom center;
+    }
+
+    .control-dropdown::before {
+      display: none;
+    }
+
+    .estimate-context:has(.control-dropdown:not([hidden])) {
+      z-index: 30;
+    }
+
+    body:has(.control-dropdown:not([hidden]))::after {
+      content: "";
+      position: fixed;
+      z-index: 20;
+      inset: 0;
+      pointer-events: none;
+      background: rgba(29, 26, 22, 0.16);
+    }
+
+    .control-close {
+      display: inline-flex;
+      align-items: center;
+      min-height: 32px;
+    }
+
+    .country-summary {
+      display: flex;
+      align-items: baseline;
+      justify-content: space-between;
+      gap: 12px;
+    }
+
+    .country-menu {
+      position: static;
+      grid-column: 1 / -1;
+      max-height: min(34svh, 260px);
+      margin-top: 8px;
+    }
+
+    .country-option,
+    .country-no-results {
+      min-height: 42px;
+      padding: 10px 9px;
     }
 
     .scene {
       display: block;
       min-height: 0;
-      padding: 25px 0 30px;
+      padding: 24px 0 20px;
     }
 
     .stage {
@@ -772,7 +842,7 @@
         "visual"
         "readout";
       grid-template-columns: minmax(0, 1fr);
-      row-gap: 18px;
+      row-gap: 16px;
       width: 100%;
       text-align: center;
     }
@@ -828,8 +898,16 @@
     }
 
     .meter-caption {
+      display: flex;
+      align-items: baseline;
+      gap: 0.22em;
       width: auto;
       text-align: left;
+      white-space: nowrap;
+    }
+
+    .meter-caption b {
+      display: inline;
     }
 
     .life-bar {
@@ -844,6 +922,19 @@
       text-align: center;
     }
 
+  }
+
+  @media (max-width: 760px) and (prefers-reduced-motion: no-preference) {
+    .control-dropdown:not([hidden]) {
+      animation: mobileSheetEnter 180ms var(--ease-out);
+    }
+
+    @keyframes mobileSheetEnter {
+      from {
+        opacity: 0;
+        transform: translateY(12px);
+      }
+    }
   }
 
   @media (max-width: 430px) {
@@ -877,6 +968,10 @@
       white-space: normal;
     }
 
+    .heart {
+      width: min(280px, 80vw);
+    }
+
   }
 </style>
 </head>
@@ -894,18 +989,18 @@
           <span class="context-control" id="ageControl">
             <button class="context-trigger" id="ageSummaryTrigger" type="button" aria-label="Edit age, currently 26" aria-expanded="false" aria-controls="ageDropdown" aria-haspopup="dialog"><span id="ageSummary">26</span> years old</button>
             <span class="control-dropdown age-dropdown" id="ageDropdown" role="dialog" aria-label="Adjust age" hidden>
-              <label class="setting-field" for="ageInput">
-                <span class="setting-field-heading"><span>Age</span><output class="age-value" id="ageValue" aria-hidden="true">26</output></span>
+              <span class="setting-field">
+                <span class="setting-field-heading"><label for="ageInput">Age</label><span class="setting-field-actions"><output class="age-value" id="ageValue" aria-hidden="true">26</output><button class="control-close" type="button" data-close-control>Done</button></span></span>
                 <input id="ageInput" type="range" min="0" max="120" step="1" value="26">
                 <span class="range-scale" aria-hidden="true"><span>0</span><span>120</span></span>
-              </label>
+              </span>
             </span>
           </span>
           and live in
           <span class="context-control" id="countryControl">
             <button class="context-trigger" id="locationSummaryTrigger" type="button" aria-label="Edit country or region, currently United States" aria-expanded="false" aria-controls="countryDropdown" aria-haspopup="dialog"><span id="locationSummary">the United States</span></button>
             <span class="control-dropdown country-dropdown" id="countryDropdown" role="dialog" aria-label="Select country or region" hidden>
-              <span class="country-summary"><b id="modelSummary">United States · 79.0 years life expectancy</b></span>
+              <span class="country-summary"><b id="modelSummary">United States · 79.0 years life expectancy</b><button class="control-close" type="button" data-close-control>Done</button></span>
               <label class="setting-field" for="locationInput">
                 <span>Country or region</span>
                 <span class="country-combobox">
@@ -1040,6 +1135,7 @@
   const countryOptions = document.getElementById("countryOptions");
   const countryMenuTrigger = document.getElementById("countryMenuTrigger");
   const useLocaleButton = document.getElementById("useLocaleButton");
+  const controlCloseButtons = document.querySelectorAll("[data-close-control]");
   const locationStatus = document.getElementById("locationStatus");
   const modelSummary = document.getElementById("modelSummary");
   const remainingCount = document.getElementById("remainingCount");
@@ -1466,6 +1562,15 @@
     locationInput.focus();
     locationInput.select();
     setCountryMenuOpen(true, "");
+  });
+  controlCloseButtons.forEach((button) => {
+    button.addEventListener("click", () => {
+      const returnFocus = button.closest(".age-dropdown")
+        ? ageSummaryTrigger
+        : locationSummaryTrigger;
+      closeDropdowns();
+      returnFocus.focus();
+    });
   });
   ageControl.addEventListener("focusout", () => {
     window.setTimeout(() => {

@@ -1,0 +1,70 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<title>Spec — Mobile Spacing Rhythm</title>
+<meta name="task" content="Refine the heartbeat page’s mobile vertical rhythm with safe-area-aware spacing and a compact meter.">
+<meta name="date-started" content="2026-08-05">
+<meta name="date-updated" content="2026-08-05">
+<meta name="status" content="ready-for-review">
+<meta name="blast-radius" content="low">
+<meta name="tags" content="heartbeats,responsive,mobile,spacing,accessibility,static-html">
+<meta name="related" content="2026-08-04-mobile-responsive-audit.html,2026-08-04-mobile-control-sheets.html,2026-08-04-heartbeat-layout-reframe.html">
+<style>
+  body { font: 14px/1.45 -apple-system, system-ui, sans-serif; max-width: 880px; margin: 1.5rem auto; padding: 0 1rem; color: #111; }
+  h1 { font-size: 20px; margin: 0 0 .25rem; } h2 { font-size: 15px; margin: 1.4rem 0 .4rem; border-bottom: 1px solid #ddd; padding-bottom: .2rem; }
+  table { border-collapse: collapse; width: 100%; margin: .4rem 0 .8rem; } th, td { border: 1px solid #ddd; padding: 4px 8px; text-align: left; vertical-align: top; } th { background: #f6f6f6; font-weight: 600; }
+  code { font-family: ui-monospace, Menlo, monospace; background: #f1f1f1; padding: 1px 4px; border-radius: 3px; font-size: 12.5px; } ul, ol { margin: .3rem 0 .8rem 1.2rem; padding: 0; } li { margin: .15rem 0; }
+  .blast-low, .status-ready { color: #2a7a2a; } .status-progress { color: #b85c00; } .meta { color: #555; font-size: 12.5px; margin-bottom: .8rem; } .kv { display: grid; grid-template-columns: 140px 1fr; gap: 2px 14px; font-size: 13px; margin: .4rem 0 1rem; } .kv b { color: #444; font-weight: 600; }
+</style>
+</head>
+<body>
+<h1>Mobile Spacing Rhythm</h1>
+<p class="meta"><code>flight-delay-trends</code> · worktree <code>/Users/anishthite/conductor/workspaces/heartbeats/madrid</code> · 2026-08-05 · status <b class="status-ready">ready-for-review</b> · blast <span class="blast-low">low</span></p>
+
+<h2>Summary</h2>
+<div class="kv">
+  <b>Goal</b><div>Strengthen the mobile reading rhythm from estimate through source.</div>
+  <b>Sources</b><div>Apply Apple safe-area guidance, WCAG <code>2.2</code> target guidance, and <code>mobile-responsiveness</code> mobile-first patterns.</div>
+  <b>Surface</b><div><code>index.html</code> viewport metadata and mobile layout rules.</div>
+  <b>Mobile</b><div>Use safe-area-aware page padding, one-line meter copy, and a narrower heart below <code>360px</code>.</div>
+  <b>Desktop</b><div>Untouched.</div>
+  <b>Open Qs</b><div>0.</div>
+</div>
+
+<h2>UI layout</h2>
+<ol>
+  <li><b>Page frame</b>: opt into <code>viewport-fit=cover</code>; retain the safe bottom inset with a <code>20px</code> mobile floor.</li>
+  <li><b>Meter</b>: keep the percentage and <code>left</code> on one baseline; reduce the row to the bar’s reading height.</li>
+  <li><b>Heart</b>: cap the illustration at <code>80vw</code>; preserve the <code>300px</code> cap on wider phones.</li>
+</ol>
+
+<h2>Files</h2>
+<table>
+  <tr><th>Path</th><th>Kind</th><th>Delta</th></tr>
+  <tr><td><code>index.html</code></td><td>touch</td><td>Apply the mobile spacing rhythm and safe-area adjustments.</td></tr>
+  <tr><td><code>implementation-notes/2026-08-05-mobile-spacing-rhythm.html</code></td><td>new</td><td>Record research-derived mobile layout choices.</td></tr>
+  <tr><td><code>implementation-notes/INDEX.html</code></td><td>touch</td><td>Index this spacing refinement.</td></tr>
+</table>
+
+<h2>Decisions</h2>
+<table>
+  <tr><th>ID</th><th>Choice · Rationale</th></tr>
+  <tr><td>D-001</td><td>Use <code>8px</code>-based mobile intervals. Maintain a discernible reading cadence between live values, evidence, and totals.</td></tr>
+  <tr><td>D-002</td><td>Keep the meter caption on one line. Remove a visual break that does not add meaning.</td></tr>
+  <tr><td>D-003</td><td>Reduce the heart only below <code>360px</code>. Preserve the existing composition on standard phone widths.</td></tr>
+</table>
+
+<h2>Tradeoffs</h2>
+<table><tr><th>ID</th><th>Picked over Rejected · Reason</th></tr><tr><td>T-001</td><td>Targeted vertical compaction over global scaling. Retain the heart’s visual authority while improving the small-phone finish.</td></tr></table>
+
+<h2>Assumptions</h2>
+<ul><li>A-001 · Treat <code>320px</code> as the narrow layout floor; devices below it retain the browser’s horizontal viewport behavior.</li></ul>
+
+<h2>Reversibility</h2>
+<p>R-001 · <span class="blast-low">low</span>. Restore the former mobile <code>main</code>, <code>.meter-caption</code>, and <code>.heart</code> overrides.</p>
+
+<h2>Definition of done</h2>
+<ul><li>Mobile meter copy remains on one line at <code>320px</code>, <code>390px</code>, and <code>430px</code>.</li><li>Safe-area insets and current mobile control sheets remain intact.</li><li>Desktop layout, mobile interaction, viewport overflow, and browser-console checks remain clean.</li></ul>
+</body>
+</html>
