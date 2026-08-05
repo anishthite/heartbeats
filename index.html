@@ -499,6 +499,31 @@
     padding: clamp(30px, 6vh, 70px) 0 28px;
   }
 
+  .site-footer {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: center;
+    gap: 0 0.45em;
+    position: relative;
+    top: -8px;
+    padding: 0 0 20px;
+    color: var(--muted);
+    font-size: 14px;
+    line-height: 1.4;
+    text-align: center;
+  }
+
+  .site-footer a {
+    color: inherit;
+    text-underline-offset: 3px;
+  }
+
+  @media (hover: hover) and (pointer: fine) {
+    .site-footer a:hover {
+      color: var(--heart);
+    }
+  }
+
   .stage {
     display: grid;
     grid-template-areas:
@@ -517,6 +542,47 @@
 
   #countdownResult {
     grid-area: count;
+  }
+
+  .estimate-context {
+    margin: 0 0 18px;
+    color: var(--muted);
+    font-size: 20px;
+    line-height: 1.25;
+  }
+
+  .estimate-context button {
+    display: inline;
+    border: 0;
+    padding: 0;
+    color: var(--ink);
+    background: transparent;
+    font: inherit;
+    text-decoration: underline;
+    text-decoration-color: var(--rule);
+    text-decoration-thickness: 1px;
+    text-underline-offset: 4px;
+    cursor: pointer;
+    transition: color 140ms ease, text-decoration-color 140ms ease;
+  }
+
+  @media (min-width: 1000px) {
+    .estimate-context {
+      white-space: nowrap;
+    }
+  }
+
+  @media (min-width: 761px) {
+    .estimate-context {
+      transform: translateY(-64px);
+    }
+  }
+
+  @media (hover: hover) and (pointer: fine) {
+    .estimate-context button:hover {
+      color: var(--heart);
+      text-decoration-color: currentColor;
+    }
   }
 
   .counter {
@@ -764,6 +830,11 @@
       font-size: 18px;
     }
 
+    .estimate-context {
+      margin-bottom: 11px;
+      font-size: 18px;
+    }
+
     .bonus-time b {
       font-size: 40px;
     }
@@ -908,6 +979,7 @@
   <section class="scene" aria-label="Heartbeats left visualization">
     <div class="stage">
       <div id="countdownResult">
+        <p class="estimate-context">If you are <button id="ageSummaryTrigger" type="button" aria-label="Edit age, currently 26"><span id="ageSummary">26</span> years old</button> and live in <button id="locationSummaryTrigger" type="button" aria-label="Edit country or region, currently United States"><span id="locationSummary">the United States</span></button>, you have</p>
         <output class="counter" id="remainingCount" aria-live="polite">2,007,022,147</output>
         <span class="counter-label">heartbeats left</span>
       </div>
@@ -985,12 +1057,27 @@
     </div>
 
   </section>
+
+  <footer class="site-footer">
+    <span>Based on <a href="https://data.worldbank.org/indicator/SP.DYN.LE00.IN" target="_blank" rel="noreferrer">World Bank life-expectancy data</a>.</span>
+    <span>Assumes 72 BPM.</span>
+    <span>Made by <a href="https://x.com/anishthite" target="_blank" rel="noreferrer">Anish</a>.</span>
+  </footer>
 </main>
 
 <script>
   const BPM = 72;
   const DEFAULT_LIFE_YEARS = 79;
   const DEFAULT_COUNTRY = { code: "US", name: "United States" };
+  const LOCATIONS_WITH_DEFINITE_ARTICLE = new Set([
+    "Bahamas",
+    "Gambia",
+    "Netherlands",
+    "Philippines",
+    "United Arab Emirates",
+    "United Kingdom",
+    "United States"
+  ]);
   const WORLD_BANK_API = "https://api.worldbank.org/v2";
   const DAYS_PER_YEAR = 365.2425;
   const BEAT_DURATION_MS = 60_000 / BPM;
@@ -1000,7 +1087,11 @@
   const AGE_MIN = Number(ageInput.min);
   const AGE_MAX = Number(ageInput.max);
   const ageValue = document.getElementById("ageValue");
+  const ageSummary = document.getElementById("ageSummary");
+  const ageSummaryTrigger = document.getElementById("ageSummaryTrigger");
   const locationInput = document.getElementById("locationInput");
+  const locationSummary = document.getElementById("locationSummary");
+  const locationSummaryTrigger = document.getElementById("locationSummaryTrigger");
   const countryOptions = document.getElementById("countryOptions");
   const countryMenuTrigger = document.getElementById("countryMenuTrigger");
   const useLocaleButton = document.getElementById("useLocaleButton");
@@ -1055,6 +1146,10 @@
 
   function normalizeLocation(value) {
     return value.trim().toLocaleLowerCase();
+  }
+
+  function formatLocationForSentence(location) {
+    return LOCATIONS_WITH_DEFINITE_ARTICLE.has(location) ? `the ${location}` : location;
   }
 
   function registerCountry(country) {
@@ -1264,6 +1359,10 @@
     ageInput.style.setProperty("--age-progress", `${ageProgress}%`);
     ageValue.value = age;
     ageValue.textContent = age;
+    ageSummary.textContent = age;
+    ageSummaryTrigger.setAttribute("aria-label", `Edit age, currently ${age}`);
+    locationSummary.textContent = formatLocationForSentence(locationInput.value);
+    locationSummaryTrigger.setAttribute("aria-label", `Edit country or region, currently ${locationInput.value}`);
     totalBeats = BEATS_PER_YEAR * lifeYears;
     baseRemaining = Math.max(0, (lifeYears - age) * BEATS_PER_YEAR);
     startTime = performance.now();
@@ -1383,6 +1482,20 @@
   heart.addEventListener("animationiteration", scheduleBeatHaptic);
 
   ageInput.addEventListener("input", resetModel);
+  ageSummaryTrigger.addEventListener("click", (event) => {
+    event.stopPropagation();
+    aboutPinned = true;
+    setAboutOpen(true);
+    ageInput.focus();
+  });
+  locationSummaryTrigger.addEventListener("click", (event) => {
+    event.stopPropagation();
+    aboutPinned = true;
+    setAboutOpen(true);
+    locationInput.focus();
+    locationInput.select();
+    setCountryMenuOpen(true, "");
+  });
   locationInput.addEventListener("change", applyLocationInput);
   locationInput.addEventListener("input", () => {
     setCountryMenuOpen(true, locationInput.value);
